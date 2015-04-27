@@ -1,3 +1,6 @@
+
+import Vista.VentanaPrincipal;
+
 /** 
  * Nombre del Archivo: Principal.java 
  * Fecha de Creacion: 27/04/2015 
@@ -10,7 +13,7 @@
 
 public class Principal {
     
-    public static void main (String [] args) {        
-
+    public static void main(String args[]) {
+        VentanaPrincipal v = new VentanaPrincipal();        
     }
 } // Fin de la clase Principal
