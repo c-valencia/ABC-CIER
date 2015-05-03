@@ -18,6 +18,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import Logica.*;
+import Patrones.Item;
 
 /**
  *
@@ -27,7 +29,7 @@ import javax.persistence.Table;
 @Table(name = "practica")
 @NamedQueries({
     @NamedQuery(name = "Practica.findAll", query = "SELECT p FROM Practica p")})
-public class Practica implements Serializable {
+public class Practica implements Serializable, Item {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -123,6 +125,21 @@ public class Practica implements Serializable {
     @Override
     public String toString() {
         return "Logica.Practica[ idPractica=" + idPractica + " ]";
+    }
+
+    @Override
+    public void insertarItem(Item nuevoObjeto) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int obtenerItem(Object... list) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void eliminarItem(Object... list) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

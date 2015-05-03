@@ -5,7 +5,9 @@
  */
 package Logica;
 
+import Patrones.Item;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -26,7 +28,7 @@ import javax.persistence.Table;
 @Table(name = "fases")
 @NamedQueries({
     @NamedQuery(name = "Fases.findAll", query = "SELECT f FROM Fases f")})
-public class Fases implements Serializable {
+public class Fases implements Serializable, Item {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -47,6 +49,8 @@ public class Fases implements Serializable {
     private Curso idCurso;
     @OneToMany(mappedBy = "idFase")
     private List<Practica> practicaList;
+    
+    private ArrayList <Item> listPracticas; 
 
     public Fases() {
     }
@@ -142,6 +146,33 @@ public class Fases implements Serializable {
     @Override
     public String toString() {
         return "Logica.Fases[ idFase=" + idFase + " ]";
+    }
+
+    @Override
+    public void insertarItem(Item nuevoObjeto) {
+        listPracticas.add(nuevoObjeto);
+    }
+
+    @Override
+    public int obtenerItem(Object... list) {
+        String codigoPractica = (String)list[0];
+        int posicion = -1;
+        for (int x = 0; x < listPracticas.size(); x++) {
+            Practica practica = (Practica)listPracticas.get(x);
+            if (practica.getIdPractica().equals(codigoPractica)) {
+                posicion = x; 
+            }
+        }
+        return posicion;     
+    }
+
+    @Override
+    public void eliminarItem(Object... list) {
+        String codigoPractica = (String)list[0];
+        int posicion = obtenerItem(codigoPractica);
+        if (posicion != -1) {
+            listPracticas.remove(posicion);
+        } 
     }
     
 }

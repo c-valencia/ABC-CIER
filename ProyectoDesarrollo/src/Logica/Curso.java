@@ -5,7 +5,9 @@
  */
 package Logica;
 
+import Patrones.Item;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -25,7 +27,7 @@ import javax.persistence.Table;
 @Table(name = "curso")
 @NamedQueries({
     @NamedQuery(name = "Curso.findAll", query = "SELECT c FROM Curso c")})
-public class Curso implements Serializable {
+public class Curso implements Serializable, Item {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -47,6 +49,10 @@ public class Curso implements Serializable {
     private List<CursoCohorte> cursoCohorteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCurso")
     private List<MasterTeacher> masterTeacherList;
+    
+    private ArrayList <Item> listFases;
+
+   
 
     public Curso() {
     }
@@ -127,6 +133,14 @@ public class Curso implements Serializable {
         this.masterTeacherList = masterTeacherList;
     }
 
+     public ArrayList<Item> getListFases() {
+        return listFases;
+    }
+
+    public void setListFases(ArrayList<Item> listFases) {
+        this.listFases = listFases;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -147,9 +161,38 @@ public class Curso implements Serializable {
         return true;
     }
 
+    
+    
     @Override
     public String toString() {
         return "Logica.Curso[ idCurso=" + idCurso + " ]";
+    }
+
+    @Override
+    public void insertarItem(Item nuevoObjeto) {
+         listFases.add(nuevoObjeto);
+    }
+
+    @Override
+    public int obtenerItem(Object... list) {
+        String codigoFase = (String)list[0];
+        int posicion = -1;
+        for (int x = 0; x < listFases.size(); x++) {
+            Fases fase = (Fases)listFases.get(x);
+            if (fase.getIdFase().equals(codigoFase)) {
+                posicion = x; 
+            }
+        }
+        return posicion;
+    }
+
+    @Override
+    public void eliminarItem(Object... list) {
+        String codigoFase = (String)list[0];
+        int posicion = obtenerItem(codigoFase);
+        if (posicion != -1) {
+            listFases.remove(posicion);
+        }
     }
     
 }
