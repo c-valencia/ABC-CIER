@@ -1,12 +1,8 @@
-/** 
- * Nombre del Archivo: Cohorte.java 
- * Fecha de Creacion: 27/04/2015 
- * Autores: 	JULIAN GARCIA RICO (1225435)
-		DIEGO FERNANDO BEDOYA (1327749)
-		CRISTIAN ALEXANDER VALENCIA TORRES (1329454)
-		OSCAR STEVEN ROMERO BERON (1326750) 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package Logica;
 
 import java.io.Serializable;
@@ -24,7 +20,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
+/**
+ *
+ * @author cristian
+ */
 @Entity
 @Table(name = "cohorte")
 @NamedQueries({
@@ -44,7 +43,7 @@ public class Cohorte implements Serializable {
     @Column(name = "estado")
     private Boolean estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cohorte")
-    private List<Matricula> matriculaList;
+    private List<CursoCohorte> cursoCohorteList;
 
     public Cohorte() {
     }
@@ -85,12 +84,12 @@ public class Cohorte implements Serializable {
         this.estado = estado;
     }
 
-    public List<Matricula> getMatriculaList() {
-        return matriculaList;
+    public List<CursoCohorte> getCursoCohorteList() {
+        return cursoCohorteList;
     }
 
-    public void setMatriculaList(List<Matricula> matriculaList) {
-        this.matriculaList = matriculaList;
+    public void setCursoCohorteList(List<CursoCohorte> cursoCohorteList) {
+        this.cursoCohorteList = cursoCohorteList;
     }
 
     @Override
@@ -117,5 +116,5 @@ public class Cohorte implements Serializable {
     public String toString() {
         return "Logica.Cohorte[ idCohorte=" + idCohorte + " ]";
     }
-
-} // Fin de la clase Cohorte
+    
+}

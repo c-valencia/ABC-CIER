@@ -18,6 +18,7 @@
     <class>Logica.LtEtnoeducacion</class>
     <class>Logica.Tarea</class>
     <class>Logica.Matricula</class>
+    <class>Logica.CursoCohorte</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-107-20-159-103.compute-1.amazonaws.com:5432/dbikdp8uvuqigr?user=itrvknmdhrrwce&amp;password=O7nb2g-81YaZV9v4PJx-g0syGS&amp;ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
       <property name="javax.persistence.jdbc.password" value="O7nb2g-81YaZV9v4PJx-g0syGS"/>

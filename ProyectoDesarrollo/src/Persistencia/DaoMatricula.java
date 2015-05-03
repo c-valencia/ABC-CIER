@@ -1,12 +1,8 @@
-/** 
- * Nombre del Archivo: MatriculaJpaController.java 
- * Fecha de Creacion: 27/04/2015 
- * Autores: 	JULIAN GARCIA RICO (1225435)
-		DIEGO FERNANDO BEDOYA (1327749)
-		CRISTIAN ALEXANDER VALENCIA TORRES (1329454)
-		OSCAR STEVEN ROMERO BERON (1326750) 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package Persistencia;
 
 import java.io.Serializable;
@@ -15,8 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Logica.LeaderTeacher;
-import Logica.Curso;
-import Logica.Cohorte;
+import Logica.CursoCohorte;
 import Logica.Matricula;
 import Logica.MatriculaPK;
 import Persistencia.exceptions.NonexistentEntityException;
@@ -25,7 +20,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-
+/**
+ *
+ * @author cristian
+ */
 public class DaoMatricula implements Serializable {
 
     public DaoMatricula(EntityManagerFactory emf) {
@@ -41,9 +39,9 @@ public class DaoMatricula implements Serializable {
         if (matricula.getMatriculaPK() == null) {
             matricula.setMatriculaPK(new MatriculaPK());
         }
+        matricula.getMatriculaPK().setIdCurso(matricula.getCursoCohorte().getCursoCohortePK().getIdCurso());
         matricula.getMatriculaPK().setCedulaLt(matricula.getLeaderTeacher().getCedula());
-        matricula.getMatriculaPK().setIdCurso(matricula.getCurso().getIdCurso());
-        matricula.getMatriculaPK().setIdCohorte(matricula.getCohorte().getIdCohorte());
+        matricula.getMatriculaPK().setIdCohorte(matricula.getCursoCohorte().getCursoCohortePK().getIdCohorte());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -53,28 +51,19 @@ public class DaoMatricula implements Serializable {
                 leaderTeacher = em.getReference(leaderTeacher.getClass(), leaderTeacher.getCedula());
                 matricula.setLeaderTeacher(leaderTeacher);
             }
-            Curso curso = matricula.getCurso();
-            if (curso != null) {
-                curso = em.getReference(curso.getClass(), curso.getIdCurso());
-                matricula.setCurso(curso);
-            }
-            Cohorte cohorte = matricula.getCohorte();
-            if (cohorte != null) {
-                cohorte = em.getReference(cohorte.getClass(), cohorte.getIdCohorte());
-                matricula.setCohorte(cohorte);
+            CursoCohorte cursoCohorte = matricula.getCursoCohorte();
+            if (cursoCohorte != null) {
+                cursoCohorte = em.getReference(cursoCohorte.getClass(), cursoCohorte.getCursoCohortePK());
+                matricula.setCursoCohorte(cursoCohorte);
             }
             em.persist(matricula);
             if (leaderTeacher != null) {
                 leaderTeacher.getMatriculaList().add(matricula);
                 leaderTeacher = em.merge(leaderTeacher);
             }
-            if (curso != null) {
-                curso.getMatriculaList().add(matricula);
-                curso = em.merge(curso);
-            }
-            if (cohorte != null) {
-                cohorte.getMatriculaList().add(matricula);
-                cohorte = em.merge(cohorte);
+            if (cursoCohorte != null) {
+                cursoCohorte.getMatriculaList().add(matricula);
+                cursoCohorte = em.merge(cursoCohorte);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -90,9 +79,9 @@ public class DaoMatricula implements Serializable {
     }
 
     public void edit(Matricula matricula) throws NonexistentEntityException, Exception {
+        matricula.getMatriculaPK().setIdCurso(matricula.getCursoCohorte().getCursoCohortePK().getIdCurso());
         matricula.getMatriculaPK().setCedulaLt(matricula.getLeaderTeacher().getCedula());
-        matricula.getMatriculaPK().setIdCurso(matricula.getCurso().getIdCurso());
-        matricula.getMatriculaPK().setIdCohorte(matricula.getCohorte().getIdCohorte());
+        matricula.getMatriculaPK().setIdCohorte(matricula.getCursoCohorte().getCursoCohortePK().getIdCohorte());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -100,21 +89,15 @@ public class DaoMatricula implements Serializable {
             Matricula persistentMatricula = em.find(Matricula.class, matricula.getMatriculaPK());
             LeaderTeacher leaderTeacherOld = persistentMatricula.getLeaderTeacher();
             LeaderTeacher leaderTeacherNew = matricula.getLeaderTeacher();
-            Curso cursoOld = persistentMatricula.getCurso();
-            Curso cursoNew = matricula.getCurso();
-            Cohorte cohorteOld = persistentMatricula.getCohorte();
-            Cohorte cohorteNew = matricula.getCohorte();
+            CursoCohorte cursoCohorteOld = persistentMatricula.getCursoCohorte();
+            CursoCohorte cursoCohorteNew = matricula.getCursoCohorte();
             if (leaderTeacherNew != null) {
                 leaderTeacherNew = em.getReference(leaderTeacherNew.getClass(), leaderTeacherNew.getCedula());
                 matricula.setLeaderTeacher(leaderTeacherNew);
             }
-            if (cursoNew != null) {
-                cursoNew = em.getReference(cursoNew.getClass(), cursoNew.getIdCurso());
-                matricula.setCurso(cursoNew);
-            }
-            if (cohorteNew != null) {
-                cohorteNew = em.getReference(cohorteNew.getClass(), cohorteNew.getIdCohorte());
-                matricula.setCohorte(cohorteNew);
+            if (cursoCohorteNew != null) {
+                cursoCohorteNew = em.getReference(cursoCohorteNew.getClass(), cursoCohorteNew.getCursoCohortePK());
+                matricula.setCursoCohorte(cursoCohorteNew);
             }
             matricula = em.merge(matricula);
             if (leaderTeacherOld != null && !leaderTeacherOld.equals(leaderTeacherNew)) {
@@ -125,21 +108,13 @@ public class DaoMatricula implements Serializable {
                 leaderTeacherNew.getMatriculaList().add(matricula);
                 leaderTeacherNew = em.merge(leaderTeacherNew);
             }
-            if (cursoOld != null && !cursoOld.equals(cursoNew)) {
-                cursoOld.getMatriculaList().remove(matricula);
-                cursoOld = em.merge(cursoOld);
+            if (cursoCohorteOld != null && !cursoCohorteOld.equals(cursoCohorteNew)) {
+                cursoCohorteOld.getMatriculaList().remove(matricula);
+                cursoCohorteOld = em.merge(cursoCohorteOld);
             }
-            if (cursoNew != null && !cursoNew.equals(cursoOld)) {
-                cursoNew.getMatriculaList().add(matricula);
-                cursoNew = em.merge(cursoNew);
-            }
-            if (cohorteOld != null && !cohorteOld.equals(cohorteNew)) {
-                cohorteOld.getMatriculaList().remove(matricula);
-                cohorteOld = em.merge(cohorteOld);
-            }
-            if (cohorteNew != null && !cohorteNew.equals(cohorteOld)) {
-                cohorteNew.getMatriculaList().add(matricula);
-                cohorteNew = em.merge(cohorteNew);
+            if (cursoCohorteNew != null && !cursoCohorteNew.equals(cursoCohorteOld)) {
+                cursoCohorteNew.getMatriculaList().add(matricula);
+                cursoCohorteNew = em.merge(cursoCohorteNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -175,15 +150,10 @@ public class DaoMatricula implements Serializable {
                 leaderTeacher.getMatriculaList().remove(matricula);
                 leaderTeacher = em.merge(leaderTeacher);
             }
-            Curso curso = matricula.getCurso();
-            if (curso != null) {
-                curso.getMatriculaList().remove(matricula);
-                curso = em.merge(curso);
-            }
-            Cohorte cohorte = matricula.getCohorte();
-            if (cohorte != null) {
-                cohorte.getMatriculaList().remove(matricula);
-                cohorte = em.merge(cohorte);
+            CursoCohorte cursoCohorte = matricula.getCursoCohorte();
+            if (cursoCohorte != null) {
+                cursoCohorte.getMatriculaList().remove(matricula);
+                cursoCohorte = em.merge(cursoCohorte);
             }
             em.remove(matricula);
             em.getTransaction().commit();
@@ -239,5 +209,5 @@ public class DaoMatricula implements Serializable {
             em.close();
         }
     }
-
-} // Fin de la clase DaoMatricula
+    
+}

@@ -1,12 +1,8 @@
-/** 
- * Nombre del Archivo: Fases.java 
- * Fecha de Creacion: 27/04/2015 
- * Autores: 	JULIAN GARCIA RICO (1225435)
-		DIEGO FERNANDO BEDOYA (1327749)
-		CRISTIAN ALEXANDER VALENCIA TORRES (1329454)
-		OSCAR STEVEN ROMERO BERON (1326750) 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package Logica;
 
 import java.io.Serializable;
@@ -22,7 +18,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
+/**
+ *
+ * @author cristian
+ */
 @Entity
 @Table(name = "fases")
 @NamedQueries({
@@ -144,5 +143,5 @@ public class Fases implements Serializable {
     public String toString() {
         return "Logica.Fases[ idFase=" + idFase + " ]";
     }
-
-} // Fin de la clase Fases
+    
+}

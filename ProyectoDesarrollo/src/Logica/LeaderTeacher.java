@@ -1,12 +1,8 @@
-/** 
- * Nombre del Archivo: LeaderTeacher.java 
- * Fecha de Creacion: 27/04/2015 
- * Autores: 	JULIAN GARCIA RICO (1225435)
-		DIEGO FERNANDO BEDOYA (1327749)
-		CRISTIAN ALEXANDER VALENCIA TORRES (1329454)
-		OSCAR STEVEN ROMERO BERON (1326750) 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package Logica;
 
 import java.io.Serializable;
@@ -24,7 +20,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
+/**
+ *
+ * @author cristian
+ */
 @Entity
 @Table(name = "leader_teacher")
 @NamedQueries({
@@ -520,5 +519,5 @@ public class LeaderTeacher implements Serializable {
     public String toString() {
         return "Logica.LeaderTeacher[ cedula=" + cedula + " ]";
     }
-
-} // Fin de la clase LeaderTeacher
+    
+}

@@ -1,12 +1,8 @@
-/** 
- * Nombre del Archivo: TareaJpaController.java 
- * Fecha de Creacion: 27/04/2015 
- * Autores: 	JULIAN GARCIA RICO (1225435)
-		DIEGO FERNANDO BEDOYA (1327749)
-		CRISTIAN ALEXANDER VALENCIA TORRES (1329454)
-		OSCAR STEVEN ROMERO BERON (1326750) 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package Persistencia;
 
 import java.io.Serializable;
@@ -24,7 +20,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-
+/**
+ *
+ * @author cristian
+ */
 public class DaoTarea implements Serializable {
 
     public DaoTarea(EntityManagerFactory emf) {
@@ -208,5 +207,5 @@ public class DaoTarea implements Serializable {
             em.close();
         }
     }
-
-} // Fin de la clase DaoTarea
+    
+}

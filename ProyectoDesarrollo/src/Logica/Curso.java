@@ -1,12 +1,8 @@
-/** 
- * Nombre del Archivo: Curso.java 
- * Fecha de Creacion: 27/04/2015 
- * Autores: 	JULIAN GARCIA RICO (1225435)
-		DIEGO FERNANDO BEDOYA (1327749)
-		CRISTIAN ALEXANDER VALENCIA TORRES (1329454)
-		OSCAR STEVEN ROMERO BERON (1326750) 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package Logica;
 
 import java.io.Serializable;
@@ -21,7 +17,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
+/**
+ *
+ * @author cristian
+ */
 @Entity
 @Table(name = "curso")
 @NamedQueries({
@@ -45,7 +44,7 @@ public class Curso implements Serializable {
     @OneToMany(mappedBy = "idCurso")
     private List<Fases> fasesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curso")
-    private List<Matricula> matriculaList;
+    private List<CursoCohorte> cursoCohorteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCurso")
     private List<MasterTeacher> masterTeacherList;
 
@@ -112,12 +111,12 @@ public class Curso implements Serializable {
         this.fasesList = fasesList;
     }
 
-    public List<Matricula> getMatriculaList() {
-        return matriculaList;
+    public List<CursoCohorte> getCursoCohorteList() {
+        return cursoCohorteList;
     }
 
-    public void setMatriculaList(List<Matricula> matriculaList) {
-        this.matriculaList = matriculaList;
+    public void setCursoCohorteList(List<CursoCohorte> cursoCohorteList) {
+        this.cursoCohorteList = cursoCohorteList;
     }
 
     public List<MasterTeacher> getMasterTeacherList() {
@@ -152,5 +151,5 @@ public class Curso implements Serializable {
     public String toString() {
         return "Logica.Curso[ idCurso=" + idCurso + " ]";
     }
-
-} // Fin de la clase Curso
+    
+}

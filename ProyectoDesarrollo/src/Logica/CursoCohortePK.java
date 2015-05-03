@@ -15,10 +15,7 @@ import javax.persistence.Embeddable;
  * @author cristian
  */
 @Embeddable
-public class MatriculaPK implements Serializable {
-    @Basic(optional = false)
-    @Column(name = "cedula_lt")
-    private String cedulaLt;
+public class CursoCohortePK implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_cohorte")
     private String idCohorte;
@@ -26,21 +23,12 @@ public class MatriculaPK implements Serializable {
     @Column(name = "id_curso")
     private String idCurso;
 
-    public MatriculaPK() {
+    public CursoCohortePK() {
     }
 
-    public MatriculaPK(String cedulaLt, String idCohorte, String idCurso) {
-        this.cedulaLt = cedulaLt;
+    public CursoCohortePK(String idCohorte, String idCurso) {
         this.idCohorte = idCohorte;
         this.idCurso = idCurso;
-    }
-
-    public String getCedulaLt() {
-        return cedulaLt;
-    }
-
-    public void setCedulaLt(String cedulaLt) {
-        this.cedulaLt = cedulaLt;
     }
 
     public String getIdCohorte() {
@@ -62,7 +50,6 @@ public class MatriculaPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cedulaLt != null ? cedulaLt.hashCode() : 0);
         hash += (idCohorte != null ? idCohorte.hashCode() : 0);
         hash += (idCurso != null ? idCurso.hashCode() : 0);
         return hash;
@@ -71,13 +58,10 @@ public class MatriculaPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MatriculaPK)) {
+        if (!(object instanceof CursoCohortePK)) {
             return false;
         }
-        MatriculaPK other = (MatriculaPK) object;
-        if ((this.cedulaLt == null && other.cedulaLt != null) || (this.cedulaLt != null && !this.cedulaLt.equals(other.cedulaLt))) {
-            return false;
-        }
+        CursoCohortePK other = (CursoCohortePK) object;
         if ((this.idCohorte == null && other.idCohorte != null) || (this.idCohorte != null && !this.idCohorte.equals(other.idCohorte))) {
             return false;
         }
@@ -89,7 +73,7 @@ public class MatriculaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "Logica.MatriculaPK[ cedulaLt=" + cedulaLt + ", idCohorte=" + idCohorte + ", idCurso=" + idCurso + " ]";
+        return "Logica.CursoCohortePK[ idCohorte=" + idCohorte + ", idCurso=" + idCurso + " ]";
     }
     
 }

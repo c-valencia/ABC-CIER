@@ -1,12 +1,8 @@
-/** 
- * Nombre del Archivo: CursoJpaController.java 
- * Fecha de Creacion: 27/04/2015 
- * Autores: 	JULIAN GARCIA RICO (1225435)
-		DIEGO FERNANDO BEDOYA (1327749)
-		CRISTIAN ALEXANDER VALENCIA TORRES (1329454)
-		OSCAR STEVEN ROMERO BERON (1326750) 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package Persistencia;
 
 import Logica.Curso;
@@ -18,7 +14,7 @@ import javax.persistence.criteria.Root;
 import Logica.Fases;
 import java.util.ArrayList;
 import java.util.List;
-import Logica.Matricula;
+import Logica.CursoCohorte;
 import Logica.MasterTeacher;
 import Persistencia.exceptions.IllegalOrphanException;
 import Persistencia.exceptions.NonexistentEntityException;
@@ -26,7 +22,10 @@ import Persistencia.exceptions.PreexistingEntityException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-
+/**
+ *
+ * @author cristian
+ */
 public class DaoCurso implements Serializable {
 
     public DaoCurso(EntityManagerFactory emf) {
@@ -42,8 +41,8 @@ public class DaoCurso implements Serializable {
         if (curso.getFasesList() == null) {
             curso.setFasesList(new ArrayList<Fases>());
         }
-        if (curso.getMatriculaList() == null) {
-            curso.setMatriculaList(new ArrayList<Matricula>());
+        if (curso.getCursoCohorteList() == null) {
+            curso.setCursoCohorteList(new ArrayList<CursoCohorte>());
         }
         if (curso.getMasterTeacherList() == null) {
             curso.setMasterTeacherList(new ArrayList<MasterTeacher>());
@@ -58,12 +57,12 @@ public class DaoCurso implements Serializable {
                 attachedFasesList.add(fasesListFasesToAttach);
             }
             curso.setFasesList(attachedFasesList);
-            List<Matricula> attachedMatriculaList = new ArrayList<Matricula>();
-            for (Matricula matriculaListMatriculaToAttach : curso.getMatriculaList()) {
-                matriculaListMatriculaToAttach = em.getReference(matriculaListMatriculaToAttach.getClass(), matriculaListMatriculaToAttach.getMatriculaPK());
-                attachedMatriculaList.add(matriculaListMatriculaToAttach);
+            List<CursoCohorte> attachedCursoCohorteList = new ArrayList<CursoCohorte>();
+            for (CursoCohorte cursoCohorteListCursoCohorteToAttach : curso.getCursoCohorteList()) {
+                cursoCohorteListCursoCohorteToAttach = em.getReference(cursoCohorteListCursoCohorteToAttach.getClass(), cursoCohorteListCursoCohorteToAttach.getCursoCohortePK());
+                attachedCursoCohorteList.add(cursoCohorteListCursoCohorteToAttach);
             }
-            curso.setMatriculaList(attachedMatriculaList);
+            curso.setCursoCohorteList(attachedCursoCohorteList);
             List<MasterTeacher> attachedMasterTeacherList = new ArrayList<MasterTeacher>();
             for (MasterTeacher masterTeacherListMasterTeacherToAttach : curso.getMasterTeacherList()) {
                 masterTeacherListMasterTeacherToAttach = em.getReference(masterTeacherListMasterTeacherToAttach.getClass(), masterTeacherListMasterTeacherToAttach.getCedula());
@@ -80,13 +79,13 @@ public class DaoCurso implements Serializable {
                     oldIdCursoOfFasesListFases = em.merge(oldIdCursoOfFasesListFases);
                 }
             }
-            for (Matricula matriculaListMatricula : curso.getMatriculaList()) {
-                Curso oldCursoOfMatriculaListMatricula = matriculaListMatricula.getCurso();
-                matriculaListMatricula.setCurso(curso);
-                matriculaListMatricula = em.merge(matriculaListMatricula);
-                if (oldCursoOfMatriculaListMatricula != null) {
-                    oldCursoOfMatriculaListMatricula.getMatriculaList().remove(matriculaListMatricula);
-                    oldCursoOfMatriculaListMatricula = em.merge(oldCursoOfMatriculaListMatricula);
+            for (CursoCohorte cursoCohorteListCursoCohorte : curso.getCursoCohorteList()) {
+                Curso oldCursoOfCursoCohorteListCursoCohorte = cursoCohorteListCursoCohorte.getCurso();
+                cursoCohorteListCursoCohorte.setCurso(curso);
+                cursoCohorteListCursoCohorte = em.merge(cursoCohorteListCursoCohorte);
+                if (oldCursoOfCursoCohorteListCursoCohorte != null) {
+                    oldCursoOfCursoCohorteListCursoCohorte.getCursoCohorteList().remove(cursoCohorteListCursoCohorte);
+                    oldCursoOfCursoCohorteListCursoCohorte = em.merge(oldCursoOfCursoCohorteListCursoCohorte);
                 }
             }
             for (MasterTeacher masterTeacherListMasterTeacher : curso.getMasterTeacherList()) {
@@ -119,17 +118,17 @@ public class DaoCurso implements Serializable {
             Curso persistentCurso = em.find(Curso.class, curso.getIdCurso());
             List<Fases> fasesListOld = persistentCurso.getFasesList();
             List<Fases> fasesListNew = curso.getFasesList();
-            List<Matricula> matriculaListOld = persistentCurso.getMatriculaList();
-            List<Matricula> matriculaListNew = curso.getMatriculaList();
+            List<CursoCohorte> cursoCohorteListOld = persistentCurso.getCursoCohorteList();
+            List<CursoCohorte> cursoCohorteListNew = curso.getCursoCohorteList();
             List<MasterTeacher> masterTeacherListOld = persistentCurso.getMasterTeacherList();
             List<MasterTeacher> masterTeacherListNew = curso.getMasterTeacherList();
             List<String> illegalOrphanMessages = null;
-            for (Matricula matriculaListOldMatricula : matriculaListOld) {
-                if (!matriculaListNew.contains(matriculaListOldMatricula)) {
+            for (CursoCohorte cursoCohorteListOldCursoCohorte : cursoCohorteListOld) {
+                if (!cursoCohorteListNew.contains(cursoCohorteListOldCursoCohorte)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Matricula " + matriculaListOldMatricula + " since its curso field is not nullable.");
+                    illegalOrphanMessages.add("You must retain CursoCohorte " + cursoCohorteListOldCursoCohorte + " since its curso field is not nullable.");
                 }
             }
             for (MasterTeacher masterTeacherListOldMasterTeacher : masterTeacherListOld) {
@@ -150,13 +149,13 @@ public class DaoCurso implements Serializable {
             }
             fasesListNew = attachedFasesListNew;
             curso.setFasesList(fasesListNew);
-            List<Matricula> attachedMatriculaListNew = new ArrayList<Matricula>();
-            for (Matricula matriculaListNewMatriculaToAttach : matriculaListNew) {
-                matriculaListNewMatriculaToAttach = em.getReference(matriculaListNewMatriculaToAttach.getClass(), matriculaListNewMatriculaToAttach.getMatriculaPK());
-                attachedMatriculaListNew.add(matriculaListNewMatriculaToAttach);
+            List<CursoCohorte> attachedCursoCohorteListNew = new ArrayList<CursoCohorte>();
+            for (CursoCohorte cursoCohorteListNewCursoCohorteToAttach : cursoCohorteListNew) {
+                cursoCohorteListNewCursoCohorteToAttach = em.getReference(cursoCohorteListNewCursoCohorteToAttach.getClass(), cursoCohorteListNewCursoCohorteToAttach.getCursoCohortePK());
+                attachedCursoCohorteListNew.add(cursoCohorteListNewCursoCohorteToAttach);
             }
-            matriculaListNew = attachedMatriculaListNew;
-            curso.setMatriculaList(matriculaListNew);
+            cursoCohorteListNew = attachedCursoCohorteListNew;
+            curso.setCursoCohorteList(cursoCohorteListNew);
             List<MasterTeacher> attachedMasterTeacherListNew = new ArrayList<MasterTeacher>();
             for (MasterTeacher masterTeacherListNewMasterTeacherToAttach : masterTeacherListNew) {
                 masterTeacherListNewMasterTeacherToAttach = em.getReference(masterTeacherListNewMasterTeacherToAttach.getClass(), masterTeacherListNewMasterTeacherToAttach.getCedula());
@@ -182,14 +181,14 @@ public class DaoCurso implements Serializable {
                     }
                 }
             }
-            for (Matricula matriculaListNewMatricula : matriculaListNew) {
-                if (!matriculaListOld.contains(matriculaListNewMatricula)) {
-                    Curso oldCursoOfMatriculaListNewMatricula = matriculaListNewMatricula.getCurso();
-                    matriculaListNewMatricula.setCurso(curso);
-                    matriculaListNewMatricula = em.merge(matriculaListNewMatricula);
-                    if (oldCursoOfMatriculaListNewMatricula != null && !oldCursoOfMatriculaListNewMatricula.equals(curso)) {
-                        oldCursoOfMatriculaListNewMatricula.getMatriculaList().remove(matriculaListNewMatricula);
-                        oldCursoOfMatriculaListNewMatricula = em.merge(oldCursoOfMatriculaListNewMatricula);
+            for (CursoCohorte cursoCohorteListNewCursoCohorte : cursoCohorteListNew) {
+                if (!cursoCohorteListOld.contains(cursoCohorteListNewCursoCohorte)) {
+                    Curso oldCursoOfCursoCohorteListNewCursoCohorte = cursoCohorteListNewCursoCohorte.getCurso();
+                    cursoCohorteListNewCursoCohorte.setCurso(curso);
+                    cursoCohorteListNewCursoCohorte = em.merge(cursoCohorteListNewCursoCohorte);
+                    if (oldCursoOfCursoCohorteListNewCursoCohorte != null && !oldCursoOfCursoCohorteListNewCursoCohorte.equals(curso)) {
+                        oldCursoOfCursoCohorteListNewCursoCohorte.getCursoCohorteList().remove(cursoCohorteListNewCursoCohorte);
+                        oldCursoOfCursoCohorteListNewCursoCohorte = em.merge(oldCursoOfCursoCohorteListNewCursoCohorte);
                     }
                 }
             }
@@ -234,12 +233,12 @@ public class DaoCurso implements Serializable {
                 throw new NonexistentEntityException("The curso with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<Matricula> matriculaListOrphanCheck = curso.getMatriculaList();
-            for (Matricula matriculaListOrphanCheckMatricula : matriculaListOrphanCheck) {
+            List<CursoCohorte> cursoCohorteListOrphanCheck = curso.getCursoCohorteList();
+            for (CursoCohorte cursoCohorteListOrphanCheckCursoCohorte : cursoCohorteListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Curso (" + curso + ") cannot be destroyed since the Matricula " + matriculaListOrphanCheckMatricula + " in its matriculaList field has a non-nullable curso field.");
+                illegalOrphanMessages.add("This Curso (" + curso + ") cannot be destroyed since the CursoCohorte " + cursoCohorteListOrphanCheckCursoCohorte + " in its cursoCohorteList field has a non-nullable curso field.");
             }
             List<MasterTeacher> masterTeacherListOrphanCheck = curso.getMasterTeacherList();
             for (MasterTeacher masterTeacherListOrphanCheckMasterTeacher : masterTeacherListOrphanCheck) {
@@ -310,5 +309,5 @@ public class DaoCurso implements Serializable {
             em.close();
         }
     }
-
-} // Fin de la clase DaoCurso
+    
+}

@@ -1,12 +1,8 @@
-/** 
- * Nombre del Archivo: Matricula.java 
- * Fecha de Creacion: 27/04/2015 
- * Autores: 	JULIAN GARCIA RICO (1225435)
-		DIEGO FERNANDO BEDOYA (1327749)
-		CRISTIAN ALEXANDER VALENCIA TORRES (1329454)
-		OSCAR STEVEN ROMERO BERON (1326750) 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package Logica;
 
 import java.io.Serializable;
@@ -14,12 +10,16 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-
+/**
+ *
+ * @author cristian
+ */
 @Entity
 @Table(name = "matricula")
 @NamedQueries({
@@ -34,12 +34,11 @@ public class Matricula implements Serializable {
     @JoinColumn(name = "cedula_lt", referencedColumnName = "cedula", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private LeaderTeacher leaderTeacher;
-    @JoinColumn(name = "id_curso", referencedColumnName = "id_curso", insertable = false, updatable = false)
+    @JoinColumns({
+        @JoinColumn(name = "id_cohorte", referencedColumnName = "id_cohorte", insertable = false, updatable = false),
+        @JoinColumn(name = "id_curso", referencedColumnName = "id_curso", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
-    private Curso curso;
-    @JoinColumn(name = "id_cohorte", referencedColumnName = "id_cohorte", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Cohorte cohorte;
+    private CursoCohorte cursoCohorte;
 
     public Matricula() {
     }
@@ -76,20 +75,12 @@ public class Matricula implements Serializable {
         this.leaderTeacher = leaderTeacher;
     }
 
-    public Curso getCurso() {
-        return curso;
+    public CursoCohorte getCursoCohorte() {
+        return cursoCohorte;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-    public Cohorte getCohorte() {
-        return cohorte;
-    }
-
-    public void setCohorte(Cohorte cohorte) {
-        this.cohorte = cohorte;
+    public void setCursoCohorte(CursoCohorte cursoCohorte) {
+        this.cursoCohorte = cursoCohorte;
     }
 
     @Override
@@ -116,5 +107,5 @@ public class Matricula implements Serializable {
     public String toString() {
         return "Logica.Matricula[ matriculaPK=" + matriculaPK + " ]";
     }
-
-} // Fin de la clase Matricula
+    
+}

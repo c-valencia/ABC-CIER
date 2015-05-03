@@ -1,12 +1,8 @@
-/** 
- * Nombre del Archivo: CohorteJpaController.java 
- * Fecha de Creacion: 27/04/2015 
- * Autores: 	JULIAN GARCIA RICO (1225435)
-		DIEGO FERNANDO BEDOYA (1327749)
-		CRISTIAN ALEXANDER VALENCIA TORRES (1329454)
-		OSCAR STEVEN ROMERO BERON (1326750) 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package Persistencia;
 
 import Logica.Cohorte;
@@ -15,7 +11,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import Logica.Matricula;
+import Logica.CursoCohorte;
 import Persistencia.exceptions.IllegalOrphanException;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
@@ -24,7 +20,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-
+/**
+ *
+ * @author cristian
+ */
 public class DaoCohorte implements Serializable {
 
     public DaoCohorte(EntityManagerFactory emf) {
@@ -37,27 +36,27 @@ public class DaoCohorte implements Serializable {
     }
 
     public void create(Cohorte cohorte) throws PreexistingEntityException, Exception {
-        if (cohorte.getMatriculaList() == null) {
-            cohorte.setMatriculaList(new ArrayList<Matricula>());
+        if (cohorte.getCursoCohorteList() == null) {
+            cohorte.setCursoCohorteList(new ArrayList<CursoCohorte>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Matricula> attachedMatriculaList = new ArrayList<Matricula>();
-            for (Matricula matriculaListMatriculaToAttach : cohorte.getMatriculaList()) {
-                matriculaListMatriculaToAttach = em.getReference(matriculaListMatriculaToAttach.getClass(), matriculaListMatriculaToAttach.getMatriculaPK());
-                attachedMatriculaList.add(matriculaListMatriculaToAttach);
+            List<CursoCohorte> attachedCursoCohorteList = new ArrayList<CursoCohorte>();
+            for (CursoCohorte cursoCohorteListCursoCohorteToAttach : cohorte.getCursoCohorteList()) {
+                cursoCohorteListCursoCohorteToAttach = em.getReference(cursoCohorteListCursoCohorteToAttach.getClass(), cursoCohorteListCursoCohorteToAttach.getCursoCohortePK());
+                attachedCursoCohorteList.add(cursoCohorteListCursoCohorteToAttach);
             }
-            cohorte.setMatriculaList(attachedMatriculaList);
+            cohorte.setCursoCohorteList(attachedCursoCohorteList);
             em.persist(cohorte);
-            for (Matricula matriculaListMatricula : cohorte.getMatriculaList()) {
-                Cohorte oldCohorteOfMatriculaListMatricula = matriculaListMatricula.getCohorte();
-                matriculaListMatricula.setCohorte(cohorte);
-                matriculaListMatricula = em.merge(matriculaListMatricula);
-                if (oldCohorteOfMatriculaListMatricula != null) {
-                    oldCohorteOfMatriculaListMatricula.getMatriculaList().remove(matriculaListMatricula);
-                    oldCohorteOfMatriculaListMatricula = em.merge(oldCohorteOfMatriculaListMatricula);
+            for (CursoCohorte cursoCohorteListCursoCohorte : cohorte.getCursoCohorteList()) {
+                Cohorte oldCohorteOfCursoCohorteListCursoCohorte = cursoCohorteListCursoCohorte.getCohorte();
+                cursoCohorteListCursoCohorte.setCohorte(cohorte);
+                cursoCohorteListCursoCohorte = em.merge(cursoCohorteListCursoCohorte);
+                if (oldCohorteOfCursoCohorteListCursoCohorte != null) {
+                    oldCohorteOfCursoCohorteListCursoCohorte.getCursoCohorteList().remove(cursoCohorteListCursoCohorte);
+                    oldCohorteOfCursoCohorteListCursoCohorte = em.merge(oldCohorteOfCursoCohorteListCursoCohorte);
                 }
             }
             em.getTransaction().commit();
@@ -79,36 +78,36 @@ public class DaoCohorte implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Cohorte persistentCohorte = em.find(Cohorte.class, cohorte.getIdCohorte());
-            List<Matricula> matriculaListOld = persistentCohorte.getMatriculaList();
-            List<Matricula> matriculaListNew = cohorte.getMatriculaList();
+            List<CursoCohorte> cursoCohorteListOld = persistentCohorte.getCursoCohorteList();
+            List<CursoCohorte> cursoCohorteListNew = cohorte.getCursoCohorteList();
             List<String> illegalOrphanMessages = null;
-            for (Matricula matriculaListOldMatricula : matriculaListOld) {
-                if (!matriculaListNew.contains(matriculaListOldMatricula)) {
+            for (CursoCohorte cursoCohorteListOldCursoCohorte : cursoCohorteListOld) {
+                if (!cursoCohorteListNew.contains(cursoCohorteListOldCursoCohorte)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Matricula " + matriculaListOldMatricula + " since its cohorte field is not nullable.");
+                    illegalOrphanMessages.add("You must retain CursoCohorte " + cursoCohorteListOldCursoCohorte + " since its cohorte field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            List<Matricula> attachedMatriculaListNew = new ArrayList<Matricula>();
-            for (Matricula matriculaListNewMatriculaToAttach : matriculaListNew) {
-                matriculaListNewMatriculaToAttach = em.getReference(matriculaListNewMatriculaToAttach.getClass(), matriculaListNewMatriculaToAttach.getMatriculaPK());
-                attachedMatriculaListNew.add(matriculaListNewMatriculaToAttach);
+            List<CursoCohorte> attachedCursoCohorteListNew = new ArrayList<CursoCohorte>();
+            for (CursoCohorte cursoCohorteListNewCursoCohorteToAttach : cursoCohorteListNew) {
+                cursoCohorteListNewCursoCohorteToAttach = em.getReference(cursoCohorteListNewCursoCohorteToAttach.getClass(), cursoCohorteListNewCursoCohorteToAttach.getCursoCohortePK());
+                attachedCursoCohorteListNew.add(cursoCohorteListNewCursoCohorteToAttach);
             }
-            matriculaListNew = attachedMatriculaListNew;
-            cohorte.setMatriculaList(matriculaListNew);
+            cursoCohorteListNew = attachedCursoCohorteListNew;
+            cohorte.setCursoCohorteList(cursoCohorteListNew);
             cohorte = em.merge(cohorte);
-            for (Matricula matriculaListNewMatricula : matriculaListNew) {
-                if (!matriculaListOld.contains(matriculaListNewMatricula)) {
-                    Cohorte oldCohorteOfMatriculaListNewMatricula = matriculaListNewMatricula.getCohorte();
-                    matriculaListNewMatricula.setCohorte(cohorte);
-                    matriculaListNewMatricula = em.merge(matriculaListNewMatricula);
-                    if (oldCohorteOfMatriculaListNewMatricula != null && !oldCohorteOfMatriculaListNewMatricula.equals(cohorte)) {
-                        oldCohorteOfMatriculaListNewMatricula.getMatriculaList().remove(matriculaListNewMatricula);
-                        oldCohorteOfMatriculaListNewMatricula = em.merge(oldCohorteOfMatriculaListNewMatricula);
+            for (CursoCohorte cursoCohorteListNewCursoCohorte : cursoCohorteListNew) {
+                if (!cursoCohorteListOld.contains(cursoCohorteListNewCursoCohorte)) {
+                    Cohorte oldCohorteOfCursoCohorteListNewCursoCohorte = cursoCohorteListNewCursoCohorte.getCohorte();
+                    cursoCohorteListNewCursoCohorte.setCohorte(cohorte);
+                    cursoCohorteListNewCursoCohorte = em.merge(cursoCohorteListNewCursoCohorte);
+                    if (oldCohorteOfCursoCohorteListNewCursoCohorte != null && !oldCohorteOfCursoCohorteListNewCursoCohorte.equals(cohorte)) {
+                        oldCohorteOfCursoCohorteListNewCursoCohorte.getCursoCohorteList().remove(cursoCohorteListNewCursoCohorte);
+                        oldCohorteOfCursoCohorteListNewCursoCohorte = em.merge(oldCohorteOfCursoCohorteListNewCursoCohorte);
                     }
                 }
             }
@@ -142,12 +141,12 @@ public class DaoCohorte implements Serializable {
                 throw new NonexistentEntityException("The cohorte with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<Matricula> matriculaListOrphanCheck = cohorte.getMatriculaList();
-            for (Matricula matriculaListOrphanCheckMatricula : matriculaListOrphanCheck) {
+            List<CursoCohorte> cursoCohorteListOrphanCheck = cohorte.getCursoCohorteList();
+            for (CursoCohorte cursoCohorteListOrphanCheckCursoCohorte : cursoCohorteListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Cohorte (" + cohorte + ") cannot be destroyed since the Matricula " + matriculaListOrphanCheckMatricula + " in its matriculaList field has a non-nullable cohorte field.");
+                illegalOrphanMessages.add("This Cohorte (" + cohorte + ") cannot be destroyed since the CursoCohorte " + cursoCohorteListOrphanCheckCursoCohorte + " in its cursoCohorteList field has a non-nullable cohorte field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
@@ -206,5 +205,5 @@ public class DaoCohorte implements Serializable {
             em.close();
         }
     }
-
-} // Fin de la clase DaoCohorte
+    
+}
