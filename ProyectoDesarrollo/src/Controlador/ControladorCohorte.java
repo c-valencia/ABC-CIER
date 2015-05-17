@@ -111,6 +111,11 @@ public class ControladorCohorte {
         return false;
     }
     
+    public boolean ingresarMatricula(){
+        
+        return false;
+    }
+    
     public Vector <Aspirante> listarAspirantes(String area, String departamento){
         Vector <Aspirante> listado = new Vector<>();
         DaoAspirante daoAspirante = new DaoAspirante(conn.getCon());

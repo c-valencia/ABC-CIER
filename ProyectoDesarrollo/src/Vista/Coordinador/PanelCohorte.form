@@ -314,7 +314,9 @@
                       <Component id="jScrollPane2" max="32767" attributes="0"/>
                       <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="jButtonEliminarLt" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jButtonGuardarMatricula" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButtonFinalizarMatricula" min="-2" max="-2" attributes="0"/>
@@ -334,6 +336,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonFinalizarMatricula" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonGuardarMatricula" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonEliminarLt" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -348,7 +351,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonFinalizarMatricula">
           <Properties>
-            <Property name="text" type="java.lang.String" value="SIGUIENTE &gt;&gt;"/>
+            <Property name="text" type="java.lang.String" value="FINALIZAR"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -529,6 +532,11 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="jButtonEliminarLt">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="ELIMINAR"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jDialogAspirantes">
