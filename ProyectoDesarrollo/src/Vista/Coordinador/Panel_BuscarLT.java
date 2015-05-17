@@ -1634,10 +1634,12 @@ public class Panel_BuscarLT extends javax.swing.JPanel {
         inputCorreo.setText(objLeaderTeacher.getCorreo());
         inputCelular.setText(objLeaderTeacher.getCelular());
         inputDireccion.setText(objLeaderTeacher.getDireccion());
-        if (objLeaderTeacher.getSexo().equalsIgnoreCase("Masculino")) {
-            radioButtonMasculino.setSelected(true);
-        } else if (objLeaderTeacher.getSexo().equalsIgnoreCase("Femenino")) {
-            radioButtonFemenino.setSelected(true);
+        if (objLeaderTeacher.getSexo() != null) {
+            if (objLeaderTeacher.getSexo().equalsIgnoreCase("Masculino")) {
+                radioButtonMasculino.setSelected(true);
+            } else if (objLeaderTeacher.getSexo().equalsIgnoreCase("Femenino")) {
+                radioButtonFemenino.setSelected(true);
+            }
         }
         inputFecNacimiento.setDate(objLeaderTeacher.getFechanacimiento());
     } // Fin del metodo mostrarInfoPersonal
