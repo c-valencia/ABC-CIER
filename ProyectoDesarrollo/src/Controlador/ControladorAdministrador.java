@@ -15,9 +15,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Persistencia.DaoCurso;
 import Persistencia.DaoFases;
+import Persistencia.DaoHistorialAspirante;
 import Persistencia.DaoMasterTeacher;
 import Persistencia.DaoPractica;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +35,7 @@ public class ControladorAdministrador {
     private DaoAspirante daoAspirante;
     private Conexion conexion;
     private DaoMasterTeacher daoMasterTeacher;
+    private DaoHistorialAspirante daoHistorialAspirante;
     private static ControladorAdministrador controladorAdministrador;
     private Validaciones validador;
     private ArrayList <String> idNombreCurso;
@@ -46,6 +49,7 @@ public class ControladorAdministrador {
         daoPractica = new DaoPractica(conexion.getCon());
         daoAspirante = new DaoAspirante(conexion.getCon());
         daoMasterTeacher = new DaoMasterTeacher(conexion.getCon());
+        daoHistorialAspirante = new DaoHistorialAspirante(conexion.getCon());
         idNombreCurso = new ArrayList<String>();
     }
 
@@ -111,11 +115,42 @@ public class ControladorAdministrador {
             String areaInscripcion, boolean tutorPta, boolean usuarioColombiaAprende, boolean estado) {
         String result = "";
         try {
+            validador.validarCamposVacios(cedula, nombres, apellidos, correo,celular,direccion,sedePertenece,intitucion,
+                                          codigoDaneIntitucion,grado,secretariaEducacion,municipio,departamento);
             Aspirante nuevoAspirante = new Aspirante(cedula, nombres, apellidos, correo, celular, direccion, sedePertenece, intitucion, codigoDaneIntitucion, grado, secretariaEducacion, municipio, departamento, areaInscripcion, tutorPta, usuarioColombiaAprende, estado);
             daoAspirante.create(nuevoAspirante);
-            result = "1";
-        } // Fin del metodo crearAspirante
-        catch (Exception ex) {
+            result = "Se creo el aspirante con exito";
+        } catch (ExcepcionDatos ex) {
+            result = ex.getMessage();
+
+        } catch (NullPointerException ex) {
+
+            result = "Ingreso un objeto vacio";       
+        } catch (Exception ex) {
+            Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            result = "No se realizo la operacion";
+        }
+        return result;
+    }
+    
+    public String crearHistorialAspirante(String cedulaAs, String idCurso, Date fechaInscripcion, boolean estado) {
+        String result = "";
+        System.out.println ("pasi 1: ");
+        try {
+            validador.validarCamposVacios(cedulaAs, idCurso);
+            System.out.println ("his_asp: " + cedulaAs +" , " + idCurso);
+            HistorialAspirante nuevoHistorialAspirante = new HistorialAspirante(cedulaAs, idCurso, fechaInscripcion);
+            System.out.println ("his_asp: "+ nuevoHistorialAspirante);
+            daoHistorialAspirante.insertarHistorialaspirante(cedulaAs, idCurso, fechaInscripcion);
+            System.out.println ("terminino");
+            result = "Se creo el historial aspirante con exito";
+        } catch (ExcepcionDatos ex) {
+            result = ex.getMessage();
+
+        } catch (NullPointerException ex) {
+
+            result = "Ingreso un objeto vacio";    
+        } catch (Exception ex) {
             Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
             result = "No se realizo la operacion";
         }
@@ -276,6 +311,8 @@ public class ControladorAdministrador {
 
         return result;
     }
+    
+
 
     public ArrayList<String> getIdNombreCurso() {
         return idNombreCurso;
