@@ -178,5 +178,14 @@ public class DaoMatricula implements Serializable {
             em.close();
         }
     }
-
+    public boolean ingresarMatricula(String cohorte, String curso, String idLT){
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createNativeQuery("INSERT INTO matricula (cedula_lt, id_cohorte, id_curso, nota)" + 
+                    "VALUES ('" + idLT + "', '" + cohorte + "', '" + curso + "', 0);");
+        
+            query.executeUpdate();
+            em.getTransaction().commit();
+        return true;
+    }
 } // Fin de la clase DaoMatricula

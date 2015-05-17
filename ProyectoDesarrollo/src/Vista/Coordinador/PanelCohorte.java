@@ -12,6 +12,7 @@ import Controllers.ControladorTablas;
 import Logica.Aspirante;
 
 import Logica.Curso;
+import Persistencia.Conexion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -286,14 +287,14 @@ public class PanelCohorte extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cedula", "Nombres", "Apellidos", "Email", "Area"
+                "Cedula", "Nombres", "Apellidos", "Email", "Codigo", "Area"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -312,7 +313,8 @@ public class PanelCohorte extends javax.swing.JPanel {
             jTableLeaderTeacher.getColumnModel().getColumn(2).setResizable(false);
             jTableLeaderTeacher.getColumnModel().getColumn(3).setResizable(false);
             jTableLeaderTeacher.getColumnModel().getColumn(4).setResizable(false);
-            jTableLeaderTeacher.getColumnModel().getColumn(4).setPreferredWidth(100);
+            jTableLeaderTeacher.getColumnModel().getColumn(5).setResizable(false);
+            jTableLeaderTeacher.getColumnModel().getColumn(5).setPreferredWidth(100);
         }
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));
@@ -626,11 +628,11 @@ public class PanelCohorte extends javax.swing.JPanel {
     private void aspirantesSeleccionados(){
         
         TableModel TMAspirante = jTableAspiratesBD.getModel();
+        jTableLeaderTeacher = new JTable();
         DefaultTableModel TMSelecionados = (DefaultTableModel) jTableLeaderTeacher.getModel();
         int fila = TMAspirante.getRowCount();
         listadoLT = new Vector();
         
-        try{
             for(int i=0; i< fila; i++) { 
                 if(TMAspirante.getValueAt(i, 4).equals(true)){
                     listadoLT.addElement(listaAspirantes.get(i));
@@ -640,15 +642,12 @@ public class PanelCohorte extends javax.swing.JPanel {
             for (int i = 0; i < listadoLT.size(); i++){
                 TMSelecionados.addRow(new Object[] {listadoLT.get(i).getCedula(), listadoLT.get(i).getNombres(),
                                                     listadoLT.get(i).getApellidos(), listadoLT.get(i).getCorreo(),
+                                                    cursosSelect.get(jComboBoxPCMArea.getSelectedIndex()- 1).getIdCurso(),
                                                     listadoLT.get(i).getAreaInscripcion()});
             }
             
             jDialogAspirantes.setVisible(false);
-        }catch(NullPointerException npe){
-            System.out.println("NullPointerException en " + npe.getMessage());
-        }catch(ArrayIndexOutOfBoundsException aioobe){
-            System.out.println("ArrayIndexOutOfBoundsException en " + aioobe.getMessage());
-        }
+        
     } // fin del metodo AspirantesSeleccionados
     
     /**
@@ -658,9 +657,9 @@ public class PanelCohorte extends javax.swing.JPanel {
         fechaInicio = jDateChooserFechaInicio.getDate();
         
         fechafin = jDateChooserFechaFin.getDate();
-        //boolean estado = controlCohorte.ingresarCohorte(fechaInicio ,fechafin); 
+        boolean estado = controlCohorte.ingresarCohorte(fechaInicio ,fechafin); 
         cohorte= controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getIdCohorte();
-        if (true){
+        if (estado){
             JOptionPane.showMessageDialog(null, "Guardada la cohorte exitosamente en la base de datos");
             jLabelCodCohorte.setText(cohorte);
             jButtonSiguienteCohorte.setEnabled(true);
@@ -669,7 +668,7 @@ public class PanelCohorte extends javax.swing.JPanel {
         else{
             JOptionPane.showMessageDialog(null, "Error en el guardado, comuniquese con el admin del sistema!");
         }
-        
+        System.out.println("conexion = " + Conexion.cantidadConexiones);
         // informacion que aparecera en el siguiente panel (panelCurso)
         jLabelPACCodCohorte.setText(cohorte);
         jLabelFechaInicio.setText(new Date(fechaInicio.getTime()) + "");
@@ -690,10 +689,15 @@ public class PanelCohorte extends javax.swing.JPanel {
      * 
      */
     private void crearMatricula(){
+        TableModel curso = jTableLeaderTeacher.getModel();
         for (int i  = 0; i < listadoLT.size(); i++){
-            System.out.println("matricula = curso = " + cursosSelect.get(jComboBoxPCMArea.getSelectedIndex() - 1)
-                                +  ", cohote = " + cohorte + "ceduala " +listadoLT.get(i).getCedula());
+            controlCohorte.ingresarLT(listadoLT.get(i));
+            controlCohorte.ingresarMatricula(cohorte, curso.getValueAt(i, 4).toString(), listadoLT.get(i).getCedula());
+            controlCohorte.modificarAspirante(listadoLT.get(i));
+            controlCohorte.crearUsuario(listadoLT.get(i));
+            System.out.println(" si ingreso");
         }
+        
     }
     
     /**
@@ -723,6 +727,7 @@ public class PanelCohorte extends javax.swing.JPanel {
         }catch(NullPointerException npe){
             System.out.println("NullPointerException cursosSeleccionados");
         }
+        System.out.println("conexion = " + Conexion.cantidadConexiones);
     }// fin del metodo cursosSeleccionados
     
     /**
@@ -739,6 +744,7 @@ public class PanelCohorte extends javax.swing.JPanel {
         jLabelNombreArea.setText(area);
         for (int i = 0; i < listaAspirantes.size(); i++)
             dtm.addRow(new Object[] {listaAspirantes.get(i).getCedula(), listaAspirantes.get(i).getNombres(), listaAspirantes.get(i).getApellidos(), listaAspirantes.get(i).getCorreo(), false});
+        System.out.println("conexion = " + Conexion.cantidadConexiones);
     }// fin del metodo listarALTs
     
     /**

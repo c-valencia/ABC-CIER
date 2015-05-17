@@ -15,6 +15,7 @@ import javax.persistence.Persistence;
 public class Conexion {
     private EntityManagerFactory conn;
     public static Conexion objConexion;
+    public static int cantidadConexiones = 0;
     
     private Conexion(){
         conn = Persistence.createEntityManagerFactory("persistencia");
@@ -23,6 +24,7 @@ public class Conexion {
     public static Conexion getInstance() {
         if (objConexion == null) {
             objConexion = new Conexion();
+            cantidadConexiones++;
         }
         return objConexion;
     }
