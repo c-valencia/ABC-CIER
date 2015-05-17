@@ -216,7 +216,7 @@ public class DaoAspirante implements Serializable {
         try {
             //em.getTransaction().begin();
               
-            Query query = em.createNativeQuery("SELECT * FROM aspirante a WHERE a.departamento = '" + departamento + "' AND area_inscripcion ='" + area + "';", Aspirante.class);
+            Query query = em.createNativeQuery("SELECT * FROM aspirante a WHERE a.departamento = '" + departamento + "' AND area_inscripcion ='" + area + "' AND estado = true;", Aspirante.class);
             
             return query.getResultList();
                 

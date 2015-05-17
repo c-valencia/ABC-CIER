@@ -8,14 +8,21 @@ package Controlador;
 import Logica.Aspirante;
 import Logica.Cohorte;
 import Logica.Curso;
+import Logica.CursoCohorte;
+import Logica.CursoCohortePK;
 import Persistencia.DaoCohorte;
 import Persistencia.Conexion;
 import Persistencia.DaoCurso;
 import Persistencia.DaoAspirante;
+import Persistencia.DaoCursoCohorte;
+import Persistencia.exceptions.IllegalOrphanException;
+import Persistencia.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,6 +33,17 @@ public class ControladorCohorte {
     
     public ControladorCohorte() {
         conn =  Conexion.getInstance();
+    }
+    
+    public List <Curso> buscarCursos(){
+        Vector <Curso> listado = new Vector<>();
+        DaoCurso daoCurso = new DaoCurso(conn.getCon());
+        System.out.println("esta iniciando...");
+        
+        listado = (Vector<Curso>) daoCurso.findCursoEntities();
+        
+        System.out.println("tamaño = " + listado.size());
+        return listado;
     }
     
     public Cohorte buscarUnaCohorte(Date fechaInicio, Date fechaFin){
@@ -42,6 +60,20 @@ public class ControladorCohorte {
     public boolean eliminarCohorte(){
         
         return false;
+    }
+    
+    public void eliminaCursoCohorte(String cohorte, String curso){
+        CursoCohortePK ccpk = new CursoCohortePK(cohorte, curso);
+        DaoCursoCohorte dcc = new DaoCursoCohorte(conn.getCon());
+        
+        try {
+            dcc.destroy(ccpk);
+            //return false;
+        } catch (IllegalOrphanException ex) {
+            System.err.println("error en guardar IllegalOrphanException = " + ex.getLocalizedMessage());
+        } catch (NonexistentEntityException ex) {
+            System.err.println("error en guardar NonexistentEntityException = " + ex.getLocalizedMessage());
+        }
     }
     
     public boolean ingresarCohorte(Date fechaInicio, Date fechaFin){
@@ -61,20 +93,27 @@ public class ControladorCohorte {
         return false;
     }
     
-    public boolean modificarCohorte(){
+    public boolean ingresarCursosCohorte(String cohorte, String curso){
+        CursoCohorte cc = new CursoCohorte();
+        DaoCursoCohorte dcc = new DaoCursoCohorte(conn.getCon());
+        
+        cc.setCohorte(new Cohorte(cohorte));
+        cc.setCurso(new Curso(curso));
+        cc.setNumEstudiantes(0);
+        
+        try {
+            dcc.create(cc);
+            return true;
+        } catch (Exception ex) {
+            System.err.println("error en guardar ingresarCursosCohorte = " + ex.getLocalizedMessage());
+        }
         
         return false;
     }
     
-    public List <Curso> buscarCursos(){
-        Vector <Curso> listado = new Vector<>();
-        DaoCurso daoCurso = new DaoCurso(conn.getCon());
-        System.out.println("esta iniciando...");
+    public boolean ingresarMatricula(){
         
-        listado = (Vector<Curso>) daoCurso.findCursoEntities();
-        
-        System.out.println("tamaño = " + listado.size());
-        return listado;
+        return false;
     }
     
     public Vector <Aspirante> listarAspirantes(String area, String departamento){
@@ -82,5 +121,10 @@ public class ControladorCohorte {
         DaoAspirante daoAspirante = new DaoAspirante(conn.getCon());
         listado = (Vector <Aspirante>)daoAspirante.buscarAspirantes(area, departamento);
         return listado;
+    }
+    
+    public boolean modificarCohorte(){
+        
+        return false;
     }
 }
