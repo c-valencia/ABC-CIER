@@ -1553,7 +1553,6 @@ public class Panel_UpdateLT extends javax.swing.JPanel {
                         lt_nivel_escolaridad, lt_enfasis, area_formacion, grado_escolarida);
                 // Mostramos la informacion acerca de la Experiencia como doscente
                 mostrarInfoExperiencia(objLeaderTeacher);
-                System.out.println("------------------------------------");
                 botonActualizarInfoPersonal.setEnabled(true);
                 botonActualizarInfoProfesional.setEnabled(true);
                 botonActualizarExperiencia.setEnabled(true);
@@ -1954,10 +1953,12 @@ public class Panel_UpdateLT extends javax.swing.JPanel {
         inputCorreo.setText(objLeaderTeacher.getCorreo());
         inputCelular.setText(objLeaderTeacher.getCelular());
         inputDireccion.setText(objLeaderTeacher.getDireccion());
-        if (objLeaderTeacher.getSexo().equalsIgnoreCase("Masculino")) {
-            radioButtonMasculino.setSelected(true);
-        } else if (objLeaderTeacher.getSexo().equalsIgnoreCase("Femenino")) {
-            radioButtonFemenino.setSelected(true);
+        if (objLeaderTeacher.getSexo() != null) {
+            if (objLeaderTeacher.getSexo().equalsIgnoreCase("Masculino")) {
+                radioButtonMasculino.setSelected(true);
+            } else if (objLeaderTeacher.getSexo().equalsIgnoreCase("Femenino")) {
+                radioButtonFemenino.setSelected(true);
+            }
         }
         inputFecNacimiento.setDate(objLeaderTeacher.getFechanacimiento());
     } // Fin del metodo mostrarInfoPersonal
