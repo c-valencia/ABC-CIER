@@ -12,6 +12,7 @@ import Controllers.ControladorTablas;
 import Logica.Aspirante;
 
 import Logica.Curso;
+import Persistencia.Conexion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -86,6 +87,7 @@ public class PanelCohorte extends javax.swing.JPanel {
         jButtonBuscarAspirantes = new javax.swing.JButton();
         jComboBoxPCMZona = new javax.swing.JComboBox();
         jComboBoxPCMArea = new javax.swing.JComboBox();
+        jButtonEliminarLt = new javax.swing.JButton();
         jDialogAspirantes = new javax.swing.JDialog();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableAspiratesBD = new javax.swing.JTable();
@@ -275,7 +277,7 @@ public class PanelCohorte extends javax.swing.JPanel {
 
         jButtonGuardarMatricula.setText("GUARDAR");
 
-        jButtonFinalizarMatricula.setText("SIGUIENTE >>");
+        jButtonFinalizarMatricula.setText("FINALIZAR");
 
         jScrollPane2.setBackground(new java.awt.Color(245, 245, 245));
         jScrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -285,14 +287,14 @@ public class PanelCohorte extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cedula", "Nombres", "Apellidos", "Email", "Area"
+                "Cedula", "Nombres", "Apellidos", "Email", "Codigo", "Area"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -311,7 +313,8 @@ public class PanelCohorte extends javax.swing.JPanel {
             jTableLeaderTeacher.getColumnModel().getColumn(2).setResizable(false);
             jTableLeaderTeacher.getColumnModel().getColumn(3).setResizable(false);
             jTableLeaderTeacher.getColumnModel().getColumn(4).setResizable(false);
-            jTableLeaderTeacher.getColumnModel().getColumn(4).setPreferredWidth(100);
+            jTableLeaderTeacher.getColumnModel().getColumn(5).setResizable(false);
+            jTableLeaderTeacher.getColumnModel().getColumn(5).setPreferredWidth(100);
         }
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));
@@ -374,6 +377,8 @@ public class PanelCohorte extends javax.swing.JPanel {
                         .addGap(50, 50, 50))))
         );
 
+        jButtonEliminarLt.setText("ELIMINAR");
+
         javax.swing.GroupLayout jPanelCrearMatriculaLayout = new javax.swing.GroupLayout(jPanelCrearMatricula);
         jPanelCrearMatricula.setLayout(jPanelCrearMatriculaLayout);
         jPanelCrearMatriculaLayout.setHorizontalGroup(
@@ -384,7 +389,9 @@ public class PanelCohorte extends javax.swing.JPanel {
                     .addComponent(jScrollPane2)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelCrearMatriculaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jButtonEliminarLt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonGuardarMatricula)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonFinalizarMatricula)))
@@ -399,7 +406,8 @@ public class PanelCohorte extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCrearMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonFinalizarMatricula)
-                    .addComponent(jButtonGuardarMatricula))
+                    .addComponent(jButtonGuardarMatricula)
+                    .addComponent(jButtonEliminarLt))
                 .addContainerGap())
         );
 
@@ -501,6 +509,7 @@ public class PanelCohorte extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscarAspirantes;
+    private javax.swing.JButton jButtonEliminarLt;
     private javax.swing.JButton jButtonFinalizarMatricula;
     private javax.swing.JButton jButtonGuardarCohorte;
     private javax.swing.JButton jButtonGuardarCursoSeleccionado;
@@ -545,6 +554,7 @@ public class PanelCohorte extends javax.swing.JPanel {
     private Vector <Logica.Curso> listadoCursos;
     private Vector <Logica.Curso> cursosSelect;
     private Vector <Aspirante> listaAspirantes;
+    private Vector<Aspirante> listadoLT;
     private String cohorte;
     private Date fechafin;
     private Date fechaInicio;
@@ -560,6 +570,8 @@ public class PanelCohorte extends javax.swing.JPanel {
         jButtonSiguienteCohorte.setEnabled(false);
         jButtonSiguienteEnPCurso.setEnabled(false);
         jButtonGuardarCursoSeleccionado.setEnabled(false);
+        jButtonGuardarMatricula.setEnabled(true);
+        jButtonFinalizarMatricula.setEnabled(false);
         
         // seteo de combobox
         jComboBoxPCMZona.addItem("");
@@ -605,6 +617,8 @@ public class PanelCohorte extends javax.swing.JPanel {
         jButtonListarCursos.addActionListener(events);
         jButtonGuardarCursoSeleccionado.addActionListener(events);
         jButtonSeleccionarAspirante.addActionListener(events);
+        jButtonFinalizarMatricula.addActionListener(events);
+        jButtonGuardarMatricula.addActionListener(events);
     } // Fin del metodo asignarEventos
     
     /**
@@ -614,29 +628,26 @@ public class PanelCohorte extends javax.swing.JPanel {
     private void aspirantesSeleccionados(){
         
         TableModel TMAspirante = jTableAspiratesBD.getModel();
+        jTableLeaderTeacher = new JTable();
         DefaultTableModel TMSelecionados = (DefaultTableModel) jTableLeaderTeacher.getModel();
         int fila = TMAspirante.getRowCount();
-        Vector<Aspirante> listado = new Vector();
+        listadoLT = new Vector();
         
-        try{
             for(int i=0; i< fila; i++) { 
                 if(TMAspirante.getValueAt(i, 4).equals(true)){
-                    listado.addElement(listaAspirantes.get(i));
+                    listadoLT.addElement(listaAspirantes.get(i));
                 }
             }
             
-            for (int i = 0; i < listado.size(); i++){
-                TMSelecionados.addRow(new Object[] {listado.get(i).getCedula(), listado.get(i).getNombres(),
-                                                    listado.get(i).getApellidos(), listado.get(i).getCorreo(),
-                                                    listado.get(i).getAreaInscripcion()});
+            for (int i = 0; i < listadoLT.size(); i++){
+                TMSelecionados.addRow(new Object[] {listadoLT.get(i).getCedula(), listadoLT.get(i).getNombres(),
+                                                    listadoLT.get(i).getApellidos(), listadoLT.get(i).getCorreo(),
+                                                    cursosSelect.get(jComboBoxPCMArea.getSelectedIndex()- 1).getIdCurso(),
+                                                    listadoLT.get(i).getAreaInscripcion()});
             }
             
             jDialogAspirantes.setVisible(false);
-        }catch(NullPointerException npe){
-            System.out.println("NullPointerException en " + npe.getMessage());
-        }catch(ArrayIndexOutOfBoundsException aioobe){
-            System.out.println("ArrayIndexOutOfBoundsException en " + aioobe.getMessage());
-        }
+        
     } // fin del metodo AspirantesSeleccionados
     
     /**
@@ -657,7 +668,7 @@ public class PanelCohorte extends javax.swing.JPanel {
         else{
             JOptionPane.showMessageDialog(null, "Error en el guardado, comuniquese con el admin del sistema!");
         }
-        
+        System.out.println("conexion = " + Conexion.cantidadConexiones);
         // informacion que aparecera en el siguiente panel (panelCurso)
         jLabelPACCodCohorte.setText(cohorte);
         jLabelFechaInicio.setText(new Date(fechaInicio.getTime()) + "");
@@ -672,6 +683,22 @@ public class PanelCohorte extends javax.swing.JPanel {
         jDialogAspirantes.pack();
         listarALTs();
     } // fin del metodo crearJDialogs
+    
+    
+    /**
+     * 
+     */
+    private void crearMatricula(){
+        TableModel curso = jTableLeaderTeacher.getModel();
+        for (int i  = 0; i < listadoLT.size(); i++){
+            controlCohorte.ingresarLT(listadoLT.get(i));
+            controlCohorte.ingresarMatricula(cohorte, curso.getValueAt(i, 4).toString(), listadoLT.get(i).getCedula());
+            controlCohorte.modificarAspirante(listadoLT.get(i));
+            controlCohorte.crearUsuario(listadoLT.get(i));
+            System.out.println(" si ingreso");
+        }
+        
+    }
     
     /**
      * muestra todos los cursos que hay habilitados en la bd
@@ -689,13 +716,18 @@ public class PanelCohorte extends javax.swing.JPanel {
                 }
             }
             
-            for (int i = 0; i < cursosSelect.size(); i++) 
-                jComboBoxPCMArea.addItem(cursosSelect.get(i).getNombre()) ;
+            for (int i = 0; i < cursosSelect.size(); i++) {
+                jComboBoxPCMArea.addItem(cursosSelect.get(i).getNombre());
+                controlCohorte.eliminaCursoCohorte(cohorte, cursosSelect.get(i).getIdCurso());
+                controlCohorte.ingresarCursosCohorte(cohorte, cursosSelect.get(i).getIdCurso());
+            }
+            
             jButtonSiguienteEnPCurso.setEnabled(true);
             jButtonGuardarCursoSeleccionado.setEnabled(false);
         }catch(NullPointerException npe){
             System.out.println("NullPointerException cursosSeleccionados");
         }
+        System.out.println("conexion = " + Conexion.cantidadConexiones);
     }// fin del metodo cursosSeleccionados
     
     /**
@@ -712,6 +744,7 @@ public class PanelCohorte extends javax.swing.JPanel {
         jLabelNombreArea.setText(area);
         for (int i = 0; i < listaAspirantes.size(); i++)
             dtm.addRow(new Object[] {listaAspirantes.get(i).getCedula(), listaAspirantes.get(i).getNombres(), listaAspirantes.get(i).getApellidos(), listaAspirantes.get(i).getCorreo(), false});
+        System.out.println("conexion = " + Conexion.cantidadConexiones);
     }// fin del metodo listarALTs
     
     /**
@@ -729,6 +762,58 @@ public class PanelCohorte extends javax.swing.JPanel {
         jButtonGuardarCursoSeleccionado.setEnabled(true);
         jButtonListarCursos.setEnabled(false);
     }// fin del metodo listarCursos
+    
+    /**
+     * 
+     */
+    private void limpiarPanelCohorte(){
+        jDateChooserFechaInicio.setDate(null);
+        jDateChooserFechaFin.setDate(null);
+        jLabelCodCohorte.setText("AUN NO HA GUARDADO");
+        jButtonGuardarCohorte.setEnabled(true);
+        jButtonSiguienteCohorte.setEnabled(false);
+    }
+    
+    /**
+     * 
+     */
+    private void limpiarPanelCursos(){
+        jLabelFechaInicio.setText("");
+        jLabelFechaFin.setText("");
+        jLabelPACCodCohorte.setText("");
+        jButtonListarCursos.setEnabled(true);
+        jButtonGuardarCursoSeleccionado.setEnabled(false);
+        jButtonSiguienteEnPCurso.setEnabled(false);
+        jTableCursos.removeAll();
+    }
+    
+    /**
+     * 
+     */
+    private void limpiarPanelMatricula(){
+        jComboBoxPCMArea.removeAllItems();
+        jTableLeaderTeacher.removeAll();
+        jButtonGuardarMatricula.setEnabled(true);
+        jButtonFinalizarMatricula.setEnabled(false);
+    }
+    
+    /**
+     * 
+     */
+    private void limpiarPanelAspirante(){
+        jLabelNombreArea.setText("");
+        jTableAspiratesBD.removeAll();
+    }
+    
+     /**
+     * 
+     */
+    private void limpiarPanel(){
+        limpiarPanelCohorte();
+        limpiarPanelCursos();
+        limpiarPanelMatricula();
+        limpiarPanelAspirante();
+    }
     
     private class EventosPanelLogin implements ActionListener {
 
@@ -754,6 +839,16 @@ public class PanelCohorte extends javax.swing.JPanel {
             }
             else if (e.getSource() == jButtonSeleccionarAspirante){
                 aspirantesSeleccionados();
+            }
+            else if (e.getSource() == jButtonFinalizarMatricula){
+                limpiarPanel();
+                actualizarPanelPrincipal(jPanelCrearCohorte);
+            }
+            else if (e.getSource() == jButtonGuardarMatricula){
+                crearMatricula();
+            }
+            else if(e.getSource() == jButtonEliminarLt){
+                
             }
         }
     

@@ -17,9 +17,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Persistencia.DaoCurso;
 import Persistencia.DaoFases;
+import Persistencia.DaoHistorialAspirante;
 import Persistencia.DaoMasterTeacher;
 import Persistencia.DaoPractica;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,6 +41,7 @@ public class ControladorAdministrador implements Sujeto {
     private DaoAspirante daoAspirante;
     private Conexion conexion;
     private DaoMasterTeacher daoMasterTeacher;
+    private DaoHistorialAspirante daoHistorialAspirante;
     private static ControladorAdministrador controladorAdministrador;
     private Validaciones validador;
     private ArrayList <String> idNombreCurso;
@@ -53,6 +56,7 @@ public class ControladorAdministrador implements Sujeto {
         daoPractica = new DaoPractica(conexion.getCon());
         daoAspirante = new DaoAspirante(conexion.getCon());
         daoMasterTeacher = new DaoMasterTeacher(conexion.getCon());
+        daoHistorialAspirante = new DaoHistorialAspirante(conexion.getCon());
         idNombreCurso = new ArrayList<String>();
         idNombreFases = new ArrayList<String>();
         validador = new Validaciones();
@@ -119,22 +123,9 @@ public class ControladorAdministrador implements Sujeto {
 
     //
 
-    public String crearAspirante(String cedula, String nombres, String apellidos, String correo, String celular,
-            String direccion, String sedePertenece, String intitucion, String codigoDaneIntitucion,
-            String grado, String secretariaEducacion, String municipio, String departamento,
-            String areaInscripcion, boolean tutorPta, boolean usuarioColombiaAprende, boolean estado) {
-        String result = "";
-        try {
-            Aspirante nuevoAspirante = new Aspirante(cedula, nombres, apellidos, correo, celular, direccion, sedePertenece, intitucion, codigoDaneIntitucion, grado, secretariaEducacion, municipio, departamento, areaInscripcion, tutorPta, usuarioColombiaAprende, estado);
-            daoAspirante.create(nuevoAspirante);
-            result = "1";
-        } // Fin del metodo crearAspirante
-        catch (Exception ex) {
-            Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-            result = "No se realizo la operacion";
-        }
-        return result;
-    }
+    
+    
+    
 
     public String crearEmpleado(String cedula, String nombres, String apellidos, String email,
             String cargo, String direccion, String telefono, boolean estado) {
@@ -294,6 +285,7 @@ public class ControladorAdministrador implements Sujeto {
         return result;
     }
     
+
     public String buscarCurso(String campo, String valor){
         String result = "";
         try{

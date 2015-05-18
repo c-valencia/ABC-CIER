@@ -10,24 +10,22 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import Logica.Curso;
 import Logica.Aspirante;
 import Logica.HistorialAspirante;
 import Logica.HistorialAspirantePK;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author cristian
+ * @author julian
  */
-public class DaoHistorialAspirante implements Serializable {
+public class HistorialAspiranteJpaController implements Serializable {
 
-    public DaoHistorialAspirante(EntityManagerFactory emf) {
+    public HistorialAspiranteJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -35,28 +33,6 @@ public class DaoHistorialAspirante implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-
-
-    
-    public void insertarHistorialaspirante(String cedula ,String IdCurso, Date fecha){
-         EntityManager em = null;
-         //INSERT INTO historial_aspirante VALUES ('1144073144','IC1','Sun May 17 16:02:59 COT 2015', true);
-        try {
-             em = getEntityManager();
-             em.getTransaction().begin();
-             Query query = em.createNativeQuery("INSERT INTO historial_aspirante VALUES ( '" +cedula+ "','"+IdCurso+"','"+fecha+"',"+true+"); ");
-             query.executeUpdate();
-             em.getTransaction().commit();
-        } catch (Exception ex){
-            System.err.print(ex.getMessage());
-        }finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-        
-    }
-    
 
     public void create(HistorialAspirante historialAspirante) throws PreexistingEntityException, Exception {
         if (historialAspirante.getHistorialAspirantePK() == null) {
@@ -68,21 +44,12 @@ public class DaoHistorialAspirante implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Curso curso = historialAspirante.getCurso();
-            if (curso != null) {
-                curso = em.getReference(curso.getClass(), curso.getIdCurso());
-                historialAspirante.setCurso(curso);
-            }
             Aspirante aspirante = historialAspirante.getAspirante();
             if (aspirante != null) {
                 aspirante = em.getReference(aspirante.getClass(), aspirante.getCedula());
                 historialAspirante.setAspirante(aspirante);
             }
             em.persist(historialAspirante);
-            if (curso != null) {
-                curso.getHistorialAspiranteList().add(historialAspirante);
-                curso = em.merge(curso);
-            }
             if (aspirante != null) {
                 aspirante.getHistorialAspiranteCollection().add(historialAspirante);
                 aspirante = em.merge(aspirante);
@@ -108,27 +75,13 @@ public class DaoHistorialAspirante implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             HistorialAspirante persistentHistorialAspirante = em.find(HistorialAspirante.class, historialAspirante.getHistorialAspirantePK());
-            Curso cursoOld = persistentHistorialAspirante.getCurso();
-            Curso cursoNew = historialAspirante.getCurso();
             Aspirante aspiranteOld = persistentHistorialAspirante.getAspirante();
             Aspirante aspiranteNew = historialAspirante.getAspirante();
-            if (cursoNew != null) {
-                cursoNew = em.getReference(cursoNew.getClass(), cursoNew.getIdCurso());
-                historialAspirante.setCurso(cursoNew);
-            }
             if (aspiranteNew != null) {
                 aspiranteNew = em.getReference(aspiranteNew.getClass(), aspiranteNew.getCedula());
                 historialAspirante.setAspirante(aspiranteNew);
             }
             historialAspirante = em.merge(historialAspirante);
-            if (cursoOld != null && !cursoOld.equals(cursoNew)) {
-                cursoOld.getHistorialAspiranteList().remove(historialAspirante);
-                cursoOld = em.merge(cursoOld);
-            }
-            if (cursoNew != null && !cursoNew.equals(cursoOld)) {
-                cursoNew.getHistorialAspiranteList().add(historialAspirante);
-                cursoNew = em.merge(cursoNew);
-            }
             if (aspiranteOld != null && !aspiranteOld.equals(aspiranteNew)) {
                 aspiranteOld.getHistorialAspiranteCollection().remove(historialAspirante);
                 aspiranteOld = em.merge(aspiranteOld);
@@ -165,11 +118,6 @@ public class DaoHistorialAspirante implements Serializable {
                 historialAspirante.getHistorialAspirantePK();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The historialAspirante with id " + id + " no longer exists.", enfe);
-            }
-            Curso curso = historialAspirante.getCurso();
-            if (curso != null) {
-                curso.getHistorialAspiranteList().remove(historialAspirante);
-                curso = em.merge(curso);
             }
             Aspirante aspirante = historialAspirante.getAspirante();
             if (aspirante != null) {

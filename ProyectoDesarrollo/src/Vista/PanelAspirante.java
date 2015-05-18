@@ -8,8 +8,12 @@
 package Vista;
 
 import Controlador.ControladorAdministrador;
+import Controlador.ControladorAspirante;
+import Logica.Curso;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class PanelAspirante extends javax.swing.JPanel {
@@ -24,6 +28,7 @@ public class PanelAspirante extends javax.swing.JPanel {
         // Eventos 
         EventosPanelAspirante events = new EventosPanelAspirante();
         asignarEventos(events);
+        inicializarCombobox ();
     }
 
     /**
@@ -81,6 +86,8 @@ public class PanelAspirante extends javax.swing.JPanel {
         botonRegistrarse = new javax.swing.JButton();
         labelDepartamento = new javax.swing.JLabel();
         inputDepartamento = new javax.swing.JTextField();
+        labelCursoDeseaIncribir = new javax.swing.JLabel();
+        jComboBoxCursos = new javax.swing.JComboBox();
 
         setBackground(new java.awt.Color(245, 245, 245));
         setPreferredSize(new java.awt.Dimension(750, 505));
@@ -196,6 +203,11 @@ public class PanelAspirante extends javax.swing.JPanel {
         labelDepartamento.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         labelDepartamento.setText("Departamento");
 
+        labelCursoDeseaIncribir.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        labelCursoDeseaIncribir.setText("Curso al que se desea inscribir");
+
+        jComboBoxCursos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
@@ -271,7 +283,12 @@ public class PanelAspirante extends javax.swing.JPanel {
                                 .addComponent(inputMunicipio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
                                 .addComponent(inputGrado, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(inputDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(83, Short.MAX_VALUE))))
+                        .addContainerGap(83, Short.MAX_VALUE))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelCursoDeseaIncribir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxCursos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -338,7 +355,7 @@ public class PanelAspirante extends javax.swing.JPanel {
                 .addComponent(radioButtonArea1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radioButtonArea2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radioButtonArea3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -356,7 +373,11 @@ public class PanelAspirante extends javax.swing.JPanel {
                 .addComponent(radioButtonCAprendeNo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radioButtonCAprendeSi)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelCursoDeseaIncribir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxCursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(botonRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -407,12 +428,14 @@ public class PanelAspirante extends javax.swing.JPanel {
     private javax.swing.JTextField inputNombre;
     private javax.swing.JComboBox inputSecEducacion;
     private javax.swing.JTextField inputSede;
+    private javax.swing.JComboBox jComboBoxCursos;
     private javax.swing.JLabel labelApellido;
     private javax.swing.JLabel labelArea;
     private javax.swing.JLabel labelCedula;
     private javax.swing.JLabel labelCelular;
     private javax.swing.JLabel labelColombiaAprende;
     private javax.swing.JLabel labelCorreo;
+    private javax.swing.JLabel labelCursoDeseaIncribir;
     private javax.swing.JLabel labelDane;
     private javax.swing.JLabel labelDepartamento;
     private javax.swing.JLabel labelDireccion;
@@ -439,14 +462,42 @@ public class PanelAspirante extends javax.swing.JPanel {
 
     // Controlador
     private ControladorAdministrador contAdministrador;
+    private ControladorAspirante contladorAspirante;
     
             
     private void asignarEventos(EventosPanelAspirante events){
         botonRegistrarse.addActionListener(events);
     } // Fin del metodo asignarEventos
+    
+    public void inicializarCombobox () {  
+        contAdministrador = ControladorAdministrador.getInstance();
+        ArrayList <String> idNombreCursos = new ArrayList<>();
+        idNombreCursos = contAdministrador.listaCursosIds();
+        jComboBoxCursos.setModel(new javax.swing.DefaultComboBoxModel(new String[] {""}));
+        for (int i = 0; i < idNombreCursos.size(); i++){ 
+            jComboBoxCursos.addItem(idNombreCursos.get(i));
+        }
+        
+    }
+    
+    private String codigoCurso(){
+        String codigoNombre = " ";
+        codigoNombre = (String) jComboBoxCursos.getSelectedItem();
+        String codigoCurso = " ";    
+        int posiSeparador = 0;
+        for(int i =0; i < codigoNombre.length();i++){
+            if(codigoNombre.charAt(i)==' '){
+                posiSeparador = i;
+            }
+        }
+        codigoCurso = codigoNombre.substring(0, posiSeparador);
+        return codigoCurso;
+    }
         
     public void guardarAspirante(){   
         contAdministrador = ControladorAdministrador.getInstance();
+        contladorAspirante= ControladorAspirante.getInstance();
+        
         String cedula = inputCedula.getText();
         String nombres = inputNombre.getText();
         String apellidos = inputApellido.getText();
@@ -464,14 +515,19 @@ public class PanelAspirante extends javax.swing.JPanel {
         boolean tutorPta = obtenerPTA();
         boolean usuarioColombiaAprende = obtenerColombiaAprende();
         boolean estado = true; // REVISAR OJO
-        String result = contAdministrador.crearAspirante(cedula, nombres, apellidos, correo, celular, 
+        String result = contladorAspirante.crearAspirante(cedula, nombres, apellidos, correo, celular, 
                 direccion, sedePertenece, intitucion, codigoDaneIntitucion, grado, 
                 secretariaEducacion, municipio, departamento, areaInscripcion, 
                 tutorPta, usuarioColombiaAprende, estado);
-        if (result.equals("1")) {
-            mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                    "La operacion se realiza exitosamente", "Confirmacion Operacion");
+        JOptionPane.showMessageDialog(null, result);
+        
+        if  (result.equals("Se creo el aspirante con exito")) {
+            java.util.Date fecha = new Date();
+            String result2 = contladorAspirante.crearHistorialAspirante (cedula, codigoCurso(),fecha, estado);
+            JOptionPane.showMessageDialog(null, result2);
         }
+        
+        
     } // Fin de la clase guardarAspirante    
         
     /**

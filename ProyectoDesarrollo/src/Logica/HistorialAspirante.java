@@ -47,6 +47,11 @@ public class HistorialAspirante implements Serializable {
     public HistorialAspirante(String cedulaAs, String idCurso, Date fechaInscripcion) {
         this.historialAspirantePK = new HistorialAspirantePK(cedulaAs, idCurso, fechaInscripcion);
     }
+    
+    public HistorialAspirante(String cedulaAs, String idCurso, Date fechaInscripcion, boolean estado) {
+        this.historialAspirantePK = new HistorialAspirantePK(cedulaAs, idCurso, fechaInscripcion);
+        this.estado = estado;
+    }
 
     public HistorialAspirantePK getHistorialAspirantePK() {
         return historialAspirantePK;
