@@ -50,6 +50,8 @@ public class ControladorCohorte {
         daoAspirante = new DaoAspirante(conn.getCon());
     }
     
+    
+    
     public List <Curso> buscarCursos(){
         Vector <Curso> listado = new Vector<>();
         System.out.println("esta iniciando...");
@@ -200,5 +202,22 @@ public class ControladorCohorte {
     public boolean modificarCohorte(){
         
         return false;
+    }
+    
+    public ArrayList<Cohorte> listaCohorte () {
+
+        List<Cohorte> listaCohorte = daoCohorte.findCohorteEntities();
+        ArrayList<Cohorte> cohorte = new ArrayList<>();
+
+        if (listaCohorte.size() != 0) {
+
+            for (int i = 0; i < listaCohorte.size(); i++) {
+                cohorte.add(listaCohorte.get(i));
+            }
+        } else {
+
+            cohorte = null;
+        }
+        return cohorte;
     }
 }
