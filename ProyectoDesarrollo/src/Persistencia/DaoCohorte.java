@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  * Nombre del Archivo: DaoCohorte.java
@@ -239,8 +240,11 @@ public class DaoCohorte implements Serializable {
             Query query = em.createNativeQuery("SELECT * FROM cohorte  WHERE  fecha_inicio = '" + new Date(cohorte.getFechaInicio().getTime()) + "' AND fecha_fin ='" + new Date(cohorte.getFechaFin().getTime()) + "';", Cohorte.class);
             newcohorte = (Cohorte) query.getSingleResult();
             em.getTransaction().commit(); // OSCAR
+            return ((Cohorte) query.getSingleResult());
+        } catch(NoResultException nre){
+            newcohorte.setIdCohorte("");
             return newcohorte;
-        } finally {
+        }finally {
             if (em != null) {
                 em.close();
             }

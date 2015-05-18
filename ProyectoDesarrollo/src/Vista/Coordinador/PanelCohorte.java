@@ -597,13 +597,13 @@ public class PanelCohorte extends javax.swing.JPanel {
      * en el dialog y lo incluye en la tabla del panelMatricula
      */
     private void aspirantesSeleccionados(){
-        //jTableAspiratesBD = new JTable();
         TableModel TMAspirante = jTableAspiratesBD.getModel();
         
         DefaultTableModel TMSelecionados = (DefaultTableModel) jTableLeaderTeacher.getModel();
         int fila = TMAspirante.getRowCount();
         listadoLT = new Vector();
         
+        if(0 == JOptionPane.showConfirmDialog(null, "¿Esta seguro que estos son los aspirantes que va a seleccionar?")){
             for(int i=0; i< fila; i++) { 
                 if(TMAspirante.getValueAt(i, 4).equals(true)){
                     listadoLT.addElement(listaAspirantes.get(i));
@@ -619,7 +619,7 @@ public class PanelCohorte extends javax.swing.JPanel {
             }
             
             jDialogAspirantes.setVisible(false);
-        
+        }
     } // fin del metodo AspirantesSeleccionados
     
     /**
@@ -628,16 +628,15 @@ public class PanelCohorte extends javax.swing.JPanel {
     private void crearCohorte(){
         fechaInicio = jDateChooserFechaInicio.getDate();
         fechafin = jDateChooserFechaFin.getDate();
-        String estado = "";
-        Date inicio = controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getFechaInicio();
-        Date fin = controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getFechaFin();
+        String estado = "Las fechas ya existen para una cohorte, intente con otras fechas";
+        String idcohorte = controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getIdCohorte();
         
-        if(inicio == fechaInicio && fin == fechafin){
+        if( idcohorte.equals("")){
             estado = controlCohorte.ingresarCohorte(fechaInicio ,fechafin); 
             cohorte= controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getIdCohorte();
         }
         if (estado.equals("Guardado exitoso")){
-            JOptionPane.showMessageDialog(null, "Guardada la cohorte exitosamente en la base de datos");
+            JOptionPane.showMessageDialog(null, estado + " en la base de datos");
             jLabelCodCohorte.setText(cohorte);
             jButtonSiguienteCohorte.setEnabled(true);
             jButtonGuardarCohorte.setEnabled(false);
@@ -667,16 +666,19 @@ public class PanelCohorte extends javax.swing.JPanel {
      */
     private void crearMatricula(){
         TableModel curso = jTableLeaderTeacher.getModel();
-        for (int i  = 0; i < listadoLT.size(); i++){
-            controlCohorte.ingresarLT(listadoLT.get(i));
-            controlCohorte.ingresarMatricula(cohorte, curso.getValueAt(i, 4).toString(), listadoLT.get(i).getCedula());
-            controlCohorte.modificarAspirante(listadoLT.get(i));
-            controlCohorte.crearUsuario(listadoLT.get(i));
-            System.out.println(" si ingreso");
+        if(0 == JOptionPane.showConfirmDialog(null, "¿Esta seguro que quiere matricular solo a estos Aspirantes?")){
+            JOptionPane.showMessageDialog(null, "Espere un momento esta guardando en la base de datos!");
+            for (int i  = 0; i < listadoLT.size(); i++){
+                controlCohorte.ingresarLT(listadoLT.get(i));
+                controlCohorte.ingresarMatricula(cohorte, curso.getValueAt(i, 4).toString(), listadoLT.get(i).getCedula());
+                controlCohorte.modificarAspirante(listadoLT.get(i));
+                controlCohorte.crearUsuario(listadoLT.get(i));
+                System.out.println(" si ingreso");
+            }
+
+            jButtonGuardarMatricula.setEnabled(false);
+            jButtonFinalizarMatricula.setEnabled(true);
         }
-        
-        jButtonGuardarMatricula.setEnabled(false);
-        jButtonFinalizarMatricula.setEnabled(true);
     }
     
     /**
@@ -689,20 +691,26 @@ public class PanelCohorte extends javax.swing.JPanel {
         try{
             jComboBoxPCMArea.removeAllItems();
             jComboBoxPCMArea.addItem("");
-            for (int i = 0; i < listadoCursos.size(); i++){
-                if(dtm.getValueAt(i, 2).equals(true)){
-                    cursosSelect.add(listadoCursos.get(i));
+            
+            if(0 == JOptionPane.showConfirmDialog(null, "¿Esta seguro de guardar los cursos? Por ahora no podra hacer cambios")){
+                
+                JOptionPane.showMessageDialog(null, "Guardando en la base de datos!");
+                
+                for (int i = 0; i < listadoCursos.size(); i++){
+                    if(dtm.getValueAt(i, 2).equals(true)){
+                        cursosSelect.add(listadoCursos.get(i));
+                    }
                 }
+
+                for (int i = 0; i < cursosSelect.size(); i++) {
+                    jComboBoxPCMArea.addItem(cursosSelect.get(i).getNombre());
+    //                controlCohorte.eliminaCursoCohorte(cohorte, cursosSelect.get(i).getIdCurso());
+                    controlCohorte.ingresarCursosCohorte(cohorte, cursosSelect.get(i).getIdCurso());
+                }
+                
+                jButtonSiguienteEnPCurso.setEnabled(true);
+                jButtonGuardarCursoSeleccionado.setEnabled(false);
             }
-            
-            for (int i = 0; i < cursosSelect.size(); i++) {
-                jComboBoxPCMArea.addItem(cursosSelect.get(i).getNombre());
-//                controlCohorte.eliminaCursoCohorte(cohorte, cursosSelect.get(i).getIdCurso());
-                controlCohorte.ingresarCursosCohorte(cohorte, cursosSelect.get(i).getIdCurso());
-            }
-            
-            jButtonSiguienteEnPCurso.setEnabled(true);
-            jButtonGuardarCursoSeleccionado.setEnabled(false);
         }catch(NullPointerException npe){
             System.out.println("NullPointerException cursosSeleccionados");
         }
@@ -723,13 +731,6 @@ public class PanelCohorte extends javax.swing.JPanel {
         
         DefaultTableModel modelo = new DefaultTableModel(ct.contruirCuerpo(2), ct.titulos(2));
         jTableAspiratesBD.setModel(modelo);
-        
-        for(int i = 0; i < listaAspirantes.size(); i++){
-            jTableAspiratesBD.isCellEditable(i, 0);
-            jTableAspiratesBD.isCellEditable(i, 1);
-            jTableAspiratesBD.isCellEditable(i, 2);
-            jTableAspiratesBD.isCellEditable(i, 3);
-        }
         
         jTableAspiratesBD.getColumnModel().getColumn(4).setCellEditor(jTableAspiratesBD.getDefaultEditor(Boolean.class));
         jTableAspiratesBD.getColumnModel().getColumn(4).setCellRenderer(jTableAspiratesBD.getDefaultRenderer(Boolean.class));
