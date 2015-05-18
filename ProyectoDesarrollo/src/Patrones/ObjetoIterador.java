@@ -16,5 +16,5 @@ import java.util.Vector;
  */
 public interface ObjetoIterador {
     public boolean hasNext();
-     public Vector next();
+     public Object next();
 }

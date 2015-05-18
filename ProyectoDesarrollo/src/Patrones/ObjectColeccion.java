@@ -18,7 +18,7 @@ public class ObjectColeccion implements TablaColeccion{
 
     Vector datos;
     
-    public ObjectColeccion(Vector datos){
+    public ObjectColeccion(Vector  datos){
         this.datos=datos;
         
     }
@@ -39,9 +39,9 @@ public class ObjectColeccion implements TablaColeccion{
         }
 
         @Override
-        public Vector next() {
+        public Object next() {
              System.out.print("se agrego al objeto iterador");
-            return (Vector) datos.get(index++);
+            return (Object) datos.get(index++);
             
         }
         

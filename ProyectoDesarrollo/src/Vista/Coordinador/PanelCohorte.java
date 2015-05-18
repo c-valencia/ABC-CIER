@@ -8,7 +8,7 @@
 package Vista.Coordinador;
 
 import Controlador.ControladorCohorte;
-import Controllers.ControladorTablas;
+import Controlador.ControladorTablas;
 import Logica.Aspirante;
 
 import Logica.Curso;
@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 /**
@@ -87,7 +88,6 @@ public class PanelCohorte extends javax.swing.JPanel {
         jButtonBuscarAspirantes = new javax.swing.JButton();
         jComboBoxPCMZona = new javax.swing.JComboBox();
         jComboBoxPCMArea = new javax.swing.JComboBox();
-        jButtonEliminarLt = new javax.swing.JButton();
         jDialogAspirantes = new javax.swing.JDialog();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableAspiratesBD = new javax.swing.JTable();
@@ -377,8 +377,6 @@ public class PanelCohorte extends javax.swing.JPanel {
                         .addGap(50, 50, 50))))
         );
 
-        jButtonEliminarLt.setText("ELIMINAR");
-
         javax.swing.GroupLayout jPanelCrearMatriculaLayout = new javax.swing.GroupLayout(jPanelCrearMatricula);
         jPanelCrearMatricula.setLayout(jPanelCrearMatriculaLayout);
         jPanelCrearMatriculaLayout.setHorizontalGroup(
@@ -389,9 +387,7 @@ public class PanelCohorte extends javax.swing.JPanel {
                     .addComponent(jScrollPane2)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelCrearMatriculaLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jButtonEliminarLt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(33, 516, Short.MAX_VALUE)
                         .addComponent(jButtonGuardarMatricula)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonFinalizarMatricula)))
@@ -406,8 +402,7 @@ public class PanelCohorte extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCrearMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonFinalizarMatricula)
-                    .addComponent(jButtonGuardarMatricula)
-                    .addComponent(jButtonEliminarLt))
+                    .addComponent(jButtonGuardarMatricula))
                 .addContainerGap())
         );
 
@@ -419,33 +414,10 @@ public class PanelCohorte extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cedula", "Nombres", "Apellidos", "Email", "SI/NO"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane3.setViewportView(jTableAspiratesBD);
-        if (jTableAspiratesBD.getColumnModel().getColumnCount() > 0) {
-            jTableAspiratesBD.getColumnModel().getColumn(0).setMinWidth(80);
-            jTableAspiratesBD.getColumnModel().getColumn(0).setPreferredWidth(80);
-            jTableAspiratesBD.getColumnModel().getColumn(0).setMaxWidth(80);
-            jTableAspiratesBD.getColumnModel().getColumn(4).setMinWidth(80);
-            jTableAspiratesBD.getColumnModel().getColumn(4).setPreferredWidth(80);
-            jTableAspiratesBD.getColumnModel().getColumn(4).setMaxWidth(80);
-        }
 
         jLabel10.setText("Listado de estudiante del area");
 
@@ -509,7 +481,6 @@ public class PanelCohorte extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscarAspirantes;
-    private javax.swing.JButton jButtonEliminarLt;
     private javax.swing.JButton jButtonFinalizarMatricula;
     private javax.swing.JButton jButtonGuardarCohorte;
     private javax.swing.JButton jButtonGuardarCursoSeleccionado;
@@ -626,9 +597,9 @@ public class PanelCohorte extends javax.swing.JPanel {
      * en el dialog y lo incluye en la tabla del panelMatricula
      */
     private void aspirantesSeleccionados(){
-        
+        //jTableAspiratesBD = new JTable();
         TableModel TMAspirante = jTableAspiratesBD.getModel();
-        jTableLeaderTeacher = new JTable();
+        
         DefaultTableModel TMSelecionados = (DefaultTableModel) jTableLeaderTeacher.getModel();
         int fila = TMAspirante.getRowCount();
         listadoLT = new Vector();
@@ -640,10 +611,11 @@ public class PanelCohorte extends javax.swing.JPanel {
             }
             
             for (int i = 0; i < listadoLT.size(); i++){
+                
                 TMSelecionados.addRow(new Object[] {listadoLT.get(i).getCedula(), listadoLT.get(i).getNombres(),
                                                     listadoLT.get(i).getApellidos(), listadoLT.get(i).getCorreo(),
                                                     cursosSelect.get(jComboBoxPCMArea.getSelectedIndex()- 1).getIdCurso(),
-                                                    listadoLT.get(i).getAreaInscripcion()});
+                                                    cursosSelect.get(jComboBoxPCMArea.getSelectedIndex()- 1).getNombre()});
             }
             
             jDialogAspirantes.setVisible(false);
@@ -698,6 +670,8 @@ public class PanelCohorte extends javax.swing.JPanel {
             System.out.println(" si ingreso");
         }
         
+        jButtonGuardarMatricula.setEnabled(false);
+        jButtonFinalizarMatricula.setEnabled(true);
     }
     
     /**
@@ -734,17 +708,34 @@ public class PanelCohorte extends javax.swing.JPanel {
      * muestra la lista de los leader teacher que estan habilitados en la bd
      */
     private void listarALTs(){
-        String area = jComboBoxPCMArea.getSelectedItem().toString();
+        String area = cursosSelect.get(jComboBoxPCMArea.getSelectedIndex() - 1).getIdCurso();
         String dep = jComboBoxPCMZona.getSelectedItem().toString();
-        DefaultTableModel dtm = (DefaultTableModel) jTableAspiratesBD.getModel();
-        
+        jLabelNombreArea.setText(cursosSelect.get(jComboBoxPCMArea.getSelectedIndex() - 1).getNombre());
         listaAspirantes = new Vector<>();
         listaAspirantes = controlCohorte.listarAspirantes(area, dep);
         
-        jLabelNombreArea.setText(area);
-        for (int i = 0; i < listaAspirantes.size(); i++)
-            dtm.addRow(new Object[] {listaAspirantes.get(i).getCedula(), listaAspirantes.get(i).getNombres(), listaAspirantes.get(i).getApellidos(), listaAspirantes.get(i).getCorreo(), false});
-        System.out.println("conexion = " + Conexion.cantidadConexiones);
+        ControladorTablas ct = new ControladorTablas(listaAspirantes);
+        
+        DefaultTableModel modelo = new DefaultTableModel(ct.contruirCuerpo(2), ct.titulos(2));
+        jTableAspiratesBD.setModel(modelo);
+        
+        for(int i = 0; i < listaAspirantes.size(); i++){
+            jTableAspiratesBD.isCellEditable(i, 0);
+            jTableAspiratesBD.isCellEditable(i, 1);
+            jTableAspiratesBD.isCellEditable(i, 2);
+            jTableAspiratesBD.isCellEditable(i, 3);
+        }
+        
+        jTableAspiratesBD.getColumnModel().getColumn(4).setCellEditor(jTableAspiratesBD.getDefaultEditor(Boolean.class));
+        jTableAspiratesBD.getColumnModel().getColumn(4).setCellRenderer(jTableAspiratesBD.getDefaultRenderer(Boolean.class));
+        jTableAspiratesBD.getTableHeader().setReorderingAllowed(false);
+        
+        for(int i = 0; i < listaAspirantes.size(); i++){
+            jTableAspiratesBD.isCellEditable(i, 0);
+            jTableAspiratesBD.isCellEditable(i, 1);
+            jTableAspiratesBD.isCellEditable(i, 2);
+            jTableAspiratesBD.isCellEditable(i, 3);
+        }
     }// fin del metodo listarALTs
     
     /**
@@ -846,9 +837,6 @@ public class PanelCohorte extends javax.swing.JPanel {
             }
             else if (e.getSource() == jButtonGuardarMatricula){
                 crearMatricula();
-            }
-            else if(e.getSource() == jButtonEliminarLt){
-                
             }
         }
     
