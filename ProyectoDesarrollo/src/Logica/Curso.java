@@ -35,6 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Curso.findByContenido", query = "SELECT c FROM Curso c WHERE c.contenido = :contenido"),
     @NamedQuery(name = "Curso.findByEstado", query = "SELECT c FROM Curso c WHERE c.estado = :estado")})
 public class Curso implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curso")
+    private List<HistorialAspirante> historialAspiranteList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -182,6 +184,14 @@ public class Curso implements Serializable {
     @Override
     public String toString() {
         return "Logica.Curso[ idCurso=" + idCurso + " ]";
+    }
+
+    public List<HistorialAspirante> getHistorialAspiranteList() {
+        return historialAspiranteList;
+    }
+
+    public void setHistorialAspiranteList(List<HistorialAspirante> historialAspiranteList) {
+        this.historialAspiranteList = historialAspiranteList;
     }
 
 } // Fin de la clase Curso

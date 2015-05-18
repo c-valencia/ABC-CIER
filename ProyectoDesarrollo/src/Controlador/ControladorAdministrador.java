@@ -8,6 +8,8 @@ import Excepciones.ExcepcionDatos;
 import Excepciones.Validaciones;
 import Logica.Curso;
 import Logica.*;
+import Patrones.Observador;
+import Patrones.Sujeto;
 import Persistencia.Conexion;
 import Persistencia.DaoAspirante;
 import Persistencia.DaoEmpleado;
@@ -24,7 +26,11 @@ import java.util.List;
  *
  * @author Julian
  */
-public class ControladorAdministrador {
+public class ControladorAdministrador implements Sujeto {
+    
+    //patron observador
+    private ArrayList listObservadores;
+    
 
     private DaoEmpleado daoEmpleado;
     private DaoCurso daoCurso;
@@ -36,9 +42,10 @@ public class ControladorAdministrador {
     private static ControladorAdministrador controladorAdministrador;
     private Validaciones validador;
     private ArrayList <String> idNombreCurso;
-    ArrayList <String> idNombreFases;
+    private ArrayList <String> idNombreFases;
+    private Curso curso;
 
-    private ControladorAdministrador() {
+    public ControladorAdministrador() {
         conexion = Conexion.getInstance();
         daoEmpleado = new DaoEmpleado(conexion.getCon());
         daoCurso = new DaoCurso(conexion.getCon());
@@ -47,7 +54,14 @@ public class ControladorAdministrador {
         daoAspirante = new DaoAspirante(conexion.getCon());
         daoMasterTeacher = new DaoMasterTeacher(conexion.getCon());
         idNombreCurso = new ArrayList<String>();
+        idNombreFases = new ArrayList<String>();
+        validador = new Validaciones();
+        curso = new Curso();
+        //patron observador, lista de observador
+        listObservadores = new ArrayList();
     }
+    
+   
 
     public static ControladorAdministrador getInstance() {
         if (controladorAdministrador == null) {
@@ -262,6 +276,9 @@ public class ControladorAdministrador {
             curso.setContenido(contenido);
             curso.setEstado(estado);
             daoCurso.insertarCurso(curso);
+            //notificar();
+
+            
             result = "Se ingreso un curso con éxito";
         } catch (ExcepcionDatos ex) {
             result = ex.getMessage();
@@ -276,6 +293,22 @@ public class ControladorAdministrador {
 
         return result;
     }
+    
+    public String buscarCurso(String campo, String valor){
+        String result = "";
+        try{
+            validador.validarCamposVacios(valor);
+            validador.validarStringNull(campo,"Campos curso");
+            Curso curso = daoCurso.buscarCurso(campo, valor);
+             this.curso = curso;
+             result = "El curso fue encontrado";
+        }catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }
+        return result;
+    }
+    
+    
 
     public ArrayList<String> getIdNombreCurso() {
         return idNombreCurso;
@@ -290,7 +323,7 @@ public class ControladorAdministrador {
         try {
             List<Curso> cursos = daoCurso.findCursoEntities();
             System.out.print("el tamaño de la lista es "+cursos.size());
-           validador.validarColeccion(cursos, "curso");
+            validador.validarColeccion(cursos, "curso");
             result = "Se listaron los cursos con exito";
             idNombreCurso = new ArrayList<String>();
             for (int i = 0; i < cursos.size(); i++) {
@@ -386,4 +419,29 @@ public class ControladorAdministrador {
         }
         return result;
     }
+    
+    
+
+    @Override
+    public void adscribir(Observador objObservador) {        
+        listObservadores.add(objObservador);
+        System.out.println("Adscribir->" + listObservadores.size());
+        //notificar();
+    }
+
+    @Override
+    public void quitar(Observador objObservador) {
+        listObservadores.remove(objObservador);
+    }
+
+    @Override
+    public void notificar() {
+        System.out.print("\nme actualice la cantida de observadores son "+listObservadores.size());
+        for (int x = 0; x < listObservadores.size(); x++) {
+            Observador objObservador = (Observador) listObservadores.get(x);
+         
+            objObservador.actualizar(this);
+        }
+    }
+    
 }

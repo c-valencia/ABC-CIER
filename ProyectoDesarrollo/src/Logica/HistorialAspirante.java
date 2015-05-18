@@ -7,6 +7,7 @@ package Logica;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -14,30 +15,27 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author ubuntu
+ * @author cristian
  */
 @Entity
 @Table(name = "historial_aspirante")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "HistorialAspirante.findAll", query = "SELECT h FROM HistorialAspirante h"),
-    @NamedQuery(name = "HistorialAspirante.findByCedulaAs", query = "SELECT h FROM HistorialAspirante h WHERE h.historialAspirantePK.cedulaAs = :cedulaAs"),
-    @NamedQuery(name = "HistorialAspirante.findByIdCurso", query = "SELECT h FROM HistorialAspirante h WHERE h.historialAspirantePK.idCurso = :idCurso"),
-    @NamedQuery(name = "HistorialAspirante.findByFechaInscripcion", query = "SELECT h FROM HistorialAspirante h WHERE h.historialAspirantePK.fechaInscripcion = :fechaInscripcion")})
+    @NamedQuery(name = "HistorialAspirante.findAll", query = "SELECT h FROM HistorialAspirante h")})
 public class HistorialAspirante implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected HistorialAspirantePK historialAspirantePK;
-    @JoinColumn(name = "cedula_as", referencedColumnName = "cedula", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Aspirante aspirante;
+    @Column(name = "estado")
+    private Boolean estado;
     @JoinColumn(name = "id_curso", referencedColumnName = "id_curso", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Curso curso;
+    @JoinColumn(name = "cedula_as", referencedColumnName = "cedula", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Aspirante aspirante;
 
     public HistorialAspirante() {
     }
@@ -58,12 +56,12 @@ public class HistorialAspirante implements Serializable {
         this.historialAspirantePK = historialAspirantePK;
     }
 
-    public Aspirante getAspirante() {
-        return aspirante;
+    public Boolean getEstado() {
+        return estado;
     }
 
-    public void setAspirante(Aspirante aspirante) {
-        this.aspirante = aspirante;
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
     public Curso getCurso() {
@@ -72,6 +70,14 @@ public class HistorialAspirante implements Serializable {
 
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+
+    public Aspirante getAspirante() {
+        return aspirante;
+    }
+
+    public void setAspirante(Aspirante aspirante) {
+        this.aspirante = aspirante;
     }
 
     @Override

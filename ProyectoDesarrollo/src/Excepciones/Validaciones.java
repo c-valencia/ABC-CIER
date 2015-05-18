@@ -1,5 +1,6 @@
 package Excepciones;
 
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -45,8 +46,28 @@ public class Validaciones {
    }
     
    public  void validarColeccion(List array, String  tipo) throws ExcepcionDatos {
-    if(array.isEmpty()){
+    if(array == null){
             throw new ExcepcionDatos("No se encuentran "+tipo+" registrados en la base de datos");
        }
-   }         
+   } 
+   
+    public static  void validarObjeto(Object object, String  tipo) throws ExcepcionDatos {
+    if(object == null){
+            throw new ExcepcionDatos("El "+tipo+"  no se encuentra registrados en la base de datos");
+       }
+    } 
+   
+    public static  void validarStringNull(String campo, String  tipo) throws ExcepcionDatos {
+    if(campo == null){
+            throw new ExcepcionDatos("El campo "+tipo+"  no se ha selecccionado");
+       }
+    } 
+    
+    public static void validarFechas(Date fechaFinal, Date fechaInicial){
+        if (fechaFinal.before(fechaInicial)){
+            throw new ExcepcionDatos("El fecha final debe ser mayor a la fecha incial");
+        }
+        
+    }
+   
 } // Fin de la clase Validaciones

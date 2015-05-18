@@ -7,6 +7,7 @@
  */
 package Vista.Administrador;
 
+import Controlador.ControladorAdministrador;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -24,13 +25,14 @@ import javax.swing.JPanel;
  * Representa un Producto Concreto
  */
 public class PanelAdministrador extends javax.swing.JPanel {
-
+    private ControladorAdministrador controladorAdministrador;
     /**
      * Creates new form PanelPrincipal
      */
     public PanelAdministrador() {
         initComponents();       
         addMenu();
+        
         // Componentes
         inicializarPaneles();
         // Eventos
@@ -81,6 +83,7 @@ public class PanelAdministrador extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     // PANELES 
     PanelCursoCrear panelCurso;
+    PanelCursoUpdate panelCursoUpdate;
     PanelCrearCoordinador pCrearCoordinador;    
     PanelBuscarCoordinador pbuscarCoordinador;
     PanelCrearMasterTeacher pCrearMasterTeacher;
@@ -109,7 +112,7 @@ public class PanelAdministrador extends javax.swing.JPanel {
     private JMenuItem itemEliminarCur; // Curso  
 
     public void inicializarPaneles() {
-        panelCurso = new PanelCursoCrear();
+        
         pCrearCoordinador = new PanelCrearCoordinador();
         pbuscarCoordinador = new PanelBuscarCoordinador();
         pCrearMasterTeacher = new PanelCrearMasterTeacher();
@@ -253,11 +256,25 @@ public class PanelAdministrador extends javax.swing.JPanel {
             }
             // Menu Cursos
             if (e.getSource() == itemCrearCur) {    
+                panelCurso = new PanelCursoCrear(ControladorAdministrador.getInstance());
                 actualizarPaneDer(panelCurso);
+                
             }
-            if (e.getSource() == itemModificarCur) {            
+            if (e.getSource() == itemModificarCur) {  
+                controladorAdministrador = new ControladorAdministrador();
+                panelCurso = new PanelCursoCrear(controladorAdministrador);
+                controladorAdministrador = panelCurso.getControladorAdministrador();
+                controladorAdministrador.listaCursoCodigos();
+                panelCursoUpdate = new PanelCursoUpdate(controladorAdministrador);
+                //System.out.print("El tamaño de los items es de "+panelCursoUpdate.getIdNombreCurso().size()+"\n");
+               
+                controladorAdministrador.adscribir(panelCursoUpdate);
+                controladorAdministrador.notificar();
+                actualizarPaneDer(panelCursoUpdate);
+                //panelCursoUpdate.llenarCursos();
             }
-            if (e.getSource() == itemBuscarCur) {            
+            if (e.getSource() == itemBuscarCur) {
+                
             }
             if (e.getSource() == itemEliminarCur) {            
             }                  

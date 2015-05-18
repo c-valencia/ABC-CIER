@@ -57,6 +57,22 @@ public class DaoCurso implements Serializable {
         }
         
     }
+    
+    public Curso buscarCurso(String campo, String valor) {
+        EntityManager em = getEntityManager();
+        Curso curso = null;
+        try {
+            em.getTransaction().begin();
+            Query query = em.createNativeQuery("SELECT * FROM Curso  WHERE  "+campo+"like '%"+valor+"%';", Curso.class);
+            curso = (Curso) query.getSingleResult();
+            //return (Curso) query.getSingleResult();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return curso;
+    }
 
     public void create(Curso curso) throws PreexistingEntityException, Exception {
        
