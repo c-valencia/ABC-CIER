@@ -8,6 +8,7 @@
 package Vista;
 
 import Controlador.ControladorAdministrador;
+import Controlador.ControladorAspirante;
 import Logica.Curso;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -461,6 +462,7 @@ public class PanelAspirante extends javax.swing.JPanel {
 
     // Controlador
     private ControladorAdministrador contAdministrador;
+    private ControladorAspirante contladorAspirante;
     
             
     private void asignarEventos(EventosPanelAspirante events){
@@ -494,6 +496,8 @@ public class PanelAspirante extends javax.swing.JPanel {
         
     public void guardarAspirante(){   
         contAdministrador = ControladorAdministrador.getInstance();
+        contladorAspirante= ControladorAspirante.getInstance();
+        
         String cedula = inputCedula.getText();
         String nombres = inputNombre.getText();
         String apellidos = inputApellido.getText();
@@ -511,15 +515,15 @@ public class PanelAspirante extends javax.swing.JPanel {
         boolean tutorPta = obtenerPTA();
         boolean usuarioColombiaAprende = obtenerColombiaAprende();
         boolean estado = true; // REVISAR OJO
-        String result = contAdministrador.crearAspirante(cedula, nombres, apellidos, correo, celular, 
+        String result = contladorAspirante.crearAspirante(cedula, nombres, apellidos, correo, celular, 
                 direccion, sedePertenece, intitucion, codigoDaneIntitucion, grado, 
                 secretariaEducacion, municipio, departamento, areaInscripcion, 
                 tutorPta, usuarioColombiaAprende, estado);
         JOptionPane.showMessageDialog(null, result);
         
-        if ("Se creo el aspirante con exito".equals("Se creo el aspirante con exito")) {
+        if  (result.equals("Se creo el aspirante con exito")) {
             java.util.Date fecha = new Date();
-            String result2 = contAdministrador.crearHistorialAspirante (cedula, codigoCurso(),fecha, estado);
+            String result2 = contladorAspirante.crearHistorialAspirante (cedula, codigoCurso(),fecha, estado);
             JOptionPane.showMessageDialog(null, result2);
         }
         

@@ -109,53 +109,9 @@ public class ControladorAdministrador {
 
     //
 
-    public String crearAspirante(String cedula, String nombres, String apellidos, String correo, String celular,
-            String direccion, String sedePertenece, String intitucion, String codigoDaneIntitucion,
-            String grado, String secretariaEducacion, String municipio, String departamento,
-            String areaInscripcion, boolean tutorPta, boolean usuarioColombiaAprende, boolean estado) {
-        String result = "";
-        try {
-            validador.validarCamposVacios(cedula, nombres, apellidos, correo,celular,direccion,sedePertenece,intitucion,
-                                          codigoDaneIntitucion,grado,secretariaEducacion,municipio,departamento);
-            Aspirante nuevoAspirante = new Aspirante(cedula, nombres, apellidos, correo, celular, direccion, sedePertenece, intitucion, codigoDaneIntitucion, grado, secretariaEducacion, municipio, departamento, areaInscripcion, tutorPta, usuarioColombiaAprende, estado);
-            daoAspirante.create(nuevoAspirante);
-            result = "Se creo el aspirante con exito";
-        } catch (ExcepcionDatos ex) {
-            result = ex.getMessage();
-
-        } catch (NullPointerException ex) {
-
-            result = "Ingreso un objeto vacio";       
-        } catch (Exception ex) {
-            Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-            result = "No se realizo la operacion";
-        }
-        return result;
-    }
     
-    public String crearHistorialAspirante(String cedulaAs, String idCurso, Date fechaInscripcion, boolean estado) {
-        String result = "";
-        System.out.println ("pasi 1: ");
-        try {
-            validador.validarCamposVacios(cedulaAs, idCurso);
-            System.out.println ("his_asp: " + cedulaAs +" , " + idCurso);
-            HistorialAspirante nuevoHistorialAspirante = new HistorialAspirante(cedulaAs, idCurso, fechaInscripcion);
-            System.out.println ("his_asp: "+ nuevoHistorialAspirante);
-            daoHistorialAspirante.insertarHistorialaspirante(cedulaAs, idCurso, fechaInscripcion);
-            System.out.println ("terminino");
-            result = "Se creo el historial aspirante con exito";
-        } catch (ExcepcionDatos ex) {
-            result = ex.getMessage();
-
-        } catch (NullPointerException ex) {
-
-            result = "Ingreso un objeto vacio";    
-        } catch (Exception ex) {
-            Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-            result = "No se realizo la operacion";
-        }
-        return result;
-    }
+    
+    
 
     public String crearEmpleado(String cedula, String nombres, String apellidos, String email,
             String cargo, String direccion, String telefono, boolean estado) {
