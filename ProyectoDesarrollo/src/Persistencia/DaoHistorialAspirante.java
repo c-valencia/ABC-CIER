@@ -36,6 +36,7 @@ public class DaoHistorialAspirante implements Serializable {
         return emf.createEntityManager();
     }
 
+
     
     public void insertarHistorialaspirante(HistorialAspirante historialAspirante) throws PreexistingEntityException, Exception{
 //String cedula ,String IdCurso, Date fecha        
@@ -65,6 +66,7 @@ public class DaoHistorialAspirante implements Serializable {
         
     }
     
+
     public void create(HistorialAspirante historialAspirante) throws PreexistingEntityException, Exception {
         if (historialAspirante.getHistorialAspirantePK() == null) {
             historialAspirante.setHistorialAspirantePK(new HistorialAspirantePK());

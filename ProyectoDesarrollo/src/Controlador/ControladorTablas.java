@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package Controlador;
 
 import java.util.Vector;
 import Patrones.*;
@@ -59,7 +59,11 @@ public class ControladorTablas {
                
             };break;
             case 2 : {
-               
+                titulo.add("Documento");
+                titulo.add("Nombres");
+                titulo.add("Apellidos");
+                titulo.add("Correo");
+                titulo.add("SI/NO");
             };break;
             case 3 : {
                 
@@ -76,14 +80,35 @@ public class ControladorTablas {
     * descompone la coleccion que llego por medio de un iterador y luego lo pasa a una matriz que es el cuerpo de la tabla
     */ 
     
-    public Vector contruirCuerpo(){
+    public Vector contruirCuerpo(int obj){
+        ObjetoIterador libroIterator = iterador.iterator();
         
-       ObjetoIterador libroIterator = iterador.iterator();
-        System.out.print("se agrego al objeto");
-        while (libroIterator.hasNext()) {
-            Object objeto = libroIterator.next();
-           
-            cuerpo.add(objeto);
+        switch(obj){
+            case 1:
+                System.out.print("se agrego al objeto");
+                while (libroIterator.hasNext()) {
+                    Object objeto = libroIterator.next();
+
+                    cuerpo.add(objeto);
+                }
+                
+            case 2:
+                int i = 0;
+                while (libroIterator.hasNext()) {
+                    Aspirante objeto = (Aspirante) libroIterator.next();
+                    //Object objeto = libroIterator.next();
+                    Vector objetos = new Vector();
+                    
+                    objetos.add(objeto.getCedula());
+                    objetos.add(objeto.getNombres());
+                    objetos.add(objeto.getApellidos());
+                    objetos.add(objeto.getCorreo());
+                    objetos.add(false);
+                    cuerpo.add(objetos);
+                    System.out.println(cuerpo.get(i));
+                    i++;
+                }
+                System.out.println("se agrego al objeto");
         }
         return cuerpo;
     }

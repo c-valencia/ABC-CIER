@@ -5,6 +5,8 @@
  */
 package Controlador;
 
+import Excepciones.ExcepcionDatos;
+import Excepciones.Validaciones;
 import Logica.Aspirante;
 import Logica.Cohorte;
 import Logica.Curso;
@@ -30,6 +32,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -41,6 +44,7 @@ public class ControladorCohorte {
     private DaoCurso daoCurso;
     private DaoCursoCohorte daoCursoCohorte;
     private DaoAspirante daoAspirante;
+    private Validaciones validador;
     
     public ControladorCohorte() {
         conn =  Conexion.getInstance();
@@ -48,6 +52,7 @@ public class ControladorCohorte {
         daoCurso = new DaoCurso(conn.getCon());
         daoCursoCohorte = new DaoCursoCohorte(conn.getCon());
         daoAspirante = new DaoAspirante(conn.getCon());
+        validador = new Validaciones();
     }
     
     
@@ -91,20 +96,32 @@ public class ControladorCohorte {
         }
     }
     
-    public boolean ingresarCohorte(Date fechaInicio, Date fechaFin){
-        Cohorte cohorte = new Cohorte();
+    public String ingresarCohorte(Date fechaInicio, Date fechaFin){
+        String result = "Error en elguardado";
         
-        cohorte.setFechaInicio(fechaInicio);
-        cohorte.setFechaFin(fechaFin);
-        cohorte.setEstado(true);
+        try{
+            Date inicio = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaInicio();
+            Date fin = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaFin();
+            
+            if(inicio){
+            validador.validarFechas(fechaFin, fechaInicio);
+            Cohorte cohorte = new Cohorte();
+            cohorte.setFechaInicio(fechaInicio);
+            cohorte.setFechaFin(fechaFin);
+            cohorte.setEstado(true);
         
-        try {
+        
             daoCohorte.insertCohorte(cohorte);
-            return true;
-        } catch (Exception ex) {
+            result = "Guardado exitoso";
+            }
+            return result;
+            
+        } catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }catch (Exception ex) {
             System.err.println("error en guardar cohorte = " + ex.getLocalizedMessage());
         }
-        return false;
+        return result;
     }
     
     public boolean ingresarCursosCohorte(String cohorte, String curso){

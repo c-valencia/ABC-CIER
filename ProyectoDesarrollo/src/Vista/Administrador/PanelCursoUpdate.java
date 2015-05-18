@@ -11,6 +11,8 @@ import Controlador.ControladorAdministrador;
 import Excepciones.ExcepcionDatos;
 import Logica.*;
 import Patrones.Item;
+import Patrones.Observador;
+import Patrones.Sujeto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -20,15 +22,20 @@ import javax.swing.JOptionPane;
 /**
  * Esta clase es cliente de Curso (Patron de diseño Composite) 
  */
-public class PanelCursoCrear extends javax.swing.JPanel {
-    private ControladorAdministrador controladorAdministrador;
+public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
+       private ArrayList <String> idNombreCurso;
+       private ControladorAdministrador controladorAdministrador;
 
     /**
      * Creates new form PanelLogin
      */
-    public PanelCursoCrear(ControladorAdministrador controladorAdministrador) {
+    public PanelCursoUpdate(ControladorAdministrador controladorAdministrador) {
         initComponents();
         this.controladorAdministrador = controladorAdministrador;
+        this.idNombreCurso = controladorAdministrador.getIdNombreCurso();
+        //Observador lista de cursos
+        
+        
         
         // Eventos 
         EventosPanelLogin events = new EventosPanelLogin();
@@ -59,12 +66,14 @@ public class PanelCursoCrear extends javax.swing.JPanel {
         inputNombreCorto = new javax.swing.JTextField();
         botonLimpiarCurso = new javax.swing.JButton();
         panelInferiorCurso = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableFases = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        InputBusquedaNombreCurso = new javax.swing.JTextField();
+        botonBuscarCurso = new javax.swing.JButton();
+        campoBusquedaCurso = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         panelFase = new javax.swing.JPanel();
         panelSuperiorFase = new javax.swing.JPanel();
-        labelCodCurso = new javax.swing.JLabel();
         labelNumHoras = new javax.swing.JLabel();
         labelNumSemanas = new javax.swing.JLabel();
         labelTipo = new javax.swing.JLabel();
@@ -75,13 +84,14 @@ public class PanelCursoCrear extends javax.swing.JPanel {
         inputContenidoFase = new javax.swing.JTextArea();
         botonFase = new javax.swing.JButton();
         inputTipo = new javax.swing.JComboBox();
-        botonListaCursos = new javax.swing.JButton();
-        comboListaCursos = new javax.swing.JComboBox();
         botonLimpiarFase = new javax.swing.JButton();
         panelInferiorFase = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        comboCurso = new javax.swing.JComboBox();
+        comboListFasesPF = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
         panelPractica = new javax.swing.JPanel();
         panelSuperiorPractica = new javax.swing.JPanel();
         labelCodFasePrac = new javax.swing.JLabel();
@@ -96,6 +106,7 @@ public class PanelCursoCrear extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         inputPorcentaje = new javax.swing.JTextField();
         botonLimpiarPractica = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setPreferredSize(new java.awt.Dimension(750, 505));
@@ -139,110 +150,120 @@ public class PanelCursoCrear extends javax.swing.JPanel {
         panelSuperiorCursoLayout.setHorizontalGroup(
             panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSuperiorCursoLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
                 .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelNombre)
-                    .addComponent(labelNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inputNombre)
-                    .addComponent(inputDescripcion)
-                    .addComponent(inputNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(116, 116, 116))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorCursoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonLimpiarCurso)
-                .addGap(18, 18, 18)
-                .addComponent(botonCurso)
-                .addGap(146, 146, 146))
+                    .addGroup(panelSuperiorCursoLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelNombre)
+                            .addComponent(labelNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelSuperiorCursoLayout.createSequentialGroup()
+                        .addGap(333, 333, 333)
+                        .addComponent(botonLimpiarCurso)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonCurso)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelSuperiorCursoLayout.setVerticalGroup(
             panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSuperiorCursoLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(29, 29, 29)
+                .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelDescripcion)
+                    .addComponent(inputDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelNombreCorto))
                 .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSuperiorCursoLayout.createSequentialGroup()
-                        .addComponent(labelContenido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelSuperiorCursoLayout.createSequentialGroup()
-                        .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelDescripcion)
-                            .addComponent(inputDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(inputNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelNombreCorto))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(36, 36, 36)
+                        .addComponent(labelContenido)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonCurso)
-                    .addComponent(botonLimpiarCurso)))
+                    .addComponent(botonLimpiarCurso)
+                    .addComponent(botonCurso))
+                .addGap(35, 35, 35))
         );
 
         panelInferiorCurso.setBackground(new java.awt.Color(245, 245, 245));
         panelInferiorCurso.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        tableFases.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tableFases);
+        jLabel4.setText("BÚSQUEDA DE CURSO");
+
+        botonBuscarCurso.setText("Buscar");
+
+        campoBusquedaCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "id_curso", "nombre", "nombre_corto" }));
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel1.setText("LISTA DE FASES");
+        jLabel1.setText("Campo");
+
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel6.setText("Valor");
 
         javax.swing.GroupLayout panelInferiorCursoLayout = new javax.swing.GroupLayout(panelInferiorCurso);
         panelInferiorCurso.setLayout(panelInferiorCursoLayout);
         panelInferiorCursoLayout.setHorizontalGroup(
             panelInferiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInferiorCursoLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(panelInferiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelInferiorCursoLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelInferiorCursoLayout.createSequentialGroup()
+                .addContainerGap(64, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(InputBusquedaNombreCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoBusquedaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botonBuscarCurso)
+                .addGap(131, 131, 131))
         );
         panelInferiorCursoLayout.setVerticalGroup(
             panelInferiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorCursoLayout.createSequentialGroup()
+            .addGroup(panelInferiorCursoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addGroup(panelInferiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(InputBusquedaNombreCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonBuscarCurso)
+                    .addComponent(campoBusquedaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel6))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelCursoLayout = new javax.swing.GroupLayout(panelCurso);
         panelCurso.setLayout(panelCursoLayout);
         panelCursoLayout.setHorizontalGroup(
             panelCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelSuperiorCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 740, Short.MAX_VALUE)
+            .addComponent(panelSuperiorCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelInferiorCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelCursoLayout.setVerticalGroup(
             panelCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCursoLayout.createSequentialGroup()
-                .addComponent(panelSuperiorCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCursoLayout.createSequentialGroup()
+                .addComponent(panelInferiorCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelInferiorCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelSuperiorCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Practica.addTab("CURSO", panelCurso);
@@ -256,9 +277,6 @@ public class PanelCursoCrear extends javax.swing.JPanel {
 
         panelSuperiorFase.setBackground(new java.awt.Color(245, 245, 245));
         panelSuperiorFase.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        labelCodCurso.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        labelCodCurso.setText("Código Curso");
 
         labelNumHoras.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         labelNumHoras.setText("Numero Horas");
@@ -285,8 +303,6 @@ public class PanelCursoCrear extends javax.swing.JPanel {
 
         inputTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Presencial", "Virtual" }));
 
-        botonListaCursos.setText("Listar");
-
         botonLimpiarFase.setText("Limpiar");
 
         javax.swing.GroupLayout panelSuperiorFaseLayout = new javax.swing.GroupLayout(panelSuperiorFase);
@@ -297,59 +313,51 @@ public class PanelCursoCrear extends javax.swing.JPanel {
                 .addGap(42, 42, 42)
                 .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelSuperiorFaseLayout.createSequentialGroup()
+                        .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(panelSuperiorFaseLayout.createSequentialGroup()
+                                .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelNumHoras)
+                                    .addComponent(labelNumSemanas)
+                                    .addComponent(labelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(25, 25, 25)
+                                .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(inputNumSemanas)
+                                        .addComponent(inputTipo, 0, 157, Short.MAX_VALUE))
+                                    .addComponent(inputNumHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(184, 184, 184))
+                            .addGroup(panelSuperiorFaseLayout.createSequentialGroup()
+                                .addComponent(labelContenidoFase, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelSuperiorFaseLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botonLimpiarFase)
                         .addGap(18, 18, 18)
-                        .addComponent(botonFase))
-                    .addGroup(panelSuperiorFaseLayout.createSequentialGroup()
-                        .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelNumHoras)
-                            .addComponent(labelNumSemanas)
-                            .addComponent(labelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelCodCurso)
-                            .addComponent(comboListaCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
-                        .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botonListaCursos)
-                            .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(inputNumSemanas)
-                                    .addComponent(inputTipo, 0, 157, Short.MAX_VALUE))
-                                .addComponent(inputNumHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(43, 43, 43)
-                        .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelContenidoFase, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                        .addComponent(botonFase)
+                        .addGap(168, 168, 168))))
         );
         panelSuperiorFaseLayout.setVerticalGroup(
             panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSuperiorFaseLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelNumHoras)
+                    .addComponent(inputNumHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputNumSemanas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelNumSemanas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTipo)
+                    .addComponent(inputTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSuperiorFaseLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(labelContenidoFase)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3))
-                    .addGroup(panelSuperiorFaseLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(labelCodCurso)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboListaCursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botonListaCursos))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(inputNumHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelNumHoras))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(inputNumSemanas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelNumSemanas))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelTipo)
-                            .addComponent(inputTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelContenidoFase))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonFase)
                     .addComponent(botonLimpiarFase))
@@ -360,30 +368,37 @@ public class PanelCursoCrear extends javax.swing.JPanel {
         panelInferiorFase.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabel2.setText("LISTA DE PRACTICAS");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane4.setViewportView(jTable1);
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel5.setText("Código Fase");
+
+        jButton1.setText("Buscar");
+
+        comboListFasesPF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel8.setText("Código Curso");
 
         javax.swing.GroupLayout panelInferiorFaseLayout = new javax.swing.GroupLayout(panelInferiorFase);
         panelInferiorFase.setLayout(panelInferiorFaseLayout);
         panelInferiorFaseLayout.setHorizontalGroup(
             panelInferiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInferiorFaseLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
                 .addGroup(panelInferiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelInferiorFaseLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel2))
+                    .addGroup(panelInferiorFaseLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboListFasesPF, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(150, 150, 150)
+                        .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelInferiorFaseLayout.setVerticalGroup(
@@ -391,9 +406,14 @@ public class PanelCursoCrear extends javax.swing.JPanel {
             .addGroup(panelInferiorFaseLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelInferiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jButton1)
+                    .addComponent(comboCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboListFasesPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelFaseLayout = new javax.swing.GroupLayout(panelFase);
@@ -406,9 +426,10 @@ public class PanelCursoCrear extends javax.swing.JPanel {
         panelFaseLayout.setVerticalGroup(
             panelFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFaseLayout.createSequentialGroup()
-                .addComponent(panelSuperiorFase, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(panelInferiorFase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelInferiorFase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelSuperiorFase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         Practica.addTab("FASE", panelFase);
@@ -445,44 +466,45 @@ public class PanelCursoCrear extends javax.swing.JPanel {
         panelSuperiorPractica.setLayout(panelSuperiorPracticaLayout);
         panelSuperiorPracticaLayout.setHorizontalGroup(
             panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorPracticaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonLimpiarPractica)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonPractica)
-                .addGap(271, 271, 271))
             .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(29, 29, 29)
                 .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperiorPracticaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonLimpiarPractica)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonPractica))
                     .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
                         .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelCodFasePrac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
                                 .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelNomPrac)
-                                    .addComponent(labelDescPrac))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(60, 60, 60)))
-                .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
-                        .addComponent(comboFases, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                        .addComponent(botonListarFases)
-                        .addGap(271, 271, 271))
-                    .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
-                        .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(inputPorcentaje, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                            .addComponent(inputNombPrac, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(labelCodFasePrac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
+                                        .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelNomPrac)
+                                            .addComponent(labelDescPrac))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(60, 60, 60)))
+                        .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
+                                .addComponent(comboFases, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonListarFases))
+                            .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
+                                .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(inputPorcentaje, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(inputNombPrac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(265, 265, 265))
         );
         panelSuperiorPracticaLayout.setVerticalGroup(
             panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(29, 29, 29)
                 .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(labelCodFasePrac)
                     .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -500,12 +522,25 @@ public class PanelCursoCrear extends javax.swing.JPanel {
                 .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(botonPractica)
                             .addComponent(botonLimpiarPractica)))
                     .addComponent(labelDescPrac))
-                .addGap(135, 135, 135))
+                .addGap(175, 175, 175))
+        );
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 142, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelPracticaLayout = new javax.swing.GroupLayout(panelPractica);
@@ -513,10 +548,14 @@ public class PanelCursoCrear extends javax.swing.JPanel {
         panelPracticaLayout.setHorizontalGroup(
             panelPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelSuperiorPractica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelPracticaLayout.setVerticalGroup(
             panelPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelSuperiorPractica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPracticaLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelSuperiorPractica, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         Practica.addTab("PRÁCTICA", panelPractica);
@@ -525,11 +564,11 @@ public class PanelCursoCrear extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Practica, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
+            .addComponent(Practica)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Practica, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+            .addComponent(Practica, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -547,17 +586,20 @@ public class PanelCursoCrear extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField InputBusquedaNombreCurso;
     private javax.swing.JTabbedPane Practica;
+    private javax.swing.JButton botonBuscarCurso;
     private javax.swing.JButton botonCurso;
     private javax.swing.JButton botonFase;
     private javax.swing.JButton botonLimpiarCurso;
     private javax.swing.JButton botonLimpiarFase;
     private javax.swing.JButton botonLimpiarPractica;
-    private javax.swing.JButton botonListaCursos;
     private javax.swing.JButton botonListarFases;
     private javax.swing.JButton botonPractica;
+    private javax.swing.JComboBox campoBusquedaCurso;
+    private javax.swing.JComboBox comboCurso;
     private javax.swing.JComboBox comboFases;
-    private javax.swing.JComboBox comboListaCursos;
+    private javax.swing.JComboBox comboListFasesPF;
     private javax.swing.JTextArea inputContenido;
     private javax.swing.JTextArea inputContenidoFase;
     private javax.swing.JTextArea inputDescPrac;
@@ -569,16 +611,18 @@ public class PanelCursoCrear extends javax.swing.JPanel {
     private javax.swing.JTextField inputNumSemanas;
     private javax.swing.JTextField inputPorcentaje;
     private javax.swing.JComboBox inputTipo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JLabel labelCodCurso;
     private javax.swing.JLabel labelCodFasePrac;
     private javax.swing.JLabel labelContenido;
     private javax.swing.JLabel labelContenidoFase;
@@ -598,21 +642,22 @@ public class PanelCursoCrear extends javax.swing.JPanel {
     private javax.swing.JPanel panelSuperiorCurso;
     private javax.swing.JPanel panelSuperiorFase;
     private javax.swing.JPanel panelSuperiorPractica;
-    private javax.swing.JTable tableFases;
     // End of variables declaration//GEN-END:variables
 
        
     
                 
     private void asignarEventos(EventosPanelLogin events){
-        botonCurso.addActionListener(events);
-        botonFase.addActionListener(events);
-        botonPractica.addActionListener(events);
-        botonListaCursos.addActionListener(events);
-        botonListarFases.addActionListener(events);
-        botonLimpiarCurso.addActionListener(events);
-        botonLimpiarFase.addActionListener(events);
-        botonLimpiarPractica.addActionListener(events);
+//        botonCurso.addActionListener(events);
+//        botonFase.addActionListener(events);
+//        botonPractica.addActionListener(events);
+//        
+//        botonListarFases.addActionListener(events);
+//        botonLimpiarCurso.addActionListener(events);
+//        botonLimpiarFase.addActionListener(events);
+//        botonLimpiarPractica.addActionListener(events);
+        
+        botonBuscarCurso.addActionListener(events);
        
     } // Fin del metodo asignarEventos
     
@@ -637,102 +682,47 @@ public class PanelCursoCrear extends javax.swing.JPanel {
         inputNombreCorto.setText("");
         inputDescripcion.setText("");
         inputContenido.setText("");
+    }
+    
+   
+    
+   
+            
+    private void llenarFases(){
+       // controladorAdministrador = ControladorAdministrador.getInstance();
+//        String result = "";
+//        result = controladorAdministrador.listFasesIds();
+//        ArrayList <String> idNombresFases = controladorAdministrador.getIdNombreFases();
+//        if(idNombresFases!=null){
+//            for(int i = 0; i < idNombresFases.size(); i++){
+//            comboFases.addItem(idNombresFases.get(i));
+//            }
+//        }else{
+//            JOptionPane.showMessageDialog(null, result);
+//        }
         
-    }
-    
-    public void insertarCurso(){
-       
-        String nombre = inputNombre.getText();
-        String nombreCorto = inputNombreCorto.getText();
-        String descripcion = inputDescripcion.getText();
-        String contenido = inputContenido.getText();
-        boolean estado = true;
-        //controladorAdministrador = ControladorAdministrador.getInstance();
-        String result = controladorAdministrador.crearCurso(nombre,nombreCorto,descripcion, contenido, estado);
-        JOptionPane.showMessageDialog(null, result);
-    }
-    
-    public void insertarFase(){
-         String contenido = inputContenidoFase.getText();
-         String horas = inputNumHoras.getText();
-         String semanas = inputNumSemanas.getText();
-         String tipo = (String) inputTipo.getSelectedItem();
-         String codigoCurso = codigoCurso();
-         System.out.print(codigoCurso);
-         //controladorAdministrador = ControladorAdministrador.getInstance();
-         String result = controladorAdministrador.crearFases(codigoCurso,  horas, semanas, tipo, contenido, true);
-         JOptionPane.showMessageDialog(null, result);
-    }
-    
-    public void insertarPractica(){
-        String idFase = (String) comboFases.getSelectedItem();
-        String nombre = inputNombPrac.getText();
-        String descripcion = inputDescPrac.getText();
-        String porcentaje = inputPorcentaje.getText();
-        //controladorAdministrador = ControladorAdministrador.getInstance();
-        String result = controladorAdministrador.crearPractica(idFase, nombre,  descripcion, porcentaje, true);
-        JOptionPane.showMessageDialog(null, result);   
     }
     
     public void llenarCursos(){
-       comboListaCursos.removeAllItems();
-        String result = "";
-        //controladorAdministrador = ControladorAdministrador.getInstance();
-        result = controladorAdministrador.listaCursoCodigos();
-        ArrayList <String> idNombresCursos = controladorAdministrador.getIdNombreCurso();
-        
-        if(idNombresCursos!=null){
-            for(int i = 0; i < idNombresCursos.size(); i++){
-            comboListaCursos.addItem(idNombresCursos.get(i));
+       comboCurso.removeAllItems();
+      String result = "";
+        if(idNombreCurso!=null){
+            for(int i = 0; i < idNombreCurso.size(); i++){
+            comboCurso.addItem(idNombreCurso.get(i));
             }
         }else{
             JOptionPane.showMessageDialog(null, result);
         }
      }
-            
-    private void llenarFases(){
-        comboFases.removeAllItems();
-        //controladorAdministrador = ControladorAdministrador.getInstance();
-        String result = "";
-        result = controladorAdministrador.listFasesIds();
-        ArrayList <String> idNombresFases = controladorAdministrador.getIdNombreFases();
-        if(idNombresFases!=null){
-            for(int i = 0; i < idNombresFases.size(); i++){
-            comboFases.addItem(idNombresFases.get(i));
-            }
-        }else{
-            JOptionPane.showMessageDialog(null, result);
-        }
-        
-    }
+    
 
-    public ControladorAdministrador getControladorAdministrador() {
-        return controladorAdministrador;
+    @Override
+    public void actualizar(Sujeto objSujeto) {
+        System.out.print("se actualizaron cursos");
+        llenarCursos();
     }
     
-    private String codigoCurso(){
-        String codigoCurso = " "; 
-        String codigoNombre = " ";
-        try{
-            
-            codigoNombre = (String) comboListaCursos.getSelectedItem();
-            int posiSeparador = 0;
-            if(codigoNombre.equals(null)){
-                JOptionPane.showMessageDialog(null, "La lista de cursos está vacia"); 
-            }else{
-            for(int i =0; i < codigoNombre.length();i++){
-             if(codigoNombre.charAt(i)==' '){
-                    posiSeparador = i;
-                }   
-             }
-            codigoCurso = codigoNombre.substring(0, posiSeparador);
-            }
-            
-        }catch(NullPointerException ex){
-            JOptionPane.showMessageDialog(null, "La lista de cursos está vacia"); 
-        }
-        return codigoCurso;
-    }
+   
     
     
     
@@ -740,34 +730,15 @@ public class PanelCursoCrear extends javax.swing.JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == botonCurso) {
-                insertarCurso();
-            }
-            if (e.getSource() == botonFase){
-                insertarFase();
-                   
-            }
-            if (e.getSource() == botonPractica){
-                insertarPractica();
-            }
-            if (e.getSource() == botonListaCursos){
-                
-              llenarCursos();
-            }
-            if (e.getSource() == botonListarFases){
-             llenarFases();
-            }
-            if(e.getSource() == botonLimpiarCurso){
-                limpiarPanelCurso();
-            }
-            if(e.getSource() == botonLimpiarFase){
-                limpiarPanelFase();
-            }
-            if(e.getSource() == botonLimpiarPractica){
-                limpiarPanelPractica();
-                
-            }
             
+           if(e.getSource() == botonBuscarCurso){
+                String campo = (String) campoBusquedaCurso.getSelectedItem();
+                String valor = InputBusquedaNombreCurso.getText();
+                String result = controladorAdministrador.buscarCurso(campo, valor);
+                
+        
+               
+           }
         }   
     } // Fin de la clase EventosPanelLogin
 

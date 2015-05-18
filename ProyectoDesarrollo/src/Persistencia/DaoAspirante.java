@@ -211,17 +211,17 @@ public class DaoAspirante implements Serializable {
     
     public List <Aspirante> buscarAspirantes(String area, String departamento){
         EntityManager em = getEntityManager();
-        Aspirante aspi = new Aspirante();
-        Vector <Aspirante> asp = new Vector<>();
+        String buscar = new String();
         try {
-            //em.getTransaction().begin();
-              
-            Query query = em.createNativeQuery("SELECT * FROM aspirante a WHERE a.departamento = '" + departamento + "' AND area_inscripcion ='" + area + "' AND estado = true;", Aspirante.class);
+            em.getTransaction().begin();
+            buscar = "SELECT a.cedula, a.nombres, a.apellidos, a.correo, a.celular, a.direccion, a.sede_pertenece, " +
+                     "a.intitucion, a.codigo_dane_intitucion, a.grado, a.secretaria_educacion, a.municipio, " +
+                     "a.departamento, a.area_inscripcion, a.tutor_pta, a.usuario_colombia_aprende, a.estado " +
+                     " FROM aspirante AS a JOIN historial_aspirante AS ha ON a.cedula = ha.cedula_as " +
+                     " WHERE ha.id_curso = '" + area +"' AND ha.estado = true AND a.secretaria_educacion = '" + departamento +"';";
+            Query query = em.createNativeQuery(buscar, Aspirante.class);
             
             return query.getResultList();
-                
-//            return ((Vector<Aspirante>) query.getResultList());
-//            return asp;
         } finally {
             em.close();
         }
