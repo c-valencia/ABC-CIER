@@ -627,18 +627,23 @@ public class PanelCohorte extends javax.swing.JPanel {
      */
     private void crearCohorte(){
         fechaInicio = jDateChooserFechaInicio.getDate();
-        
         fechafin = jDateChooserFechaFin.getDate();
-        boolean estado = controlCohorte.ingresarCohorte(fechaInicio ,fechafin); 
-        cohorte= controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getIdCohorte();
-        if (estado){
+        String estado = "";
+        Date inicio = controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getFechaInicio();
+        Date fin = controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getFechaFin();
+        
+        if(inicio == fechaInicio && fin == fechafin){
+            estado = controlCohorte.ingresarCohorte(fechaInicio ,fechafin); 
+            cohorte= controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getIdCohorte();
+        }
+        if (estado.equals("Guardado exitoso")){
             JOptionPane.showMessageDialog(null, "Guardada la cohorte exitosamente en la base de datos");
             jLabelCodCohorte.setText(cohorte);
             jButtonSiguienteCohorte.setEnabled(true);
             jButtonGuardarCohorte.setEnabled(false);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Error en el guardado, comuniquese con el admin del sistema!");
+            JOptionPane.showMessageDialog(null, estado);
         }
         System.out.println("conexion = " + Conexion.cantidadConexiones);
         // informacion que aparecera en el siguiente panel (panelCurso)
@@ -692,7 +697,7 @@ public class PanelCohorte extends javax.swing.JPanel {
             
             for (int i = 0; i < cursosSelect.size(); i++) {
                 jComboBoxPCMArea.addItem(cursosSelect.get(i).getNombre());
-                controlCohorte.eliminaCursoCohorte(cohorte, cursosSelect.get(i).getIdCurso());
+//                controlCohorte.eliminaCursoCohorte(cohorte, cursosSelect.get(i).getIdCurso());
                 controlCohorte.ingresarCursosCohorte(cohorte, cursosSelect.get(i).getIdCurso());
             }
             

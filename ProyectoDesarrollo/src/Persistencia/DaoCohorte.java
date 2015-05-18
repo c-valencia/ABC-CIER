@@ -236,8 +236,8 @@ public class DaoCohorte implements Serializable {
         Cohorte newcohorte = new Cohorte();
         try {
             em.getTransaction().begin();
-            Query query = em.createNativeQuery("SELECT id_cohorte FROM cohorte  WHERE  fecha_inicio = '" + new Date(cohorte.getFechaInicio().getTime()) + "' AND fecha_fin ='" + new Date(cohorte.getFechaFin().getTime()) + "';");
-            newcohorte.setIdCohorte(query.getSingleResult().toString());
+            Query query = em.createNativeQuery("SELECT * FROM cohorte  WHERE  fecha_inicio = '" + new Date(cohorte.getFechaInicio().getTime()) + "' AND fecha_fin ='" + new Date(cohorte.getFechaFin().getTime()) + "';", Cohorte.class);
+            newcohorte = (Cohorte) query.getSingleResult();
             em.getTransaction().commit(); // OSCAR
             return newcohorte;
         } finally {
