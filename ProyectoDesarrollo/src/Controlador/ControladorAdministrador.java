@@ -20,6 +20,7 @@ import Persistencia.DaoFases;
 import Persistencia.DaoHistorialAspirante;
 import Persistencia.DaoMasterTeacher;
 import Persistencia.DaoPractica;
+import Persistencia.exceptions.PreexistingEntityException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -268,7 +269,10 @@ public class ControladorAdministrador implements Sujeto {
             curso.setEstado(estado);
             daoCurso.insertarCurso(curso);
             result = "Se ingreso un curso con éxito";
-        } catch (ExcepcionDatos ex) {
+        }catch (PreexistingEntityException ex) {
+            result = ex.getMessage();       
+        }
+        catch (ExcepcionDatos ex) {
             result = ex.getMessage();
         } catch (NullPointerException ex) {
             result = "Ingreso un objeto vacio";

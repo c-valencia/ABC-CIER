@@ -38,7 +38,7 @@ public class DaoCurso implements Serializable {
         return emf.createEntityManager();
     }
     
-    public void insertarCurso(Curso curso){
+    public void insertarCurso(Curso curso) throws PreexistingEntityException{
          EntityManager em = null;
         try {
              em = getEntityManager();
@@ -48,7 +48,9 @@ public class DaoCurso implements Serializable {
             query.executeUpdate();
              em.getTransaction().commit();
         } catch (Exception ex){
-            System.err.print(ex.getMessage());
+            if(buscarCurso("nombre",curso.getNombre()) != null){
+                throw new PreexistingEntityException("El Curso con el nombre " + curso.getNombre() + " ya esta registrado.", ex);
+            }
         }finally {
             if (em != null) {
                  System.out.print("prueba 14");
