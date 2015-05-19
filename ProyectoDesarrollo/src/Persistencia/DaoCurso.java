@@ -53,7 +53,6 @@ public class DaoCurso implements Serializable {
             }
         }finally {
             if (em != null) {
-                 System.out.print("prueba 14");
                 em.close();
             }
         }

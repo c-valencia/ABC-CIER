@@ -50,48 +50,47 @@ public class TestCurso {
    
     @Test
     public void testCrearCurso() {
-        
-            System.out.println("TEST CREAR CURSO");
-            // Ingreso  con exito
-            System.out.println("\nCamino uno");
-            String nombre = "Curso 1";
-            String nombreCorto = "Cur_1";
-            String descripcion = "Primer curso";
-            String contenido = "Item 1\nItem 2\n Item 3";
-            boolean estado = true;
-            String expResult = "Se ingreso un curso con éxito";
-            String result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
-            assertEquals(expResult, result);
-            System.out.println("\nResultado Operacion: " + result);
-            
-            // Campos vacios
-            System.out.println("Camino dos");
-            nombre = "";
-            nombreCorto = "";
-            descripcion = "";
-            contenido = "";
-            estado = true;
-            expResult = "Debe llenar todos los campos";
-            result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
-            assertEquals(expResult, result);
-            System.out.println("Resultado Operacion: " + result);
-            
-            // Registro repetido
-//        System.out.println("Camino tres");
-//        nombre = "Curso 1";
-//        nombreCorto = "Cur_1";
-//        descripcion = "Primer curso";
-//        contenido = "Item 1\nItem 2\n Item 3";
-//        estado = true;
-//        expResult = "No se pudo insertar el curso";
-//        result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
-//        assertEquals(expResult, result);
-//        System.out.println("Resultado Operacion: " + result);
-        try {   
+
+        System.out.println("TEST CREAR CURSO");
+        // Ingreso  con exito
+        System.out.println("\nCamino uno");
+        String nombre = "Curso 1";
+        String nombreCorto = "Cur_1";
+        String descripcion = "Primer curso";
+        String contenido = "Item 1\nItem 2\n Item 3";
+        boolean estado = true;
+        String expResult = "Se ingreso un curso con éxito";
+        String result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
+        assertEquals(expResult, result);
+        System.out.println("\nResultado Operacion: " + result);
+
+        // Campos vacios
+        System.out.println("Camino dos");
+        nombre = "";
+        nombreCorto = "";
+        descripcion = "";
+        contenido = "";
+        estado = true;
+        expResult = "Debe llenar todos los campos";
+        result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
+        assertEquals(expResult, result);
+        System.out.println("Resultado Operacion: " + result);
+
+        // Registro repetido
+        System.out.println("Camino tres");
+        nombre = "Curso 1";
+        nombreCorto = "Cur_1";
+        descripcion = "Primer curso";
+        contenido = "Item 1\nItem 2\n Item 3";
+        estado = true;
+        expResult = "El Curso con el nombre Curso 1 ya esta registrado.";
+        result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
+        assertEquals(expResult, result);
+        System.out.println("Resultado Operacion: " + result);
+        try {
             Curso objCurso = daoCurso.buscarCurso("nombre", "Curso 1");
             daoCurso.destroy(objCurso.getIdCurso());
-        }
-        catch (IllegalOrphanException ex) {
+        } catch (IllegalOrphanException ex) {
             Logger.getLogger(TestCurso.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(TestCurso.class.getName()).log(Level.SEVERE, null, ex);
