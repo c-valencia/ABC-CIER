@@ -101,16 +101,18 @@ public class TestCurso {
 //        System.out.println("Resultado Operacion: " + result);           
     } // Fin del metodo testCrearCurso
 
-    @Test
-    public void testDBuscarCurso(){
-        System.out.println("TEST BUSCAR CURSO");
-        String campo = "nombre"; 
-        String valor = "Curso 1";
-        String expResult = "El curso fue encontrado";
-        String result = contAdministrador.buscarCurso(campo, valor);
-        assertEquals(expResult, result);
-        System.out.println("Resultado Operacion: " + result);
-
-    } // Fin del metodo testBuscarCurso
-    
+//    @Test
+//    public void testDBuscarCurso(){
+//        System.out.println("TEST BUSCAR CURSO");
+//        String campo = "nombre"; 
+//        String valor = "Curso Pollo";
+//// IC23     | Curso Pollo                              | Curso Pollo        | Curso Pollo         | Curso Pollo                     | t
+//        
+//        String expResult = "El curso fue encontrado";
+//        String result = contAdministrador.buscarCurso(campo, valor);
+//        assertEquals(expResult, result);
+//        System.out.println("Resultado Operacion: " + result);
+//
+//    } // Fin del metodo testBuscarCurso
+//    
 } // Fin de la clase TestCurso

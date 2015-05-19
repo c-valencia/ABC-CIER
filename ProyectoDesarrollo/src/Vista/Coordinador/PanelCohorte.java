@@ -626,32 +626,7 @@ public class PanelCohorte extends javax.swing.JPanel {
      * crea la cohorte, la guarda en la bd y permite el acceso a los paneles siguientes
      */
     private void crearCohorte(){
-<<<<<<< HEAD
-//        fechaInicio = jDateChooserFechaInicio.getDate();
-//        fechafin = jDateChooserFechaFin.getDate();
-//        String estado = "";
-//        Date inicio = controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getFechaInicio();
-//        Date fin = controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getFechaFin();
-//        
-//        if(inicio == fechaInicio && fin == fechafin){
-//            estado = controlCohorte.ingresarCohorte(fechaInicio ,fechafin); 
-//            cohorte= controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getIdCohorte();
-//        }
-//        if (estado.equals("Guardado exitoso")){
-//            JOptionPane.showMessageDialog(null, "Guardada la cohorte exitosamente en la base de datos");
-//            jLabelCodCohorte.setText(cohorte);
-//            jButtonSiguienteCohorte.setEnabled(true);
-//            jButtonGuardarCohorte.setEnabled(false);
-//        }
-//        else{
-//            JOptionPane.showMessageDialog(null, estado);
-//        }
-//        System.out.println("conexion = " + Conexion.cantidadConexiones);
-//        // informacion que aparecera en el siguiente panel (panelCurso)
-//        jLabelPACCodCohorte.setText(cohorte);
-//        jLabelFechaInicio.setText(new Date(fechaInicio.getTime()) + "");
-//        jLabelFechaFin.setText(fechafin + "");
-=======
+        
         fechaInicio = jDateChooserFechaInicio.getDate();
         fechafin = jDateChooserFechaFin.getDate();
         String estado = "Las fechas ya existen para una cohorte, intente con otras fechas";
@@ -675,7 +650,6 @@ public class PanelCohorte extends javax.swing.JPanel {
         jLabelPACCodCohorte.setText(cohorte);
         jLabelFechaInicio.setText(new Date(fechaInicio.getTime()) + "");
         jLabelFechaFin.setText(fechafin + "");
->>>>>>> 0f6c07a84bb2b15353d354b3eb06eb88458af5a1
     }// fin del metodo crearCohorte
     
     /**

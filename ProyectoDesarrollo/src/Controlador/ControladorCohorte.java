@@ -96,67 +96,20 @@ public class ControladorCohorte {
         }
     }
     
-<<<<<<< HEAD
-//    public String ingresarCohorte(Date fechaInicio, Date fechaFin){
-//        String result = "Error en elguardado";
-//        
-//        try{
-//            Date inicio = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaInicio();
-//            Date fin = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaFin();
-//            
-//<<<<<<< HEAD
-//            //if(inicio){
-//=======
-//            ////if(inicio){
-//>>>>>>> branch 'master' of https://github.com/c-valencia/ABC-CIER.git
-//            validador.validarFechas(fechaFin, fechaInicio);
-//            Cohorte cohorte = new Cohorte();
-//            cohorte.setFechaInicio(fechaInicio);
-//            cohorte.setFechaFin(fechaFin);
-//            cohorte.setEstado(true);
-//        
-//        
-//            daoCohorte.insertCohorte(cohorte);
-//            result = "Guardado exitoso";
-//            //}
-//            return result;
-//            
-//        } catch(ExcepcionDatos ex){
-//            result = ex.getMessage();
-//        }catch (Exception ex) {
-//            System.err.println("error en guardar cohorte = " + ex.getLocalizedMessage());
-//        }
-//        return result;
-//    }
-=======
+    // OJO REVISAR
     public String ingresarCohorte(Date fechaInicio, Date fechaFin){
         String result = "Error en elguardado";
         
         try{
-<<<<<<< HEAD
-=======
             Date inicio = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaInicio();
-            Date fin = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaFin();
-            
-<<<<<<< HEAD
-            //if(inicio){
-=======
-            ////if(inicio){
->>>>>>> branch 'master' of https://github.com/c-valencia/ABC-CIER.git
->>>>>>> 26c349bbd7fa1ec787f1cb59dfca6facf6d19c70
+            Date fin = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaFin();            
             validador.validarFechas(fechaFin, fechaInicio);
             Cohorte cohorte = new Cohorte();
             cohorte.setFechaInicio(fechaInicio);
             cohorte.setFechaFin(fechaFin);
-            cohorte.setEstado(true);
-        
-        
+            cohorte.setEstado(true);                
             daoCohorte.insertCohorte(cohorte);
             result = "Guardado exitoso";
-<<<<<<< HEAD
-=======
-            //}
->>>>>>> 26c349bbd7fa1ec787f1cb59dfca6facf6d19c70
             return result;
             
         } catch(ExcepcionDatos ex){
@@ -166,7 +119,7 @@ public class ControladorCohorte {
         }
         return result;
     }
->>>>>>> 0f6c07a84bb2b15353d354b3eb06eb88458af5a1
+
     
     public boolean ingresarCursosCohorte(String cohorte, String curso){
         CursoCohorte cc = new CursoCohorte();
