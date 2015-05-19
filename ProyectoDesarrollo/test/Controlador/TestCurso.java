@@ -42,7 +42,7 @@ public class TestCurso {
     
     @Before
     public void setUp() {
-        System.out.println("Inicio Test");
+        System.out.println("Inicio Test\n");
         this.objConexion = Conexion.getInstance();
         this.contAdministrador = new ControladorAdministrador();       
         this.daoCurso = new DaoCurso(objConexion.getCon());
@@ -51,7 +51,7 @@ public class TestCurso {
     @After
     public void tearDown() {
         try {
-            System.out.println("Final Test");
+            System.out.println("\nFinal Test");
             Curso objCurso = daoCurso.buscarCurso("nombre", "Curso 1");
             daoCurso.destroy(objCurso.getIdCurso());
         } catch (IllegalOrphanException ex) {
@@ -60,10 +60,10 @@ public class TestCurso {
             Logger.getLogger(TestCurso.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-
+   
     @Test
     public void testCrearCurso() {
+        System.out.println("TEST CREAR CURSO");
         // Ingreso  con exito
         System.out.println("Camino uno");
         String nombre = "Curso 1";
@@ -73,45 +73,44 @@ public class TestCurso {
         boolean estado = true;                        
         String expResult = "Se ingreso un curso con éxito";
         String result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
-        assertEquals(expResult, result);               
+        assertEquals(expResult, result);   
+        System.out.println("\nResultado Operacion: " + result);
         
+        // Campos vacios        
         System.out.println("Camino dos");
         nombre = "";
         nombreCorto = "";
         descripcion = "";
         contenido = "";
         estado = true;
+        expResult = "Debe llenar todos los campos";
+        result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
+        assertEquals(expResult, result);   
+        System.out.println("Resultado Operacion: " + result);        
         
-        
+        // Registro repetido
+//        System.out.println("Camino tres");
+//        nombre = "Curso 1";
+//        nombreCorto = "Cur_1";
+//        descripcion = "Primer curso";
+//        contenido = "Item 1\nItem 2\n Item 3";
+//        estado = true;
+//        expResult = "No se pudo insertar el curso";
+//        result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
+//        assertEquals(expResult, result);   
+//        System.out.println("Resultado Operacion: " + result);           
     } // Fin del metodo testCrearCurso
+
+    @Test
+    public void testDBuscarCurso(){
+        System.out.println("TEST BUSCAR CURSO");
+        String campo = "nombre"; 
+        String valor = "Curso 1";
+        String expResult = "El curso fue encontrado";
+        String result = contAdministrador.buscarCurso(campo, valor);
+        assertEquals(expResult, result);
+        System.out.println("Resultado Operacion: " + result);
+
+    } // Fin del metodo testBuscarCurso
     
-//    public String crearCurso(String nombre, String nombreCorto, String descripcion, String contenido, boolean estado) {
-//        String result = "";
-//        try {
-//            validador.validarCamposVacios(nombre, nombreCorto, descripcion, contenido);
-//            Curso curso = new Curso();
-//            curso.setNombre(nombre);
-//            curso.setNombreCorto(nombreCorto);
-//            curso.setDescripcion(descripcion);
-//            curso.setContenido(contenido);
-//            curso.setEstado(estado);
-//            daoCurso.insertarCurso(curso);
-//            //notificar();
-//
-//            
-//            result = "Se ingreso un curso con éxito";
-//        } catch (ExcepcionDatos ex) {
-//            result = ex.getMessage();
-//
-//        } catch (NullPointerException ex) {
-//
-//            result = "Ingreso un objeto vacio";
-//        } catch (Exception ex) {
-//            Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-//            result = "No se pudo insertar el curso";
-//        }
-//
-//        return result;
-//    }
-//        
 } // Fin de la clase TestCurso

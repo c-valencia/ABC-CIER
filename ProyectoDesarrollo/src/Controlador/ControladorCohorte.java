@@ -96,37 +96,37 @@ public class ControladorCohorte {
         }
     }
     
-    public String ingresarCohorte(Date fechaInicio, Date fechaFin){
-        String result = "Error en elguardado";
-        
-        try{
-            Date inicio = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaInicio();
-            Date fin = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaFin();
-            
-<<<<<<< HEAD
-            //if(inicio){
-=======
-            ////if(inicio){
->>>>>>> branch 'master' of https://github.com/c-valencia/ABC-CIER.git
-            validador.validarFechas(fechaFin, fechaInicio);
-            Cohorte cohorte = new Cohorte();
-            cohorte.setFechaInicio(fechaInicio);
-            cohorte.setFechaFin(fechaFin);
-            cohorte.setEstado(true);
-        
-        
-            daoCohorte.insertCohorte(cohorte);
-            result = "Guardado exitoso";
-            //}
-            return result;
-            
-        } catch(ExcepcionDatos ex){
-            result = ex.getMessage();
-        }catch (Exception ex) {
-            System.err.println("error en guardar cohorte = " + ex.getLocalizedMessage());
-        }
-        return result;
-    }
+//    public String ingresarCohorte(Date fechaInicio, Date fechaFin){
+//        String result = "Error en elguardado";
+//        
+//        try{
+//            Date inicio = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaInicio();
+//            Date fin = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaFin();
+//            
+//<<<<<<< HEAD
+//            //if(inicio){
+//=======
+//            ////if(inicio){
+//>>>>>>> branch 'master' of https://github.com/c-valencia/ABC-CIER.git
+//            validador.validarFechas(fechaFin, fechaInicio);
+//            Cohorte cohorte = new Cohorte();
+//            cohorte.setFechaInicio(fechaInicio);
+//            cohorte.setFechaFin(fechaFin);
+//            cohorte.setEstado(true);
+//        
+//        
+//            daoCohorte.insertCohorte(cohorte);
+//            result = "Guardado exitoso";
+//            //}
+//            return result;
+//            
+//        } catch(ExcepcionDatos ex){
+//            result = ex.getMessage();
+//        }catch (Exception ex) {
+//            System.err.println("error en guardar cohorte = " + ex.getLocalizedMessage());
+//        }
+//        return result;
+//    }
     
     public boolean ingresarCursosCohorte(String cohorte, String curso){
         CursoCohorte cc = new CursoCohorte();
