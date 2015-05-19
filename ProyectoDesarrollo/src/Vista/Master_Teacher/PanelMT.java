@@ -31,6 +31,7 @@ public class PanelMT extends javax.swing.JPanel {
     public PanelMT() {
         initComponents();       
         addMenu();
+        inicializarPaneles();
         // Componentes
 
         // Eventos
@@ -79,7 +80,7 @@ public class PanelMT extends javax.swing.JPanel {
     private javax.swing.JPanel panelIzq;
     // End of variables declaration//GEN-END:variables
     // PANELES 
-    
+    PanelIngresarCalificacion pIngresarCalificacion;
 
     // MENU
     private JMenuBar barraLateral;  
@@ -89,7 +90,10 @@ public class PanelMT extends javax.swing.JPanel {
     private JMenuItem itemBuscarCalif; // Calificaciones
     private JMenuItem itemEliminarCalif; // Calificaciones  
     
-     
+    public void inicializarPaneles() {  
+        pIngresarCalificacion = new PanelIngresarCalificacion();
+    }
+    
     /**|
      * Nombre: actualizarPaneDer
      * Proposito: Metodo que actualiza el contenido del panelDer
@@ -154,7 +158,10 @@ public class PanelMT extends javax.swing.JPanel {
             // Menu Calificaciones
             if (e.getSource() == itemCrearCalif) {
             }
-            if (e.getSource() == itemModificarCalif) {            
+            if (e.getSource() == itemModificarCalif) {  
+                actualizarPaneDer(pIngresarCalificacion);
+                pIngresarCalificacion.inicializarComboboxIdCohorte ();
+                pIngresarCalificacion.inicializarComboboxIdCurso();
             }
             if (e.getSource() == itemBuscarCalif) {            
             }

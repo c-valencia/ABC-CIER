@@ -267,18 +267,12 @@ public class ControladorAdministrador implements Sujeto {
             curso.setContenido(contenido);
             curso.setEstado(estado);
             daoCurso.insertarCurso(curso);
-            //notificar();
-
-            
             result = "Se ingreso un curso con éxito";
         } catch (ExcepcionDatos ex) {
             result = ex.getMessage();
-
         } catch (NullPointerException ex) {
-
             result = "Ingreso un objeto vacio";
         } catch (Exception ex) {
-            Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
             result = "No se pudo insertar el curso";
         }
 
@@ -419,6 +413,10 @@ public class ControladorAdministrador implements Sujeto {
         listObservadores.add(objObservador);
         System.out.println("Adscribir->" + listObservadores.size());
         //notificar();
+    }
+
+    public Curso getCurso() {
+        return curso;
     }
 
     @Override

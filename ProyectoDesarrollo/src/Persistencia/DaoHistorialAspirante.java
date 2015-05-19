@@ -38,17 +38,26 @@ public class DaoHistorialAspirante implements Serializable {
 
 
     
-    public void insertarHistorialaspirante(String cedula ,String IdCurso, Date fecha){
-         EntityManager em = null;
+    public void insertarHistorialaspirante(HistorialAspirante historialAspirante) throws PreexistingEntityException, Exception{
+//String cedula ,String IdCurso, Date fecha        
+// 
+        EntityManager em = null;
          //INSERT INTO historial_aspirante VALUES ('1144073144','IC1','Sun May 17 16:02:59 COT 2015', true);
         try {
              em = getEntityManager();
              em.getTransaction().begin();
-             Query query = em.createNativeQuery("INSERT INTO historial_aspirante VALUES ( '" +cedula+ "','"+IdCurso+"','"+fecha+"',"+true+"); ");
+             Query query = em.createNativeQuery("INSERT INTO historial_aspirante VALUES ( '" +historialAspirante.getHistorialAspirantePK().getCedulaAs()+ "','"+
+                                                                                              historialAspirante.getHistorialAspirantePK().getIdCurso()+"','"+
+                                                                                              historialAspirante.getHistorialAspirantePK().getFechaInscripcion()+"',"+true+"); ");
              query.executeUpdate();
              em.getTransaction().commit();
-        } catch (Exception ex){
-            System.err.print(ex.getMessage());
+        } catch (Exception ex) {
+            
+            if (findHistorialAspirante(historialAspirante.getHistorialAspirantePK()) != null) {
+                throw new PreexistingEntityException("HistorialAspirante " + historialAspirante + " already exists.", ex);
+            }
+            throw ex;
+        //System.err.print(ex.getMessage());
         }finally {
             if (em != null) {
                 em.close();

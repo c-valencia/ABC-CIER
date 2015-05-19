@@ -37,13 +37,13 @@ public class DaoTarea implements Serializable {
     
     
     
-    public List <Object> buscarTareas(String curso, String cohorte, String Cedula_lt){
+    public List <Tarea> buscarTareas(String curso, String cohorte, String Cedula_lt){
         EntityManager em = getEntityManager();
         //Tarea aspi = new Tarea();
         try {
             //em.getTransaction().begin();
               
-            Query query = em.createNativeQuery("SELECT t "
+            Query query = em.createNativeQuery("SELECT t.id_practica,t.cedula_lt, t.nota "
                     + "FROM matricula m NATURAL JOIN curso c , fases f NATURAL JOIN practica p NATURAL JOIN tarea t "
                     + "WHERE  m.cedula_lt = '" + Cedula_lt 
                        + "' AND m.id_cohorte = '" + cohorte 
@@ -51,9 +51,7 @@ public class DaoTarea implements Serializable {
                        + "' AND f.id_curso = c.id_curso;", Tarea.class);
             
             return query.getResultList();
-                
-//            return ((Vector<Aspirante>) query.getResultList());
-//            return asp;
+
         } finally {
             em.close();
         }

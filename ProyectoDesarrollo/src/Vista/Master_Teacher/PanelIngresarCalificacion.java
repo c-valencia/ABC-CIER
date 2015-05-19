@@ -7,10 +7,16 @@
  */
 package Vista.Master_Teacher;
 
+import Controlador.ControladorAdministrador;
+import Controlador.ControladorCohorte;
+import Controlador.ControladorTarea;
+import Logica.Cohorte;
+import Logica.Tarea;
 import Persistencia.DaoTarea;
 import Vista.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,6 +24,8 @@ import java.awt.event.ActionListener;
  */
 public class PanelIngresarCalificacion extends javax.swing.JPanel {
 
+    ArrayList <Tarea> listaTareas = new ArrayList <> ();
+    
     /**
      * Creates new form PanelLogin
      */
@@ -45,19 +53,18 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
         labelCedulaLt = new javax.swing.JLabel();
         labelIdCorhorte = new javax.swing.JLabel();
         labelIdCurso = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox3 = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
+        jComboBoxCohorte = new javax.swing.JComboBox();
+        jComboBoxCurso = new javax.swing.JComboBox();
+        jTextFieldCedulaLt = new javax.swing.JTextField();
         jButtonBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
-        labelIdCorhorte1 = new javax.swing.JLabel();
-        labelIdCorhorte2 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setPreferredSize(new java.awt.Dimension(750, 505));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setBackground(new java.awt.Color(244, 244, 244));
+        jPanel1.setBorder(null);
 
         labelBuscarCoordinador.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         labelBuscarCoordinador.setForeground(new java.awt.Color(15, 15, 111));
@@ -72,9 +79,9 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
         labelIdCurso.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         labelIdCurso.setText("Id Curso:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCohorte.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButtonBuscar.setText("Buscar");
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -100,10 +107,10 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
                             .addComponent(labelIdCurso))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jComboBox2, 0, 263, Short.MAX_VALUE)
-                                .addComponent(jTextField1))))
+                                .addComponent(jComboBoxCohorte, 0, 263, Short.MAX_VALUE)
+                                .addComponent(jTextFieldCedulaLt))))
                     .addComponent(jButtonBuscar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -114,45 +121,29 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(labelCedulaLt)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldCedulaLt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(labelIdCorhorte)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxCohorte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelIdCurso)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonBuscar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        labelIdCorhorte1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        labelIdCorhorte1.setText("Notas");
-
-        labelIdCorhorte2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        labelIdCorhorte2.setText("Porcentaje");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelIdCorhorte1)
-                .addGap(84, 84, 84)
-                .addComponent(labelIdCorhorte2)
-                .addContainerGap(491, Short.MAX_VALUE))
+            .addGap(0, 722, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelIdCorhorte1)
-                    .addComponent(labelIdCorhorte2))
-                .addContainerGap(445, Short.MAX_VALUE))
+            .addGap(0, 478, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(jPanel2);
@@ -174,34 +165,88 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
-    
+        buscarTareas ();
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JComboBox jComboBoxCohorte;
+    private javax.swing.JComboBox jComboBoxCurso;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldCedulaLt;
     private javax.swing.JLabel labelBuscarCoordinador;
     private javax.swing.JLabel labelCedulaLt;
     private javax.swing.JLabel labelIdCorhorte;
-    private javax.swing.JLabel labelIdCorhorte1;
-    private javax.swing.JLabel labelIdCorhorte2;
     private javax.swing.JLabel labelIdCurso;
     // End of variables declaration//GEN-END:variables
 
-            
+    // Controlador
+    ControladorAdministrador contAdministrador;
+    ControladorCohorte ContCohorte;
+    ControladorTarea ContTarea;
+    
+    public void inicializarComboboxIdCurso () {  
+        contAdministrador = ControladorAdministrador.getInstance();
+        ArrayList <String> idNombreCursos = new ArrayList<>();
+        idNombreCursos = contAdministrador.listaCursosIds();
+        jComboBoxCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] {""}));
+        for (int i = 0; i < idNombreCursos.size(); i++){ 
+            jComboBoxCurso.addItem(idNombreCursos.get(i));
+        }
+        
+    }   
+    
+    public void inicializarComboboxIdCohorte () {  
+        ContCohorte = new ControladorCohorte();
+        ArrayList <Cohorte> listaCohorte = new ArrayList<>();
+        listaCohorte = ContCohorte.listaCohorte();
+        jComboBoxCohorte.setModel(new javax.swing.DefaultComboBoxModel(new String[] {""}));
+        for (int i = 0; i < listaCohorte.size(); i++){ 
+            jComboBoxCohorte.addItem(listaCohorte.get(i).getIdCohorte());
+        }
+        
+    }
+    
+    public void buscarTareas () {
+        
+        // 1151956759
+        
+        String cohorte= (String) jComboBoxCohorte.getSelectedItem();
+        String cedula = jTextFieldCedulaLt.getText();
+        ContTarea = ControladorTarea.getInstance();
+        listaTareas.clear ();
+        listaTareas = ContTarea.listaTarea(codigoCurso(), cohorte, cedula);
+        System.out.println ("tamano: " + listaTareas.size());
+        for (int i = 0; i< listaTareas.size() ; i++) { 
+            System.out.println ("nota: " + listaTareas.get(i).getNota() + 
+                                " IdPractica: " + listaTareas.get(i).getTareaPK().getIdPractica() + 
+                                " cedula: " + listaTareas.get(i).getTareaPK().getCedulaLt());
+                    }
+    }
+    
+    private String codigoCurso(){
+        String codigoNombre = " ";
+        codigoNombre = (String) jComboBoxCurso.getSelectedItem();
+        String codigoCurso = " ";    
+        int posiSeparador = 0;
+        for(int i =0; i < codigoNombre.length();i++){
+            if(codigoNombre.charAt(i)==' '){
+                posiSeparador = i;
+            }
+        }
+        codigoCurso = codigoNombre.substring(0, posiSeparador);
+        return codigoCurso;
+    }
 
     private void asignarEventos(EventosPanelLogin events){
         

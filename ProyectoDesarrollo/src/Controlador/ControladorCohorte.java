@@ -55,6 +55,8 @@ public class ControladorCohorte {
         validador = new Validaciones();
     }
     
+    
+    
     public List <Curso> buscarCursos(){
         Vector <Curso> listado = new Vector<>();
         System.out.println("esta iniciando...");
@@ -98,6 +100,17 @@ public class ControladorCohorte {
         String result = "Error en elguardado";
         
         try{
+<<<<<<< HEAD
+=======
+            Date inicio = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaInicio();
+            Date fin = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaFin();
+            
+<<<<<<< HEAD
+            //if(inicio){
+=======
+            ////if(inicio){
+>>>>>>> branch 'master' of https://github.com/c-valencia/ABC-CIER.git
+>>>>>>> 26c349bbd7fa1ec787f1cb59dfca6facf6d19c70
             validador.validarFechas(fechaFin, fechaInicio);
             Cohorte cohorte = new Cohorte();
             cohorte.setFechaInicio(fechaInicio);
@@ -107,6 +120,10 @@ public class ControladorCohorte {
         
             daoCohorte.insertCohorte(cohorte);
             result = "Guardado exitoso";
+<<<<<<< HEAD
+=======
+            //}
+>>>>>>> 26c349bbd7fa1ec787f1cb59dfca6facf6d19c70
             return result;
             
         } catch(ExcepcionDatos ex){
@@ -212,5 +229,22 @@ public class ControladorCohorte {
     public boolean modificarCohorte(){
         
         return false;
+    }
+    
+    public ArrayList<Cohorte> listaCohorte () {
+
+        List<Cohorte> listaCohorte = daoCohorte.findCohorteEntities();
+        ArrayList<Cohorte> cohorte = new ArrayList<>();
+
+        if (listaCohorte.size() != 0) {
+
+            for (int i = 0; i < listaCohorte.size(); i++) {
+                cohorte.add(listaCohorte.get(i));
+            }
+        } else {
+
+            cohorte = null;
+        }
+        return cohorte;
     }
 }

@@ -12,6 +12,7 @@ import Logica.HistorialAspirante;
 import Persistencia.Conexion;
 import Persistencia.DaoAspirante;
 import Persistencia.DaoHistorialAspirante;
+import Persistencia.exceptions.PreexistingEntityException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,11 +54,11 @@ public class ControladorAspirante {
             Aspirante nuevoAspirante = new Aspirante(cedula, nombres, apellidos, correo, celular, direccion, sedePertenece, intitucion, codigoDaneIntitucion, grado, secretariaEducacion, municipio, departamento, areaInscripcion, tutorPta, usuarioColombiaAprende, estado);
             daoAspirante.create(nuevoAspirante);
             result = "Se creo el aspirante con exito";
+        } catch (PreexistingEntityException ex) {
+            result = ex.getMessage();       
         } catch (ExcepcionDatos ex) {
             result = ex.getMessage();
-
         } catch (NullPointerException ex) {
-
             result = "Ingreso un objeto vacio";       
         } catch (Exception ex) {
             Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,13 +73,14 @@ public class ControladorAspirante {
         try {
             validador.validarCamposVacios(cedulaAs, idCurso);
             HistorialAspirante nuevoHistorialAspirante = new HistorialAspirante(cedulaAs, idCurso, fechaInscripcion);
-            daoHistorialAspirante.insertarHistorialaspirante(cedulaAs, idCurso, fechaInscripcion);
+            daoHistorialAspirante.insertarHistorialaspirante(nuevoHistorialAspirante);
             result = "Se creo el historial aspirante con exito";
+         
+        } catch (PreexistingEntityException ex) {
+            result = ex.getMessage();    
         } catch (ExcepcionDatos ex) {
             result = ex.getMessage();
-
         } catch (NullPointerException ex) {
-
             result = "Ingreso un objeto vacio";    
         } catch (Exception ex) {
             Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
