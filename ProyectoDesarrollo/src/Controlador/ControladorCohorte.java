@@ -103,7 +103,11 @@ public class ControladorCohorte {
             Date inicio = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaInicio();
             Date fin = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaFin();
             
+<<<<<<< HEAD
             //if(inicio){
+=======
+            ////if(inicio){
+>>>>>>> branch 'master' of https://github.com/c-valencia/ABC-CIER.git
             validador.validarFechas(fechaFin, fechaInicio);
             Cohorte cohorte = new Cohorte();
             cohorte.setFechaInicio(fechaInicio);

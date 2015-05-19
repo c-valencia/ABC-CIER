@@ -63,7 +63,7 @@ public class DaoCurso implements Serializable {
         Curso curso = null;
         try {
             em.getTransaction().begin();
-            Query query = em.createNativeQuery("SELECT * FROM Curso  WHERE  "+campo+"like '%"+valor+"%';", Curso.class);
+            Query query = em.createNativeQuery("SELECT * FROM Curso  WHERE  "+campo+" like '%"+valor+"%';", Curso.class);
             curso = (Curso) query.getSingleResult();
             //return (Curso) query.getSingleResult();
         } finally {
