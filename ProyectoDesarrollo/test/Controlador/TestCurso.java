@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controlador;
 
 import Logica.Curso;
@@ -50,45 +45,38 @@ public class TestCurso {
     
     @After
     public void tearDown() {
-        try {
-            System.out.println("\nFinal Test");
-            Curso objCurso = daoCurso.buscarCurso("nombre", "Curso 1");
-            daoCurso.destroy(objCurso.getIdCurso());
-        } catch (IllegalOrphanException ex) {
-            Logger.getLogger(TestCurso.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NonexistentEntityException ex) {
-            Logger.getLogger(TestCurso.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        System.out.println("\nFin Test\n");
     }
    
     @Test
     public void testCrearCurso() {
-        System.out.println("TEST CREAR CURSO");
-        // Ingreso  con exito
-        System.out.println("Camino uno");
-        String nombre = "Curso 1";
-        String nombreCorto = "Cur_1";
-        String descripcion = "Primer curso";
-        String contenido = "Item 1\nItem 2\n Item 3";
-        boolean estado = true;                        
-        String expResult = "Se ingreso un curso con éxito";
-        String result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
-        assertEquals(expResult, result);   
-        System.out.println("\nResultado Operacion: " + result);
         
-        // Campos vacios        
-        System.out.println("Camino dos");
-        nombre = "";
-        nombreCorto = "";
-        descripcion = "";
-        contenido = "";
-        estado = true;
-        expResult = "Debe llenar todos los campos";
-        result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
-        assertEquals(expResult, result);   
-        System.out.println("Resultado Operacion: " + result);        
-        
-        // Registro repetido
+            System.out.println("TEST CREAR CURSO");
+            // Ingreso  con exito
+            System.out.println("\nCamino uno");
+            String nombre = "Curso 1";
+            String nombreCorto = "Cur_1";
+            String descripcion = "Primer curso";
+            String contenido = "Item 1\nItem 2\n Item 3";
+            boolean estado = true;
+            String expResult = "Se ingreso un curso con éxito";
+            String result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
+            assertEquals(expResult, result);
+            System.out.println("\nResultado Operacion: " + result);
+            
+            // Campos vacios
+            System.out.println("Camino dos");
+            nombre = "";
+            nombreCorto = "";
+            descripcion = "";
+            contenido = "";
+            estado = true;
+            expResult = "Debe llenar todos los campos";
+            result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
+            assertEquals(expResult, result);
+            System.out.println("Resultado Operacion: " + result);
+            
+            // Registro repetido
 //        System.out.println("Camino tres");
 //        nombre = "Curso 1";
 //        nombreCorto = "Cur_1";
@@ -97,22 +85,41 @@ public class TestCurso {
 //        estado = true;
 //        expResult = "No se pudo insertar el curso";
 //        result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
-//        assertEquals(expResult, result);   
-//        System.out.println("Resultado Operacion: " + result);           
-    } // Fin del metodo testCrearCurso
-
-//    @Test
-//    public void testDBuscarCurso(){
-//        System.out.println("TEST BUSCAR CURSO");
-//        String campo = "nombre"; 
-//        String valor = "Curso Pollo";
-//// IC23     | Curso Pollo                              | Curso Pollo        | Curso Pollo         | Curso Pollo                     | t
-//        
-//        String expResult = "El curso fue encontrado";
-//        String result = contAdministrador.buscarCurso(campo, valor);
 //        assertEquals(expResult, result);
 //        System.out.println("Resultado Operacion: " + result);
-//
-//    } // Fin del metodo testBuscarCurso
-//    
+        try {   
+            Curso objCurso = daoCurso.buscarCurso("nombre", "Curso 1");
+            daoCurso.destroy(objCurso.getIdCurso());
+        }
+        catch (IllegalOrphanException ex) {
+            Logger.getLogger(TestCurso.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(TestCurso.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } // Fin del metodo testCrearCurso
+
+    @Test
+    public void testDBuscarCurso(){
+        System.out.println("TEST BUSCAR CURSO");
+        
+        // Curso encontrado
+        System.out.println("\nCamino uno");
+        String campo = "nombre"; 
+        String valor = "Curso Pollo";        
+        String expResult = "El curso fue encontrado";
+        String result = contAdministrador.buscarCurso(campo, valor);
+        assertEquals(expResult, result);
+        System.out.println("Resultado Operacion: " + result);
+        
+        // Campos vacios
+        System.out.println("\nCamino dos");
+        campo = ""; 
+        valor = "";        
+        expResult = "Debe llenar todos los campos";
+        result = contAdministrador.buscarCurso(campo, valor);
+        assertEquals(expResult, result);
+        System.out.println("Resultado Operacion: " + result);        
+
+    } // Fin del metodo testBuscarCurso
+    
 } // Fin de la clase TestCurso
