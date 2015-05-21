@@ -88,6 +88,7 @@ public class PanelCoordinador extends javax.swing.JPanel {
     private Panel_BuscarLT panelBuscarLT;
     private PanelCohorte panelCohorte;
     private Panel_EliminarLT panelEliminarLT;
+    private PanelReporte panelReporte;
     
     // MENU
     private JMenuBar barraLateral;  
@@ -101,13 +102,6 @@ public class PanelCoordinador extends javax.swing.JPanel {
     private JMenuItem itemGenerar; // Certificados    
     private JMenu menuReportes; // Reportes
     private JMenuItem itemReport1; // Reportes
-    private JMenuItem itemReport2; // Reportes
-    private JMenuItem itemReport3; // Reportes
-    private JMenuItem itemReport4; // Reportes
-    private JMenuItem itemReport5; // Reportes
-    private JMenuItem itemReport6; // Reportes
-    private JMenuItem itemReport7; // Reportes
-    private JMenuItem itemReport8; // Reportes        
     /**|
      * Nombre: actualizarPaneDer
      * Proposito: Metodo que actualiza el contenido del panelDer
@@ -168,24 +162,10 @@ public class PanelCoordinador extends javax.swing.JPanel {
         menuReportes = new JMenu("Reportes");
         menuReportes.setMenuLocation(180, 0);
         // Components
-        itemReport1 = new JMenuItem("Reporte 1");
-        itemReport2 = new JMenuItem("Reporte 2");
-        itemReport3 = new JMenuItem("Reporte 3");
-        itemReport4 = new JMenuItem("Reporte 4");
-        itemReport5 = new JMenuItem("Reporte 5");
-        itemReport6 = new JMenuItem("Reporte 6");
-        itemReport7 = new JMenuItem("Reporte 7");
-        itemReport8 = new JMenuItem("Reporte 8");
+        itemReport1 = new JMenuItem("Ver Reportes");
         
         // Add Components
         menuReportes.add(itemReport1);
-        menuReportes.add(itemReport2);
-        menuReportes.add(itemReport3);
-        menuReportes.add(itemReport4);
-        menuReportes.add(itemReport5);
-        menuReportes.add(itemReport6);
-        menuReportes.add(itemReport7);
-        menuReportes.add(itemReport8);
                 
         // Add elements to JMenu
         barraLateral.add(menuLeaderTeacher);
@@ -209,14 +189,7 @@ public class PanelCoordinador extends javax.swing.JPanel {
         // Menu Certificados
         itemGenerar.addActionListener(events);
         // Menu Reportes
-        itemReport1.addActionListener(events);
-        itemReport2.addActionListener(events);
-        itemReport3.addActionListener(events);
-        itemReport4.addActionListener(events);
-        itemReport5.addActionListener(events);
-        itemReport6.addActionListener(events);
-        itemReport7.addActionListener(events);
-        itemReport8.addActionListener(events);        
+        itemReport1.addActionListener(events);       
     } // Fin del metodo asignarEventos
     
     private class EventosPanelCoordinador implements ActionListener{
@@ -244,21 +217,9 @@ public class PanelCoordinador extends javax.swing.JPanel {
             }
             // Menu Reportes
             if (e.getSource() == itemReport1) {            
-            }
-            if (e.getSource() == itemReport2) {            
-            }
-            if (e.getSource() == itemReport3) {            
-            }
-            if (e.getSource() == itemReport4) {            
-            }
-            if (e.getSource() == itemReport5) {            
-            }
-            if (e.getSource() == itemReport6) {            
-            }
-            if (e.getSource() == itemReport7) {            
-            }
-            if (e.getSource() == itemReport8) {            
-            }                         
+                panelReporte = new PanelReporte();
+                actualizarPaneDer(panelReporte);
+            }                    
         }
     } // Fin de la clase EventosPanelPrincipal
 

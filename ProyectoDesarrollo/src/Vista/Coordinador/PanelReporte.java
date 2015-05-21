@@ -7,8 +7,13 @@
  */
 package Vista.Coordinador;
 
+import Controlador.ControladorReportes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -21,9 +26,7 @@ public class PanelReporte extends javax.swing.JPanel {
      */
     public PanelReporte() {
         initComponents();
-
-        
-        
+                
         // Eventos 
         EventosPanelLogin events = new EventosPanelLogin();
         asignarEventos(events);
@@ -38,36 +41,241 @@ public class PanelReporte extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelBuscarMesAno = new javax.swing.JPanel();
+        labelReportEspecifico = new javax.swing.JLabel();
+        labelAno = new javax.swing.JLabel();
+        inputAno = new com.toedter.calendar.JYearChooser();
+        labelMes = new javax.swing.JLabel();
+        inputMes = new com.toedter.calendar.JMonthChooser();
+        botonBuscarMesAno = new javax.swing.JButton();
+        panelSuperior = new javax.swing.JPanel();
+        labelReporte = new javax.swing.JLabel();
+        labelListaReportes = new javax.swing.JLabel();
+        comboReportes = new javax.swing.JComboBox();
+        panelInferior = new javax.swing.JPanel();
+
+        panelBuscarMesAno.setBackground(new java.awt.Color(245, 245, 245));
+        panelBuscarMesAno.setBorder(null);
+
+        labelReportEspecifico.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        labelReportEspecifico.setForeground(new java.awt.Color(15, 15, 111));
+        labelReportEspecifico.setText("CURSOS CON MAYOR  NÚMERO DE ASISTENTES EN EL MES");
+
+        labelAno.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        labelAno.setText("Año:");
+
+        labelMes.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        labelMes.setText("Mes:");
+
+        botonBuscarMesAno.setText("Generar Reporte");
+
+        javax.swing.GroupLayout panelBuscarMesAnoLayout = new javax.swing.GroupLayout(panelBuscarMesAno);
+        panelBuscarMesAno.setLayout(panelBuscarMesAnoLayout);
+        panelBuscarMesAnoLayout.setHorizontalGroup(
+            panelBuscarMesAnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBuscarMesAnoLayout.createSequentialGroup()
+                .addGroup(panelBuscarMesAnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBuscarMesAnoLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(panelBuscarMesAnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonBuscarMesAno)
+                            .addGroup(panelBuscarMesAnoLayout.createSequentialGroup()
+                                .addComponent(labelAno)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(inputAno, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(labelMes)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(inputMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panelBuscarMesAnoLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(labelReportEspecifico)))
+                .addContainerGap(96, Short.MAX_VALUE))
+        );
+        panelBuscarMesAnoLayout.setVerticalGroup(
+            panelBuscarMesAnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBuscarMesAnoLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(labelReportEspecifico)
+                .addGap(40, 40, 40)
+                .addGroup(panelBuscarMesAnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelAno)
+                    .addComponent(inputAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMes)
+                    .addComponent(inputMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addComponent(botonBuscarMesAno)
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+
         setBackground(new java.awt.Color(245, 245, 245));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setBorder(null);
         setPreferredSize(new java.awt.Dimension(750, 505));
+
+        panelSuperior.setBackground(new java.awt.Color(245, 245, 245));
+        panelSuperior.setBorder(null);
+        panelSuperior.setPreferredSize(new java.awt.Dimension(759, 146));
+
+        labelReporte.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        labelReporte.setForeground(new java.awt.Color(15, 15, 111));
+        labelReporte.setText("REPORTES");
+
+        labelListaReportes.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+        labelListaReportes.setText("Lista de Reportes: ");
+
+        comboReportes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Cursos con mayor número de asistentes en el mes", "item1", "item2", "item3", "item4", "item5", "item6" }));
+        comboReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboReportesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
+        panelSuperior.setLayout(panelSuperiorLayout);
+        panelSuperiorLayout.setHorizontalGroup(
+            panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSuperiorLayout.createSequentialGroup()
+                .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSuperiorLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelListaReportes)
+                            .addComponent(comboReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelSuperiorLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(labelReporte)))
+                .addContainerGap(265, Short.MAX_VALUE))
+        );
+        panelSuperiorLayout.setVerticalGroup(
+            panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSuperiorLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(labelReporte)
+                .addGap(18, 18, 18)
+                .addComponent(labelListaReportes)
+                .addGap(18, 18, 18)
+                .addComponent(comboReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
+        );
+
+        panelInferior.setBackground(new java.awt.Color(245, 245, 245));
+        panelInferior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)));
+        panelInferior.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 748, Short.MAX_VALUE)
+            .addComponent(panelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
+            .addComponent(panelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 503, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void comboReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboReportesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboReportesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonBuscarMesAno;
+    private javax.swing.JComboBox comboReportes;
+    private com.toedter.calendar.JYearChooser inputAno;
+    private com.toedter.calendar.JMonthChooser inputMes;
+    private javax.swing.JLabel labelAno;
+    private javax.swing.JLabel labelListaReportes;
+    private javax.swing.JLabel labelMes;
+    private javax.swing.JLabel labelReportEspecifico;
+    private javax.swing.JLabel labelReporte;
+    private javax.swing.JPanel panelBuscarMesAno;
+    private javax.swing.JPanel panelInferior;
+    private javax.swing.JPanel panelSuperior;
     // End of variables declaration//GEN-END:variables
-
-            
-
-    private void asignarEventos(EventosPanelLogin events){
         
-    } // Fin del metodo asignarEventos
+    // Controlador
+    private ControladorReportes contReportes;
     
+    
+    private void actualizarPanelInferior(JPanel panelNuevo) {    
+        panelInferior.removeAll();
+        panelInferior.add(panelNuevo);
+        panelInferior.repaint();
+        panelInferior.updateUI();        
+    } // Fin del metodo actualizarPanelInferior
+    
+    
+    private void actualizarPanelBuscar(int index){
+        switch (index) {
+            case 0: {
+                JPanel panelVacio = new JPanel();
+                panelVacio.setBackground(new java.awt.Color(245, 245, 245));
+                actualizarPanelInferior(panelVacio);
+            };break;
+            case 1: {
+                labelReportEspecifico.setText("CURSOS CON MAYOR  NÚMERO DE ASISTENTES EN EL MES");                            
+                actualizarPanelInferior(panelBuscarMesAno);
+            };break;
+            
+            case 2: {
+                labelReportEspecifico.setText("1");
+            };break;
+            
+            case 3: {
+                labelReportEspecifico.setText("2");            
+            };break;
+                
+            case 4: {
+                labelReportEspecifico.setText("3");
+            };break;     
+                
+            case 5: {
+                labelReportEspecifico.setText("4");
+            };break;
+                
+            case 6: {
+                labelReportEspecifico.setText("5");            
+            };break;                
+        };        
+    } // Fin del metodo actualizarPanelBus    
+    
+    
+    private  void reporteCursosMayorAsistencia(){
+        contReportes = ControladorReportes.getInstance();
+        String ano = "" + inputAno.getYear();
+        String mes = "" + (inputMes.getMonth() + 1);         
+        JasperPrint informe = contReportes.reporteCursosMayorAsistencia(ano, mes);
+        if (informe != null) {
+            JasperViewer ventanaVisor = new JasperViewer(informe, false);
+            ventanaVisor.setTitle("Informe");
+            ventanaVisor.setVisible(true);  
+        } else {
+            JOptionPane.showMessageDialog(null, "NO SE HIZO EL REPORTE");
+        }
+
+    } // Fin del metodo 
+    
+    private void asignarEventos(EventosPanelLogin events){
+        comboReportes.addActionListener(events);
+        botonBuscarMesAno.addActionListener(events);
+    } // Fin del metodo asignarEventos
+       
     private class EventosPanelLogin implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == comboReportes) {
+                int index = comboReportes.getSelectedIndex();
+                actualizarPanelBuscar(index);
+            }
+            if (e.getSource() == botonBuscarMesAno) {
+                reporteCursosMayorAsistencia();
+            }
         }
     
     } // Fin de la clase EventosPanelLogin
