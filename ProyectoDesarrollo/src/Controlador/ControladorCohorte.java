@@ -15,6 +15,8 @@ import Logica.CursoCohortePK;
 import Logica.LeaderTeacher;
 import Logica.Matricula;
 import Logica.MatriculaPK;
+import Logica.Practica;
+import Logica.Tarea;
 import Logica.Usuario;
 import Persistencia.DaoCohorte;
 import Persistencia.Conexion;
@@ -23,6 +25,8 @@ import Persistencia.DaoAspirante;
 import Persistencia.DaoCursoCohorte;
 import Persistencia.DaoLeaderTeacher;
 import Persistencia.DaoMatricula;
+import Persistencia.DaoPractica;
+import Persistencia.DaoTarea;
 import Persistencia.DaoUsuario;
 import Persistencia.exceptions.IllegalOrphanException;
 import Persistencia.exceptions.NonexistentEntityException;
@@ -43,7 +47,9 @@ public class ControladorCohorte {
     private DaoCohorte daoCohorte;
     private DaoCurso daoCurso;
     private DaoCursoCohorte daoCursoCohorte;
+    private DaoPractica daoPractica;
     private DaoAspirante daoAspirante;
+    private DaoTarea daoTarea;
     private Validaciones validador;
     
     public ControladorCohorte() {
@@ -52,6 +58,8 @@ public class ControladorCohorte {
         daoCurso = new DaoCurso(conn.getCon());
         daoCursoCohorte = new DaoCursoCohorte(conn.getCon());
         daoAspirante = new DaoAspirante(conn.getCon());
+        daoPractica = new DaoPractica(conn.getCon());
+        daoTarea = new DaoTarea(conn.getCon());
         validador = new Validaciones();
     }
     
@@ -236,5 +244,22 @@ public class ControladorCohorte {
             cohorte = null;
         }
         return cohorte;
+    }
+    
+    public void crearTarea(String cedulaLT, String cursoID){
+        Vector <Practica> practicas = new Vector<>();
+        practicas = buscarPractica(cursoID);
+        //Tarea tarea = new Tarea(cursoID, cedulaLT);
+        
+        for(int i = 0; i < practicas.size(); i++){
+            
+            //daoTarea.create();
+        }
+    }
+    
+    private Vector<Practica> buscarPractica(String cursoID){
+        Vector <Practica> practicas = new Vector<>();
+        practicas = daoPractica.buscarPracticas(cursoID);
+        return practicas;
     }
 }

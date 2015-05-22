@@ -22,6 +22,7 @@ import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -251,6 +252,23 @@ public class DaoPractica implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public Vector<Practica> buscarPracticas(String cursoID){
+        EntityManager em = getEntityManager();
+        String buscar = new String();
+        try {
+            em.getTransaction().begin();
+            buscar = "select p.id_practica, p.id_fase, p.nombre, p.descripcion, p.porcentaje, p.estado" +
+                     " from (curso c join fases f on f.id_curso = c.id_curso and c.id_curso = '" + cursoID + "' and c.estado = true)" +
+                     " join practica p on f.id_fase = p.id_fase and p.estado = true;";
+            
+            Query query = em.createNativeQuery(buscar, Practica.class);
+            
+            return ((Vector<Practica>) query.getResultList());
         } finally {
             em.close();
         }
