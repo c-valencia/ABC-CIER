@@ -102,8 +102,7 @@ public class ControladorCohorte {
         try{
             Date inicio = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaInicio();
             Date fin = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaFin();
-            
-            if(inicio){
+           
             validador.validarFechas(fechaFin, fechaInicio);
             Cohorte cohorte = new Cohorte();
             cohorte.setFechaInicio(fechaInicio);
@@ -113,7 +112,7 @@ public class ControladorCohorte {
         
             daoCohorte.insertCohorte(cohorte);
             result = "Guardado exitoso";
-            }
+            
             return result;
             
         } catch(ExcepcionDatos ex){

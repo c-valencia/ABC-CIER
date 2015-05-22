@@ -66,7 +66,8 @@ public class ControladorTablas {
                 titulo.add("SI/NO");
             };break;
             case 3 : {
-                
+               titulo.add("Porcentaje"); 
+               titulo.add("Notas");
             };break;
                         
             default: {

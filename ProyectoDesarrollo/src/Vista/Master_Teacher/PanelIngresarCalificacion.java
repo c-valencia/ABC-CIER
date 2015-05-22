@@ -9,6 +9,7 @@ package Vista.Master_Teacher;
 
 import Controlador.ControladorAdministrador;
 import Controlador.ControladorCohorte;
+import Controlador.ControladorTablas;
 import Controlador.ControladorTarea;
 import Logica.Cohorte;
 import Logica.Tarea;
@@ -17,6 +18,8 @@ import Vista.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -59,6 +62,8 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
         jButtonBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setPreferredSize(new java.awt.Dimension(750, 505));
@@ -135,15 +140,46 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Porcentaje", "Nota"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        }
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 722, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 478, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jScrollPane1.setViewportView(jPanel2);
@@ -183,6 +219,8 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldCedulaLt;
     private javax.swing.JLabel labelBuscarCoordinador;
     private javax.swing.JLabel labelCedulaLt;
@@ -259,5 +297,12 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
         }
     
     } // Fin de la clase EventosPanelLogin
+    
+    private void listarNotasYPorcentajes(){
+        //ControladorTablas ct = new ControladorTablas(listaAspirantes);
+        
+        //DefaultTableModel modelo = new DefaultTableModel(ct.contruirCuerpo(2), ct.titulos(2));
+        //jTableAspiratesBD.setModel(modelo);
+    }// fin del metodo listarALTs
 
 } // Fin de la clase PanelLogin
