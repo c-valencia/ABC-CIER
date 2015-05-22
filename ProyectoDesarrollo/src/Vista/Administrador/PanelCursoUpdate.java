@@ -736,6 +736,10 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
                 String valor = InputBusquedaNombreCurso.getText();
                 String result = controladorAdministrador.buscarCurso(campo, valor);
                 
+                inputDescripcion.setText(controladorAdministrador.getCurso().getDescripcion());
+                inputNombre.setText(controladorAdministrador.getCurso().getNombre());
+                inputNombreCorto.setText(controladorAdministrador.getCurso().getNombreCorto());
+                inputContenido.setText(controladorAdministrador.getCurso().getContenido());
         
                
            }
