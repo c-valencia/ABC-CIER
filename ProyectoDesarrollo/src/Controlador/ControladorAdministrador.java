@@ -20,10 +20,12 @@ import Persistencia.DaoFases;
 import Persistencia.DaoHistorialAspirante;
 import Persistencia.DaoMasterTeacher;
 import Persistencia.DaoPractica;
+import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -47,6 +49,8 @@ public class ControladorAdministrador implements Sujeto {
     private Validaciones validador;
     private ArrayList <String> idNombreCurso;
     private ArrayList <String> idNombreFases;
+    private ArrayList <String> idNombreFasesPorCurso;
+    
     private Curso curso;
 
     public ControladorAdministrador() {
@@ -60,6 +64,7 @@ public class ControladorAdministrador implements Sujeto {
         daoHistorialAspirante = new DaoHistorialAspirante(conexion.getCon());
         idNombreCurso = new ArrayList<String>();
         idNombreFases = new ArrayList<String>();
+        idNombreFasesPorCurso = new ArrayList<String>();
         validador = new Validaciones();
         curso = new Curso();
         //patron observador, lista de observador
@@ -292,13 +297,35 @@ public class ControladorAdministrador implements Sujeto {
             Curso curso = daoCurso.buscarCurso(campo, valor);
              this.curso = curso;
              result = "El curso fue encontrado";
-        }catch(ExcepcionDatos ex){
+        }catch(NoResultException ex){
+            result = ex.getMessage();
+        }
+        
+        catch(ExcepcionDatos ex){
             result = ex.getMessage();
         }
         return result;
     }
     
-    
+    public String modificarCurso(String nombreCorto, String descripcion, String contenido){
+        String result = "";
+        try{
+            validador.validarCamposVacios(nombreCorto,descripcion,contenido);
+            curso.setNombreCorto(nombreCorto);
+            curso.setDescripcion(descripcion);
+            curso.setContenido(contenido);
+            daoCurso.edit(curso);
+            result = "El curso con el id "+curso.getIdCurso()+" fue modificado con exito";
+            
+        }catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }catch(NonexistentEntityException ex){
+            result = ex.getMessage();
+        }catch(Exception ex){
+            result = ex.getMessage();
+        }
+        return result;
+    }
 
     public ArrayList<String> getIdNombreCurso() {
         return idNombreCurso;
@@ -389,7 +416,36 @@ public class ControladorAdministrador implements Sujeto {
         this.idNombreFases = idNombreFases;
     }
 
-    public String listFasesIds() {
+    public ArrayList<String> getIdNombreFasesPorCurso() {
+        return idNombreFasesPorCurso;
+    }
+
+    public void setIdNombreFasesPorCurso(ArrayList<String> idNombreFasesPorCurso) {
+        this.idNombreFasesPorCurso = idNombreFasesPorCurso;
+    }
+
+    public String listFasesIdsPorCurso(String idCurso) {
+        String result = "";
+        try {
+            List<Fases> fases = daoFase.findFasesEntities();
+            validador.validarColeccion(fases, "fases");
+            result = "Se listaron las fases con exito";
+            idNombreFasesPorCurso = new ArrayList<String>();
+
+            for (int i = 0; i < fases.size(); i++) {
+                if (fases.get(i).getEstado() != false && fases.get(i).getIdCurso().getIdCurso().equals(idCurso)) {
+                    String idNombre = "" + fases.get(i).getIdFase();
+                    idNombreFasesPorCurso.add(idNombre);
+                }
+            }
+
+        } catch (ExcepcionDatos ex) {
+            result = ex.getMessage();
+        }
+        return result;
+    }
+    
+     public String listFasesIds() {
         String result = "";
         try {
             List<Fases> fases = daoFase.findFasesEntities();
@@ -409,7 +465,6 @@ public class ControladorAdministrador implements Sujeto {
         }
         return result;
     }
-    
     
 
     @Override
