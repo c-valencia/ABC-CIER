@@ -25,6 +25,7 @@ import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 
 public class DaoCurso implements Serializable {
@@ -67,7 +68,11 @@ public class DaoCurso implements Serializable {
             Query query = em.createNativeQuery("SELECT * FROM Curso  WHERE  "+campo+" like '%"+valor+"%';", Curso.class);
             curso = (Curso) query.getSingleResult();
             //return (Curso) query.getSingleResult();
-        } finally {
+        }catch(Exception ex){
+            throw new NoResultException("Hubo un error en la consulta por verifique que los campos esten bien");
+        } 
+        
+        finally {
             if (em != null) {
                 em.close();
             }
@@ -85,7 +90,7 @@ public class DaoCurso implements Serializable {
         }
         if (curso.getMasterTeacherList() == null) {
             curso.setMasterTeacherList(new ArrayList<MasterTeacher>());
-             System.out.print("prueba 3");
+             
         }
         EntityManager em = null;
         try {
@@ -95,21 +100,21 @@ public class DaoCurso implements Serializable {
             for (Fases fasesListFasesToAttach : curso.getFasesList()) {
                 fasesListFasesToAttach = em.getReference(fasesListFasesToAttach.getClass(), fasesListFasesToAttach.getIdFase());
                 attachedFasesList.add(fasesListFasesToAttach);
-                 System.out.print("prueba 4");
+                
             }
             curso.setFasesList(attachedFasesList);
             List<CursoCohorte> attachedCursoCohorteList = new ArrayList<CursoCohorte>();
             for (CursoCohorte cursoCohorteListCursoCohorteToAttach : curso.getCursoCohorteList()) {
                 cursoCohorteListCursoCohorteToAttach = em.getReference(cursoCohorteListCursoCohorteToAttach.getClass(), cursoCohorteListCursoCohorteToAttach.getCursoCohortePK());
                 attachedCursoCohorteList.add(cursoCohorteListCursoCohorteToAttach);
-                 System.out.print("prueba 5");
+                 
             }
             curso.setCursoCohorteList(attachedCursoCohorteList);
             List<MasterTeacher> attachedMasterTeacherList = new ArrayList<MasterTeacher>();
             for (MasterTeacher masterTeacherListMasterTeacherToAttach : curso.getMasterTeacherList()) {
                 masterTeacherListMasterTeacherToAttach = em.getReference(masterTeacherListMasterTeacherToAttach.getClass(), masterTeacherListMasterTeacherToAttach.getCedula());
                 attachedMasterTeacherList.add(masterTeacherListMasterTeacherToAttach);
-                 System.out.print("prueba 6");
+                 
             }
             curso.setMasterTeacherList(attachedMasterTeacherList);
            
@@ -121,9 +126,9 @@ public class DaoCurso implements Serializable {
                 if (oldIdCursoOfFasesListFases != null) {
                     oldIdCursoOfFasesListFases.getFasesList().remove(fasesListFases);
                     oldIdCursoOfFasesListFases = em.merge(oldIdCursoOfFasesListFases);
-                     System.out.print("prueba 7");
+                     
                 }
-                 System.out.print("prueba 8");
+                
             }
             for (CursoCohorte cursoCohorteListCursoCohorte : curso.getCursoCohorteList()) {
                 Curso oldCursoOfCursoCohorteListCursoCohorte = cursoCohorteListCursoCohorte.getCurso();
@@ -132,7 +137,7 @@ public class DaoCurso implements Serializable {
                 if (oldCursoOfCursoCohorteListCursoCohorte != null) {
                     oldCursoOfCursoCohorteListCursoCohorte.getCursoCohorteList().remove(cursoCohorteListCursoCohorte);
                     oldCursoOfCursoCohorteListCursoCohorte = em.merge(oldCursoOfCursoCohorteListCursoCohorte);
-                 System.out.print("prueba 9");
+                
                 }
                  System.out.print("prueba 10");
             }
@@ -143,15 +148,15 @@ public class DaoCurso implements Serializable {
                 if (oldIdCursoOfMasterTeacherListMasterTeacher != null) {
                     oldIdCursoOfMasterTeacherListMasterTeacher.getMasterTeacherList().remove(masterTeacherListMasterTeacher);
                     oldIdCursoOfMasterTeacherListMasterTeacher = em.merge(oldIdCursoOfMasterTeacherListMasterTeacher);
-                     System.out.print("prueba 11");
+                     
                 }
-                 System.out.print("prueba 12");
+                 
             }
             em.getTransaction().commit();
         } 
             catch (Exception ex) {
             if (findCurso(curso.getIdCurso()) != null) {
-                 System.out.print("prueba 13");
+                
                 throw new PreexistingEntityException("Curso " + curso + " already exists.", ex);
                 
             }
@@ -159,7 +164,7 @@ public class DaoCurso implements Serializable {
         } 
             finally {
             if (em != null) {
-                 System.out.print("prueba 14");
+                 
                 em.close();
             }
         }
@@ -264,7 +269,7 @@ public class DaoCurso implements Serializable {
             if (msg == null || msg.length() == 0) {
                 String id = curso.getIdCurso();
                 if (findCurso(id) == null) {
-                    throw new NonexistentEntityException("The curso with id " + id + " no longer exists.");
+                    throw new NonexistentEntityException("El curso con id " + id + " no  existe en la base de datos.");
                 }
             }
             throw ex;

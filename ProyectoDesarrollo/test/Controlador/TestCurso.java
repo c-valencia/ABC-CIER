@@ -117,8 +117,17 @@ public class TestCurso {
         expResult = "Debe llenar todos los campos";
         result = contAdministrador.buscarCurso(campo, valor);
         assertEquals(expResult, result);
-        System.out.println("Resultado Operacion: " + result);        
-
+        System.out.println("Resultado Operacion: " + result);    
+        
+        // Campo igual a null
+        System.out.println("\nCamino tres");
+        campo = null;
+        valor = "Curso Pollo";
+        expResult = "El campo Campos curso  no se ha selecccionado";
+        result = contAdministrador.buscarCurso(campo, valor);
+        assertEquals(expResult, result);        
+        System.out.println("Resultado Operacion: " + result); 
+        
     } // Fin del metodo testBuscarCurso
     
 } // Fin de la clase TestCurso
