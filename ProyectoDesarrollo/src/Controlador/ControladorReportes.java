@@ -67,11 +67,11 @@ public class ControladorReportes {
             em = conexion.getCon().createEntityManager();
             em.getTransaction().begin();
             java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
-            Map parametros = new HashMap();  // Parametros del Reporte 
+            Map parametros = new HashMap();  // Parametros del Reporte             
             parametros.put("idCurso", idCurso);
-            parametros.put("Departamento", departamento);
+            parametros.put("depart", departamento);
             JasperReport jasperReport = null;
-            String path = "./src/Reporte/report1.jasper";
+            String path = "./src/Reporte/ReportCurEstDepar.jasper";
             jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
             informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
             em.getTransaction().commit();            

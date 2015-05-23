@@ -335,6 +335,7 @@ public class PanelReporte extends javax.swing.JPanel {
         String departamento = ""+ listDepart.getSelectedValue();
         JasperPrint informe = contReportes.reporteEstCurDepart(idCurso, departamento);
         mostrarReporte(informe, "Reporte");
+        inputCodCursoCDE.setText("");        
     } // Fin del metodo reporteEstCursoDepar
     
     
