@@ -99,6 +99,152 @@
         </Component>
       </SubComponents>
     </Container>
+    <Container class="javax.swing.JPanel" name="panelCursoEstDepart">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f5" green="f5" red="f5" type="rgb"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="labelReporteEspecifico2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="279" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="labelCodCursoCED" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="inputCodCursoCDE" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                                  <Component id="labelDepartementoCDE" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="botonReporteCDE" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="scrollPanelListDepar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="labelReporteEspecifico2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="scrollPanelListDepar" min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="labelDepartementoCDE" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="labelCodCursoCED" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="inputCodCursoCDE" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="botonReporteCDE" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="labelCodCursoCED">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Ubuntu" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Codigo del Curso:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelReporteEspecifico2">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Ubuntu" size="24" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="6f" green="f" red="f" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Estudiantes por curso por Departamento"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelDepartementoCDE">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Ubuntu" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Departamento: "/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="scrollPanelListDepar">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JList" name="listDepart">
+              <Properties>
+                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                  <StringArray count="32">
+                    <StringItem index="0" value="Amazonas"/>
+                    <StringItem index="1" value="Antioquia"/>
+                    <StringItem index="2" value="Arauca"/>
+                    <StringItem index="3" value="Atlantico"/>
+                    <StringItem index="4" value="Bolivar"/>
+                    <StringItem index="5" value="Boyac&#xe1; "/>
+                    <StringItem index="6" value="Caldas "/>
+                    <StringItem index="7" value="Caquet&#xe1; "/>
+                    <StringItem index="8" value="Casanare"/>
+                    <StringItem index="9" value="Cauca "/>
+                    <StringItem index="10" value="Cesar"/>
+                    <StringItem index="11" value="Choc&#xf3;"/>
+                    <StringItem index="12" value="C&#xf3;rdoba"/>
+                    <StringItem index="13" value="Cundinamarca"/>
+                    <StringItem index="14" value="Guain&#xed;a"/>
+                    <StringItem index="15" value="Guaviare"/>
+                    <StringItem index="16" value="Huila"/>
+                    <StringItem index="17" value="La Guajira"/>
+                    <StringItem index="18" value="Magdalena"/>
+                    <StringItem index="19" value="Meta"/>
+                    <StringItem index="20" value="Nari&#xf1;o"/>
+                    <StringItem index="21" value="Norte de Santander"/>
+                    <StringItem index="22" value="Putumayo"/>
+                    <StringItem index="23" value="Quindio"/>
+                    <StringItem index="24" value="Risaralda"/>
+                    <StringItem index="25" value="San Andres y Providencia"/>
+                    <StringItem index="26" value="Santander"/>
+                    <StringItem index="27" value="Sucre "/>
+                    <StringItem index="28" value="Tolima"/>
+                    <StringItem index="29" value="Valle del Cauca"/>
+                    <StringItem index="30" value="Vaup&#xe9;s "/>
+                    <StringItem index="31" value="Vichada"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JTextField" name="inputCodCursoCDE">
+        </Component>
+        <Component class="javax.swing.JButton" name="botonReporteCDE">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Generar Reporte"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
