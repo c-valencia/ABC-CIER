@@ -10,7 +10,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 
@@ -37,24 +36,25 @@ public class ControladorReportes {
     }
     
     public JasperPrint reporteCursosMayorAsistencia(String ano, String mes) {
+        EntityManager em = null;
         JasperPrint informe= null;
         try {
-            EntityManager em = conexion.getCon().createEntityManager();
+            em = conexion.getCon().createEntityManager();
             em.getTransaction().begin();
-            java.sql.Connection connection = em.unwrap(java.sql.Connection.class);
-            Map parametros = new HashMap();
-            parametros.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
+            java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
+            Map parametros = new HashMap();  // Parametros del Reporte                     
             JasperReport jasperReport = null;
             String path = "./src/Reporte/report1.jasper";
             jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
             informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
-            em.getTransaction().commit();
-
-
+            em.getTransaction().commit();            
         } catch (JRException ex) {
-            System.out.println("--------> Se presento un error con el Reporte");
             Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
-        }                    
+        }  finally {
+            if (em != null) {
+                em.close();
+            }
+        }                 
         return informe;
     }// Fin del metodo reporteCursosMayorAsistencia
     
