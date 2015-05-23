@@ -194,7 +194,7 @@ public class PanelReporte extends javax.swing.JPanel {
         labelListaReportes.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         labelListaReportes.setText("Lista de Reportes: ");
 
-        comboReportes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Cursos con mayor número de asistentes en el mes", "item1", "item2", "item3", "item4", "item5", "item6" }));
+        comboReportes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Detalle de estudiantes en un curso por departamentos", "Cursos con mayor número de asistentes en el mes", "item2", "item3", "item4", "item5", "item6" }));
         comboReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboReportesActionPerformed(evt);
@@ -297,11 +297,11 @@ public class PanelReporte extends javax.swing.JPanel {
                 actualizarPanelInferior(panelVacio);
             };break;
             case 1: {
-                actualizarPanelInferior(panelBuscarMesAno);
-            };break;
-            
-            case 2: {
                 actualizarPanelInferior(panelCursoEstDepart);
+                
+            };break;           
+            case 2: {
+                actualizarPanelInferior(panelBuscarMesAno);
             };break;
             
             case 3: {
@@ -335,7 +335,7 @@ public class PanelReporte extends javax.swing.JPanel {
         String departamento = ""+ listDepart.getSelectedValue();
         JasperPrint informe = contReportes.reporteEstCurDepart(idCurso, departamento);
         mostrarReporte(informe, "Reporte");
-        inputCodCursoCDE.setText("");        
+        inputCodCursoCDE.setText(""); 
     } // Fin del metodo reporteEstCursoDepar
     
     
