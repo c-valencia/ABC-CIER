@@ -33,6 +33,7 @@ public class PanelCoordinador extends javax.swing.JPanel {
         addMenu();
         // Componentes
         panelCohorte = new PanelCohorte();
+        panelModCohorte = new PanelModificarCohorte();
         // Eventos
         EventosPanelCoordinador events = new EventosPanelCoordinador();
         asignarEventos(events);
@@ -89,6 +90,7 @@ public class PanelCoordinador extends javax.swing.JPanel {
     private PanelCohorte panelCohorte;
     private Panel_EliminarLT panelEliminarLT;
     private PanelReporte panelReporte;
+    private PanelModificarCohorte panelModCohorte;
     
     // MENU
     private JMenuBar barraLateral;  
@@ -97,7 +99,8 @@ public class PanelCoordinador extends javax.swing.JPanel {
     private JMenuItem itemBuscar; // LeaderTeacher
     private JMenuItem itemEliminar; // LeaderTeacher    
     private JMenu menuCohorte; // Cohorte   
-    private JMenuItem itemProgramar; // Cohorte    
+    private JMenuItem itemProgramar; // Cohorte  
+    private JMenuItem itemModificarCh; // Cohorte
     private JMenu menuCertificados; // Certificados 
     private JMenuItem itemGenerar; // Certificados    
     private JMenu menuReportes; // Reportes
@@ -147,8 +150,10 @@ public class PanelCoordinador extends javax.swing.JPanel {
         menuCohorte.setMenuLocation(180, 0);
         // Components
         itemProgramar = new JMenuItem("Programar");
+        itemModificarCh = new JMenuItem("Modificar");
         // Add Components
         menuCohorte.add(itemProgramar);
+        menuCohorte.add(itemModificarCh);
         
         // Menu Certificados
         menuCertificados = new JMenu("Certificados");
@@ -186,6 +191,7 @@ public class PanelCoordinador extends javax.swing.JPanel {
         itemEliminar.addActionListener(events);  
         // Menu de Cohorte
         itemProgramar.addActionListener(events);
+        itemModificarCh.addActionListener(events);
         // Menu Certificados
         itemGenerar.addActionListener(events);
         // Menu Reportes
@@ -210,7 +216,12 @@ public class PanelCoordinador extends javax.swing.JPanel {
             }
             // Menu de Cohorte
             if (e.getSource() == itemProgramar) { 
+                panelCohorte = new PanelCohorte();
                 actualizarPaneDer(panelCohorte);
+            }
+            if (e.getSource() == itemModificarCh){
+                panelModCohorte = new PanelModificarCohorte();
+                actualizarPaneDer(panelModCohorte);
             }
             // Menu Certificados
             if (e.getSource() == itemGenerar) {            

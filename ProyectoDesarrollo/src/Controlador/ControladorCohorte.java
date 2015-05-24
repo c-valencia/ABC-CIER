@@ -63,8 +63,6 @@ public class ControladorCohorte {
         validador = new Validaciones();
     }
     
-    
-    
     public List <Curso> buscarCursos(){
         Vector <Curso> listado = new Vector<>();
         System.out.println("esta iniciando...");
@@ -75,7 +73,9 @@ public class ControladorCohorte {
         return listado;
     }
     
-    public Cohorte buscarUnaCohorte(Date fechaInicio, Date fechaFin){
+    // busquedas de cohorte
+    public Cohorte buscarCohorte(Date fechaInicio, Date fechaFin)
+    {
         Cohorte cohorte = new Cohorte();
         
         cohorte.setFechaInicio(fechaInicio);
@@ -83,6 +83,21 @@ public class ControladorCohorte {
         cohorte.setEstado(true);
         cohorte = daoCohorte.buscarCohorte(cohorte);
         return cohorte;
+    }
+    
+    public Cohorte buscarCohorte(String idCohorte)
+    {
+        Cohorte cohorte = new Cohorte();
+        cohorte = daoCohorte.findCohorte(idCohorte);
+        
+        return cohorte;
+    }
+    
+    public Vector <Cohorte> buscarCohorte()
+    {
+        Vector <Cohorte> lista = new Vector<>();
+        lista = (Vector<Cohorte>)daoCohorte.findCohorteEntities();
+        return lista;
     }
     
     public boolean eliminarCohorte(){
@@ -109,15 +124,18 @@ public class ControladorCohorte {
         String result = "Error en elguardado";
         
         try{
-            Date inicio = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaInicio();
+            Date inicio = buscarCohorte(fechaInicio ,fechaFin).getFechaInicio();
 
-            Date fin = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaFin();
-
+            Date fin = buscarCohorte(fechaInicio ,fechaFin).getFechaFin();
+            
+            validador.validarCamposVacios(fechaInicio.toString() ,fechaFin.toString());
             validador.validarFechas(fechaFin, fechaInicio);
+            
             Cohorte cohorte = new Cohorte();
             cohorte.setFechaInicio(fechaInicio);
             cohorte.setFechaFin(fechaFin);
-            cohorte.setEstado(true);                
+            cohorte.setEstado(true); 
+            
             daoCohorte.insertCohorte(cohorte);
             result = "Guardado exitoso";
 
@@ -199,6 +217,7 @@ public class ControladorCohorte {
     public Vector <Aspirante> listarAspirantes(String area, String departamento){
         Vector <Aspirante> listado = new Vector<>();
         listado = (Vector <Aspirante>)daoAspirante.buscarAspirantes(area, departamento);
+        
         return listado;
     }
     
@@ -249,11 +268,17 @@ public class ControladorCohorte {
     public void crearTarea(String cedulaLT, String cursoID){
         Vector <Practica> practicas = new Vector<>();
         practicas = buscarPractica(cursoID);
-        //Tarea tarea = new Tarea(cursoID, cedulaLT);
         
-        for(int i = 0; i < practicas.size(); i++){
-            
-            //daoTarea.create();
+        try {
+            for(int i = 0; i < practicas.size(); i++){
+                Tarea tarea = new Tarea(practicas.get(i).getIdPractica(), cedulaLT);
+                System.out.println("tarea id = " + tarea.getTareaPK().getIdPractica() + " cedula = " + tarea.getTareaPK().getCedulaLt());
+                tarea.setNota(new Float("0"));
+                System.out.println("nota = " + tarea.getNota());
+                daoTarea.crearTarea(tarea);
+            }    
+        } catch (Exception ex) {
+            Logger.getLogger(ControladorCohorte.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
