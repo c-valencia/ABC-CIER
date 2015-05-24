@@ -24,9 +24,11 @@ public class ControladorReportes {
     private Conexion conexion;        
     private static ControladorReportes contReportes;
     
+    
     private ControladorReportes(){
         conexion = Conexion.getInstance();
     }
+    
     
     public static ControladorReportes getInstance(){
         if (contReportes == null) {
@@ -34,6 +36,7 @@ public class ControladorReportes {
         }
         return contReportes;        
     }          
+    
     
     // Detalle de estudiantes en un curso por departamentos - (TABLA)	  	  
     public JasperPrint reporteEstCurDepart(String idCurso, String departamento){
@@ -60,6 +63,7 @@ public class ControladorReportes {
         }                 
         return informe;    
     } // Fin del metodo reporteEstCurDepart
+    
     
     // Detalle del reporte de notas por	estudiante- (TABLA)
     public JasperPrint reporteNotasEstudiante (String cedula) {
@@ -111,7 +115,8 @@ public class ControladorReportes {
             }
         }                 
         return informe;   
-    }
+    } // Fin del metodo reporteCursosMayorAsistencia
+    
     
     // Historico de estudiantes que ha ganado un Curso - (TABLA)
     public JasperPrint reporteHistoricoEstudCurso(String codCurso){
@@ -138,5 +143,58 @@ public class ControladorReportes {
         return informe;           
     } // Fin del metodo reporteHistoricoEstudCurso
 
+    
+    // Curso con menos potencial de avance (TOP 5) - (GRAFICO)
+    public JasperPrint reporteCursoMenosAvance(String codCohorte) {
+       EntityManager em = null;
+        JasperPrint informe= null;
+        try {
+            em = conexion.getCon().createEntityManager();
+            em.getTransaction().begin();
+            java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
+            Map parametros = new HashMap();  // Parametros del Reporte             
+            parametros.put("codCohorte", codCohorte);
+            JasperReport jasperReport = null;
+            String path = "./src/Reporte/ReportHistEstCursoGanaron.jasper";
+            jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
+            informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
+            em.getTransaction().commit();            
+        } catch (JRException ex) {
+            Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }  finally {
+            if (em != null) {
+                em.close();
+            }
+        }                 
+        return informe;     
+    } // Fin del metodo reporteCursoMenosAvance
+    
+    
+    // Estudiantes que han llegado en el mes por departamento - (GRAFICO)
+    public JasperPrint reporteEstMesDepart(int anio, int mes){
+       EntityManager em = null;
+        JasperPrint informe= null;
+        try {
+            em = conexion.getCon().createEntityManager();
+            em.getTransaction().begin();
+            java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
+            Map parametros = new HashMap();  // Parametros del Reporte             
+            parametros.put("anio", anio);
+            parametros.put("mes", mes);
+            JasperReport jasperReport = null;
+            String path = "./src/Reporte/ReportEstMesDepart.jasper";
+            jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
+            informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
+            em.getTransaction().commit();            
+        } catch (JRException ex) {
+            Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }  finally {
+            if (em != null) {
+                em.close();
+            }
+        }                 
+        return informe;            
+    }
+  
     
 } // Fin de la clase ControladorReportes

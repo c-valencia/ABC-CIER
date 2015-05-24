@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="12f27cd6-333a-41f0-93ce-51323ff62339">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Serif" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Serif" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Serif" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Serif" fontSize="12"/>
+	<parameter name="codCurso" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT  extract(year from cohorte.fecha_inicio) as anio_incio, cohorte.id_cohorte, cohorte.fecha_inicio, cohorte.fecha_fin, curso.nombre, matricula.cedula, leader_teacher.nombres, leader_teacher.apellidos, nota 
+FROM leader_teacher 
+NATURAL JOIN curso 
+NATURAL JOIN cohorte 
+NATURAL JOIN curso_cohorte 
+NATURAL JOIN (SELECT  cedula_lt as cedula, id_cohorte, id_curso, nota FROM matricula WHERE nota >= 3.0) as matricula
+WHERE curso.id_curso = $P{codCurso};]]>
+	</queryString>
+	<field name="anio_incio" class="java.lang.Double"/>
+	<field name="id_cohorte" class="java.lang.String"/>
+	<field name="fecha_inicio" class="java.sql.Date"/>
+	<field name="fecha_fin" class="java.sql.Date"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="cedula" class="java.lang.String"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="apellidos" class="java.lang.String"/>
+	<field name="nota" class="java.lang.Float"/>
+	<group name="anio_incio">
+		<groupExpression><![CDATA[$F{anio_incio}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement uuid="a80926d3-1a82-4296-8ebb-187b59dc4022" style="SubTitle" x="92" y="13" width="283" height="24" forecolor="#CC0000"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{anio_incio}.intValue()]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement uuid="4c04675d-a8e2-418d-b4cf-84f8b040750a" mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="a92bd541-920d-48c1-a604-837401337156" x="38" y="13" width="54" height="24" forecolor="#CC0000"/>
+					<textElement>
+						<font fontName="Serif" size="18" isBold="true"/>
+					</textElement>
+					<text><![CDATA[AÑO]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e7ed820c-cb4f-4113-af37-171edb5965ce" style="Column header" x="130" y="17" width="107" height="35"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[CURSO]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f77d1a9e-dcc2-4ac2-b84f-bd6bf4c1be91" style="Detail" x="237" y="17" width="196" height="35" forecolor="#666666"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}.toUpperCase()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<line>
+				<reportElement uuid="56c4c1aa-cd89-4de0-9846-e320ef942d34" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="e122bcbb-253d-49e9-86ca-141de5c60cc7" style="Column header" x="0" y="19" width="81" height="15"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[ID Cohorte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c6c4a7a9-eeb9-42e7-a796-1b6881e14421" style="Column header" x="92" y="19" width="76" height="15"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Fec_inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5fe1842f-715e-4a18-9ab4-ff0b420a9efd" style="Column header" x="179" y="19" width="64" height="15"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Fec_Fin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="404d4a93-595a-4976-a6ad-edfc512060d7" style="Column header" x="433" y="19" width="69" height="15"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Apelldio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2457b9f-bd62-428f-837f-2131c60780e4" style="Column header" x="513" y="19" width="69" height="15"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Nota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fbd53ddb-b041-4e4f-a3ba-b195c061e574" style="Column header" x="263" y="19" width="69" height="15"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Cedula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="50f574ce-6100-4543-9184-991af3136428" style="Column header" x="345" y="20" width="69" height="15"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="9561fd62-107e-4fdb-82af-96d274814302" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="61b01c4f-08ac-4907-b501-6f11f540e12a" style="Detail" x="0" y="0" width="69" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{id_cohorte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5915fba2-111a-4de2-aadd-e3e8af951cae" style="Detail" x="92" y="1" width="69" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha_inicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="29332a3e-a9f9-4a8e-b1fd-ef0b121d331e" style="Detail" x="179" y="1" width="69" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha_fin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8913234b-4335-4c6c-9591-0f49e9e33911" style="Detail" x="345" y="0" width="69" height="15"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6c68adb8-1116-4d72-954f-4c5d07cb5d3a" style="Detail" x="433" y="1" width="69" height="15"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8b71987b-5c49-4838-95ff-5a792b0e34ab" style="Detail" x="513" y="0" width="40" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4bcaa74d-8402-4f32-b441-1975bd8f82d3" style="Detail" x="263" y="0" width="69" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="2ab3d48a-c2a8-4e54-b500-4cf2090fcf2b" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="07161d3e-18a4-4276-8396-5e2bdfbdf210" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="ee20b9d1-b546-4326-8c5c-0d4d23c5665c" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="1ddfb3bc-e6b7-490f-95d3-4ff5decedfe5" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
