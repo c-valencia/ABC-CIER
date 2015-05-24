@@ -135,47 +135,5 @@ public class ControladorReportes {
         }                 
         return informe;   
     }
-    
-  // EntityManager em = emf.createEntityManager();   
-//Map parameters = new HashMap();
-// EntityManager em = emf.createEntityManager();
-// parameters.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER, em);
-// JasperRunManager.runReportToPdfFile(fileName, parameters);    
+
 } // Fin de la clase ControladorReportes
-
-//entityManager.getTransaction().begin();
-//java.sql.Connection connection = entityManager.unwrap(java.sql.Connection.class);
-// ...
-//entityManager.getTransaction().commit();
-
-
-//    private void visualizarReporteTotalInscritosConvocatoria(String nombre_reporte, int id_convocatoria){
-//        
-//        try {
-//            Map parametro_id_convocatoria = new HashMap();
-//            parametro_id_convocatoria.put("id_convocatoria",id_convocatoria);
-//            JasperReport jasperReport = null;
-//            String path = "./src/reportes/"+nombre_reporte;
-//            jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
-//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametro_id_convocatoria, this.conexionDB.obtenerConexion());
-//            JasperViewer jasperViewer = new JasperViewer(jasperPrint);
-//            jasperViewer.setZoomRatio((float) 0.65);
-//            
-//            Container contenedorViwer = jasperViewer.getContentPane();
-//            contenedorViwer.setBounds(0,78,900,501);
-//            contenedorViwer.setSize(this.getSize());
-//            
-//            JFrame ventanaReporte = new JFrame("Reportes");
-//            JMenuBar barraMenu = jasperViewer.getJMenuBar();
-//            ventanaReporte.setJMenuBar(barraMenu);
-//            ventanaReporte.setSize(800, 600);
-//            ventanaReporte.getContentPane().add(contenedorViwer);
-//            ventanaReporte.setLocationRelativeTo(null);
-//            ventanaReporte.setVisible(true);
-//           
-//        } catch (JRException ex) {
-//             JOptionPane.showMessageDialog(
-//                    this, "No fue posible visuaizar el Reporte Total Aspirantes Inscritos: \n" +ex.getMessage(), 
-//                    "Reporte Total Aspirantes Inscritos", JOptionPane.ERROR_MESSAGE);
-//        }
-//    }
