@@ -60,6 +60,7 @@ public class ControladorAdministrador implements Sujeto {
         daoHistorialAspirante = new DaoHistorialAspirante(conexion.getCon());
         idNombreCurso = new ArrayList<String>();
         idNombreFases = new ArrayList<String>();
+        
         validador = new Validaciones();
         curso = new Curso();
         //patron observador, lista de observador
@@ -409,6 +410,7 @@ public class ControladorAdministrador implements Sujeto {
         }
         return result;
     }
+    
     
     
 
