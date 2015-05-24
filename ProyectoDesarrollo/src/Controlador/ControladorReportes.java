@@ -85,6 +85,32 @@ public class ControladorReportes {
         return informe;    
     } // Fin del metodo reporteEstCurDepart
     
+    // Detalle del reporte de notas por	estudiante.	
+    public JasperPrint reporteNotasEstudiante (String cedula) {
+        EntityManager em = null;
+        JasperPrint informe= null;
+        try {
+            em = conexion.getCon().createEntityManager();
+            em.getTransaction().begin();
+            java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
+            Map parametros = new HashMap();  // Parametros del Reporte             
+            parametros.put("cedula_lt", cedula);
+            JasperReport jasperReport = null;
+            String path = "./src/Reporte/ReportEstNotas.jasper";
+            jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
+            informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
+            em.getTransaction().commit();            
+        } catch (JRException ex) {
+            Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }  finally {
+            if (em != null) {
+                em.close();
+            }
+        }                 
+        return informe;        
+    } // Fin del metodo reporteNotasEstudiante
+    
+    
   // EntityManager em = emf.createEntityManager();   
 //Map parameters = new HashMap();
 // EntityManager em = emf.createEntityManager();

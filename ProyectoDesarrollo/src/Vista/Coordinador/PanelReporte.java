@@ -56,6 +56,12 @@ public class PanelReporte extends javax.swing.JPanel {
         listDepart = new javax.swing.JList();
         inputCodCursoCDE = new javax.swing.JTextField();
         botonReporteCDE = new javax.swing.JButton();
+        panelEstdianteNotas = new javax.swing.JPanel();
+        labelReporteEspecifico3 = new javax.swing.JLabel();
+        labelCedulaNTL = new javax.swing.JLabel();
+        inputCedulaNLT = new javax.swing.JTextField();
+        botonReporteNLT = new javax.swing.JButton();
+        panelCursoHistorico = new javax.swing.JPanel();
         panelSuperior = new javax.swing.JPanel();
         labelReporte = new javax.swing.JLabel();
         labelListaReportes = new javax.swing.JLabel();
@@ -179,6 +185,58 @@ public class PanelReporte extends javax.swing.JPanel {
                 .addGap(34, 34, 34))
         );
 
+        panelEstdianteNotas.setBackground(new java.awt.Color(245, 245, 245));
+
+        labelReporteEspecifico3.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        labelReporteEspecifico3.setForeground(new java.awt.Color(15, 15, 111));
+        labelReporteEspecifico3.setText("Reporte de notas por Leader Teacher");
+
+        labelCedulaNTL.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        labelCedulaNTL.setText("Cedula Leader Teacher");
+
+        botonReporteNLT.setBackground(new java.awt.Color(245, 245, 245));
+        botonReporteNLT.setText("Generar Reporte");
+
+        javax.swing.GroupLayout panelEstdianteNotasLayout = new javax.swing.GroupLayout(panelEstdianteNotas);
+        panelEstdianteNotas.setLayout(panelEstdianteNotasLayout);
+        panelEstdianteNotasLayout.setHorizontalGroup(
+            panelEstdianteNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEstdianteNotasLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(panelEstdianteNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonReporteNLT)
+                    .addComponent(labelReporteEspecifico3)
+                    .addGroup(panelEstdianteNotasLayout.createSequentialGroup()
+                        .addComponent(labelCedulaNTL)
+                        .addGap(18, 18, 18)
+                        .addComponent(inputCedulaNLT, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(233, Short.MAX_VALUE))
+        );
+        panelEstdianteNotasLayout.setVerticalGroup(
+            panelEstdianteNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEstdianteNotasLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(labelReporteEspecifico3)
+                .addGap(24, 24, 24)
+                .addGroup(panelEstdianteNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelCedulaNTL)
+                    .addComponent(inputCedulaNLT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(botonReporteNLT)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelCursoHistoricoLayout = new javax.swing.GroupLayout(panelCursoHistorico);
+        panelCursoHistorico.setLayout(panelCursoHistoricoLayout);
+        panelCursoHistoricoLayout.setHorizontalGroup(
+            panelCursoHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 759, Short.MAX_VALUE)
+        );
+        panelCursoHistoricoLayout.setVerticalGroup(
+            panelCursoHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 185, Short.MAX_VALUE)
+        );
+
         setBackground(new java.awt.Color(245, 245, 245));
         setBorder(null);
         setPreferredSize(new java.awt.Dimension(750, 505));
@@ -194,7 +252,7 @@ public class PanelReporte extends javax.swing.JPanel {
         labelListaReportes.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         labelListaReportes.setText("Lista de Reportes: ");
 
-        comboReportes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Detalle de estudiantes en un curso por departamentos", "Cursos con mayor número de asistentes en el mes", "item2", "item3", "item4", "item5", "item6" }));
+        comboReportes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Detalle de estudiantes en un curso por departamentos", "Detalle del reporte de notas por estudiante.", "Cursos con mayor número de asistentes en el mes", "item3", "item4", "item5", "item6" }));
         comboReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboReportesActionPerformed(evt);
@@ -257,11 +315,14 @@ public class PanelReporte extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscarMesAno;
     private javax.swing.JButton botonReporteCDE;
+    private javax.swing.JButton botonReporteNLT;
     private javax.swing.JComboBox comboReportes;
     private com.toedter.calendar.JYearChooser inputAno;
+    private javax.swing.JTextField inputCedulaNLT;
     private javax.swing.JTextField inputCodCursoCDE;
     private com.toedter.calendar.JMonthChooser inputMes;
     private javax.swing.JLabel labelAno;
+    private javax.swing.JLabel labelCedulaNTL;
     private javax.swing.JLabel labelCodCursoCED;
     private javax.swing.JLabel labelDepartementoCDE;
     private javax.swing.JLabel labelListaReportes;
@@ -269,9 +330,12 @@ public class PanelReporte extends javax.swing.JPanel {
     private javax.swing.JLabel labelReportEspecifico;
     private javax.swing.JLabel labelReporte;
     private javax.swing.JLabel labelReporteEspecifico2;
+    private javax.swing.JLabel labelReporteEspecifico3;
     private javax.swing.JList listDepart;
     private javax.swing.JPanel panelBuscarMesAno;
     private javax.swing.JPanel panelCursoEstDepart;
+    private javax.swing.JPanel panelCursoHistorico;
+    private javax.swing.JPanel panelEstdianteNotas;
     private javax.swing.JPanel panelInferior;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JScrollPane scrollPanelListDepar;
@@ -301,10 +365,11 @@ public class PanelReporte extends javax.swing.JPanel {
                 
             };break;           
             case 2: {
-                actualizarPanelInferior(panelBuscarMesAno);
+                actualizarPanelInferior(panelEstdianteNotas);
             };break;
             
             case 3: {
+                actualizarPanelInferior(panelBuscarMesAno);
             };break;
                 
             case 4: {
@@ -338,6 +403,18 @@ public class PanelReporte extends javax.swing.JPanel {
         inputCodCursoCDE.setText(""); 
     } // Fin del metodo reporteEstCursoDepar
     
+    private void reporteEstNotas() {
+        contReportes = ControladorReportes.getInstance();
+        String cedula = inputCedulaNLT.getText();
+        JasperPrint informe = contReportes.reporteNotasEstudiante(cedula);
+        mostrarReporte(informe, "Reporte");        
+        inputCedulaNLT.setText("");
+    } // Fin del metodo reporteEstNotas
+    
+    
+    private void reporteHistorioCurso(){
+    
+    } // Fin del metodo reporteHistorioCurso
     
     private  void reportePrueba(){
         contReportes = ControladorReportes.getInstance();
@@ -353,6 +430,7 @@ public class PanelReporte extends javax.swing.JPanel {
         comboReportes.addActionListener(events);
         botonBuscarMesAno.addActionListener(events);
         botonReporteCDE.addActionListener(events);
+        botonReporteNLT.addActionListener(events);    
     } // Fin del metodo asignarEventos
        
     private class EventosPanelLogin implements ActionListener {
@@ -369,6 +447,10 @@ public class PanelReporte extends javax.swing.JPanel {
             
             if (e.getSource() == botonReporteCDE) {
                 reporteEstCursoDepar();
+            }
+            
+            if (e.getSource() == botonReporteNLT) {
+                reporteEstNotas();
             }
         }
     
