@@ -65,7 +65,11 @@ public class ControladorAdministrador implements Sujeto {
         daoHistorialAspirante = new DaoHistorialAspirante(conexion.getCon());
         idNombreCurso = new ArrayList<String>();
         idNombreFases = new ArrayList<String>();
+
+        
+
         idNombreFasesPorCurso = new ArrayList<String>();
+
         validador = new Validaciones();
         curso = new Curso();
         fase = new Fases();
@@ -521,6 +525,7 @@ public class ControladorAdministrador implements Sujeto {
         return result;
     }
     
+
 
     @Override
     public void adscribir(Observador objObservador) {        
