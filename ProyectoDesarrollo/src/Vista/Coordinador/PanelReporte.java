@@ -303,15 +303,11 @@ public class PanelReporte extends javax.swing.JPanel {
         panelSuperiorLayout.setHorizontalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSuperiorLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSuperiorLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(labelReporte))
-                    .addGroup(panelSuperiorLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelListaReportes)
-                            .addComponent(comboReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(labelReporte)
+                    .addComponent(labelListaReportes)
+                    .addComponent(comboReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(263, Short.MAX_VALUE))
         );
         panelSuperiorLayout.setVerticalGroup(
@@ -403,10 +399,11 @@ public class PanelReporte extends javax.swing.JPanel {
                 panelVacio.setBackground(new java.awt.Color(245, 245, 245));
                 actualizarPanelInferior(panelVacio);
             };break;
-            case 1: {
-                actualizarPanelInferior(panelCursoEstDepart);
                 
+            case 1: {
+                actualizarPanelInferior(panelCursoEstDepart);                
             };break;           
+                
             case 2: {
                 actualizarPanelInferior(panelEstdianteNotas);
             };break;
@@ -420,10 +417,20 @@ public class PanelReporte extends javax.swing.JPanel {
             };break;     
                 
             case 5: {
+                
             };break;
                 
             case 6: {
-            };break;                
+                
+            };break;       
+                
+            case 7: {
+                
+            };break;
+                
+            case 8: {
+                
+            };break;
         };        
     } // Fin del metodo actualizarPanelBus    
             
@@ -446,6 +453,15 @@ public class PanelReporte extends javax.swing.JPanel {
 
     } // Fin del metodo  mostrarReporte   
     
+    // Cursos con mayor asistencia en el mes (Top 10) - (GRAFICO)
+    private void reporteCursosMayorAsistencia(){
+        contReportes = ControladorReportes.getInstance();
+        int ano = inputAno.getYear();
+        int mes =  (inputMes.getMonth() + 1);         
+        JasperPrint informe = contReportes.reporteCursosMayorAsistencia(ano, mes);
+        mostrarReporte(informe, "Reporte");            
+    } // Fin del metodo reporteHistorioCurso      
+        
     
     // Detalle de estudiantes en un curso por departamentos - (TABLA)	    
     private void reporteEstCursoDepar(){
@@ -465,26 +481,17 @@ public class PanelReporte extends javax.swing.JPanel {
         JasperPrint informe = contReportes.reporteNotasEstudiante(cedula);
         mostrarReporte(informe, "Reporte");        
         inputCedulaNLT.setText("");
-    } // Fin del metodo reporteEstNotas
+    } // Fin del metodo reporteEstNotas        
     
-    
-    // Cursos con mayor asistencia en el mes (Top 10) - (GRAFICO)
-    private void reporteCursosMayorAsistencia(){
-        contReportes = ControladorReportes.getInstance();
-        int ano = inputAno.getYear();
-        int mes =  (inputMes.getMonth() + 1);         
-        JasperPrint informe = contReportes.reporteCursosMayorAsistencia(ano, mes);
-        mostrarReporte(informe, "Informe Prueba");            
-    } // Fin del metodo reporteHistorioCurso      
-    
-    
-    // Historico de estudiantes que ha ganado un Curso
+    // Historico de estudiantes que ha ganado un Curso - (TABLA)
     private void reporteHisEstGanadoCurso (){
-
+        contReportes = ControladorReportes.getInstance();
+        String codCurso = inputCodCurosHEC.getText();
+        JasperPrint informe = contReportes.reporteHistoricoEstudCurso(codCurso);
+        mostrarReporte(informe, "Reporte");        
+        inputCedulaNLT.setText("");        
     } // Fin del metodo reporteHisEstGanadoCurso
-    
-
-       
+          
     private class EventosPanelLogin implements ActionListener {
 
         @Override

@@ -112,10 +112,9 @@ public class ControladorReportes {
         }                 
         return informe;   
     }
-
     
     // Historico de estudiantes que ha ganado un Curso - (TABLA)
-    public JasperPrint reporteHistoricoEstudCurso(){
+    public JasperPrint reporteHistoricoEstudCurso(String codCurso){
        EntityManager em = null;
         JasperPrint informe= null;
         try {
@@ -123,10 +122,9 @@ public class ControladorReportes {
             em.getTransaction().begin();
             java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
             Map parametros = new HashMap();  // Parametros del Reporte             
-            //parametros.put("anio", anio);
-            //parametros.put("mes", mes);
+            parametros.put("codCurso", codCurso);
             JasperReport jasperReport = null;
-            String path = "./src/Reporte/ReportCurMayorAsis.jasper";
+            String path = "./src/Reporte/ReportHistEstCursoGanaron.jasper";
             jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
             informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
             em.getTransaction().commit();            

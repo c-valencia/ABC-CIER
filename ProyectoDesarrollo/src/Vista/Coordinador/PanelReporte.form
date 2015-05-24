@@ -464,18 +464,11 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                          <Component id="labelReporte" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelListaReportes" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboReportes" min="-2" pref="453" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="labelReporte" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelListaReportes" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboReportes" min="-2" pref="453" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="263" max="32767" attributes="0"/>
               </Group>
