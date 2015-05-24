@@ -65,11 +65,11 @@ public class ControladorAdministrador implements Sujeto {
         daoHistorialAspirante = new DaoHistorialAspirante(conexion.getCon());
         idNombreCurso = new ArrayList<String>();
         idNombreFases = new ArrayList<String>();
-<<<<<<< HEAD
+
         
-=======
+
         idNombreFasesPorCurso = new ArrayList<String>();
->>>>>>> 601133e99a4ee3f6db4d96b0617885f8918fba98
+
         validador = new Validaciones();
         curso = new Curso();
         fase = new Fases();
@@ -525,11 +525,7 @@ public class ControladorAdministrador implements Sujeto {
         return result;
     }
     
-<<<<<<< HEAD
-    
-    
-=======
->>>>>>> 601133e99a4ee3f6db4d96b0617885f8918fba98
+
 
     @Override
     public void adscribir(Observador objObservador) {        
