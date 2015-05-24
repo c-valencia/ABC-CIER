@@ -62,6 +62,10 @@ public class PanelReporte extends javax.swing.JPanel {
         inputCedulaNLT = new javax.swing.JTextField();
         botonReporteNLT = new javax.swing.JButton();
         panelCursoHistorico = new javax.swing.JPanel();
+        labelCodCursoHEC = new javax.swing.JLabel();
+        labelReporteEspecifico4 = new javax.swing.JLabel();
+        inputCodCurosHEC = new javax.swing.JTextField();
+        botonReporteHEC = new javax.swing.JButton();
         panelSuperior = new javax.swing.JPanel();
         labelReporte = new javax.swing.JLabel();
         labelListaReportes = new javax.swing.JLabel();
@@ -73,7 +77,7 @@ public class PanelReporte extends javax.swing.JPanel {
 
         labelReportEspecifico.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         labelReportEspecifico.setForeground(new java.awt.Color(15, 15, 111));
-        labelReportEspecifico.setText("CURSOS CON MAYOR  NÚMERO DE ASISTENTES EN EL MES");
+        labelReportEspecifico.setText("Cursos con mayor asistencia en el mes (Top 10)");
 
         labelAno.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         labelAno.setText("Año:");
@@ -102,34 +106,35 @@ public class PanelReporte extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(inputMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelBuscarMesAnoLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addGap(34, 34, 34)
                         .addComponent(labelReportEspecifico)))
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
         panelBuscarMesAnoLayout.setVerticalGroup(
             panelBuscarMesAnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBuscarMesAnoLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(33, 33, 33)
                 .addComponent(labelReportEspecifico)
-                .addGap(40, 40, 40)
+                .addGap(30, 30, 30)
                 .addGroup(panelBuscarMesAnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelAno)
                     .addComponent(inputAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMes)
                     .addComponent(inputMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(30, 30, 30)
                 .addComponent(botonBuscarMesAno)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         panelCursoEstDepart.setBackground(new java.awt.Color(245, 245, 245));
+        panelCursoEstDepart.setBorder(null);
 
         labelCodCursoCED.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         labelCodCursoCED.setText("Codigo del Curso:");
 
         labelReporteEspecifico2.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         labelReporteEspecifico2.setForeground(new java.awt.Color(15, 15, 111));
-        labelReporteEspecifico2.setText("Estudiantes por curso por Departamento");
+        labelReporteEspecifico2.setText("Detalle de estudiantes en un curso por departamentos");
 
         labelDepartementoCDE.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         labelDepartementoCDE.setText("Departamento: ");
@@ -148,11 +153,11 @@ public class PanelReporte extends javax.swing.JPanel {
         panelCursoEstDepartLayout.setHorizontalGroup(
             panelCursoEstDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCursoEstDepartLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(34, 34, 34)
                 .addGroup(panelCursoEstDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCursoEstDepartLayout.createSequentialGroup()
                         .addComponent(labelReporteEspecifico2)
-                        .addContainerGap(279, Short.MAX_VALUE))
+                        .addContainerGap(126, Short.MAX_VALUE))
                     .addGroup(panelCursoEstDepartLayout.createSequentialGroup()
                         .addGroup(panelCursoEstDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelCursoEstDepartLayout.createSequentialGroup()
@@ -171,25 +176,27 @@ public class PanelReporte extends javax.swing.JPanel {
         panelCursoEstDepartLayout.setVerticalGroup(
             panelCursoEstDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCursoEstDepartLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(33, 33, 33)
                 .addComponent(labelReporteEspecifico2)
-                .addGap(26, 26, 26)
+                .addGap(30, 30, 30)
                 .addGroup(panelCursoEstDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollPanelListDepar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelDepartementoCDE)
-                    .addGroup(panelCursoEstDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelCodCursoCED)
-                        .addComponent(inputCodCursoCDE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonReporteCDE)
-                .addGap(34, 34, 34))
+                    .addGroup(panelCursoEstDepartLayout.createSequentialGroup()
+                        .addGroup(panelCursoEstDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelCodCursoCED)
+                            .addComponent(inputCodCursoCDE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(47, 47, 47)
+                        .addComponent(botonReporteCDE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         panelEstdianteNotas.setBackground(new java.awt.Color(245, 245, 245));
+        panelEstdianteNotas.setBorder(null);
 
         labelReporteEspecifico3.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         labelReporteEspecifico3.setForeground(new java.awt.Color(15, 15, 111));
-        labelReporteEspecifico3.setText("Reporte de notas por Leader Teacher");
+        labelReporteEspecifico3.setText("Detalle del reporte de notas por estudiante");
 
         labelCedulaNTL.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         labelCedulaNTL.setText("Cedula Leader Teacher");
@@ -202,39 +209,71 @@ public class PanelReporte extends javax.swing.JPanel {
         panelEstdianteNotasLayout.setHorizontalGroup(
             panelEstdianteNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEstdianteNotasLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(34, 34, 34)
                 .addGroup(panelEstdianteNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonReporteNLT)
-                    .addComponent(labelReporteEspecifico3)
                     .addGroup(panelEstdianteNotasLayout.createSequentialGroup()
                         .addComponent(labelCedulaNTL)
                         .addGap(18, 18, 18)
-                        .addComponent(inputCedulaNLT, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(233, Short.MAX_VALUE))
+                        .addComponent(inputCedulaNLT, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelReporteEspecifico3, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
         panelEstdianteNotasLayout.setVerticalGroup(
             panelEstdianteNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEstdianteNotasLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(33, 33, 33)
                 .addComponent(labelReporteEspecifico3)
-                .addGap(24, 24, 24)
+                .addGap(30, 30, 30)
                 .addGroup(panelEstdianteNotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCedulaNTL)
                     .addComponent(inputCedulaNLT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(botonReporteNLT)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
+
+        panelCursoHistorico.setBackground(new java.awt.Color(245, 245, 245));
+        panelCursoHistorico.setBorder(null);
+
+        labelCodCursoHEC.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        labelCodCursoHEC.setText("Codigo del Curso:");
+
+        labelReporteEspecifico4.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        labelReporteEspecifico4.setForeground(new java.awt.Color(15, 15, 111));
+        labelReporteEspecifico4.setText("Historico de estudiantes que ha ganada un curso");
+
+        botonReporteHEC.setText("Generar Reporte");
 
         javax.swing.GroupLayout panelCursoHistoricoLayout = new javax.swing.GroupLayout(panelCursoHistorico);
         panelCursoHistorico.setLayout(panelCursoHistoricoLayout);
         panelCursoHistoricoLayout.setHorizontalGroup(
             panelCursoHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 759, Short.MAX_VALUE)
+            .addGroup(panelCursoHistoricoLayout.createSequentialGroup()
+                .addGroup(panelCursoHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCursoHistoricoLayout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addComponent(inputCodCurosHEC, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCursoHistoricoLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(panelCursoHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCodCursoHEC)
+                            .addComponent(labelReporteEspecifico4)
+                            .addComponent(botonReporteHEC))))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
         panelCursoHistoricoLayout.setVerticalGroup(
             panelCursoHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 185, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCursoHistoricoLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(labelReporteEspecifico4)
+                .addGap(30, 30, 30)
+                .addGroup(panelCursoHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelCodCursoHEC)
+                    .addComponent(inputCodCurosHEC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(botonReporteHEC)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         setBackground(new java.awt.Color(245, 245, 245));
@@ -252,7 +291,7 @@ public class PanelReporte extends javax.swing.JPanel {
         labelListaReportes.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         labelListaReportes.setText("Lista de Reportes: ");
 
-        comboReportes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Detalle de estudiantes en un curso por departamentos", "Detalle del reporte de notas por estudiante.", "Cursos con mayor número de asistentes en el mes", "item3", "item4", "item5", "item6" }));
+        comboReportes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Detalle de estudiantes en un curso por departamentos", "Detalle del reporte de notas por estudiante.", "Cursos con mayor número de asistentes en el mes", "Historico de estudiantes que ha ganado un Curso", "item4", "item5", "item6" }));
         comboReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboReportesActionPerformed(evt);
@@ -266,25 +305,25 @@ public class PanelReporte extends javax.swing.JPanel {
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSuperiorLayout.createSequentialGroup()
-                        .addGap(58, 58, 58)
+                        .addGap(34, 34, 34)
+                        .addComponent(labelReporte))
+                    .addGroup(panelSuperiorLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
                         .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelListaReportes)
-                            .addComponent(comboReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelSuperiorLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(labelReporte)))
-                .addContainerGap(265, Short.MAX_VALUE))
+                            .addComponent(comboReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(263, Short.MAX_VALUE))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSuperiorLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(33, 33, 33)
                 .addComponent(labelReporte)
                 .addGap(18, 18, 18)
-                .addComponent(labelListaReportes)
-                .addGap(18, 18, 18)
-                .addComponent(comboReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addComponent(labelListaReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(comboReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         panelInferior.setBackground(new java.awt.Color(245, 245, 245));
@@ -315,15 +354,18 @@ public class PanelReporte extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscarMesAno;
     private javax.swing.JButton botonReporteCDE;
+    private javax.swing.JButton botonReporteHEC;
     private javax.swing.JButton botonReporteNLT;
     private javax.swing.JComboBox comboReportes;
     private com.toedter.calendar.JYearChooser inputAno;
     private javax.swing.JTextField inputCedulaNLT;
+    private javax.swing.JTextField inputCodCurosHEC;
     private javax.swing.JTextField inputCodCursoCDE;
     private com.toedter.calendar.JMonthChooser inputMes;
     private javax.swing.JLabel labelAno;
     private javax.swing.JLabel labelCedulaNTL;
     private javax.swing.JLabel labelCodCursoCED;
+    private javax.swing.JLabel labelCodCursoHEC;
     private javax.swing.JLabel labelDepartementoCDE;
     private javax.swing.JLabel labelListaReportes;
     private javax.swing.JLabel labelMes;
@@ -331,6 +373,7 @@ public class PanelReporte extends javax.swing.JPanel {
     private javax.swing.JLabel labelReporte;
     private javax.swing.JLabel labelReporteEspecifico2;
     private javax.swing.JLabel labelReporteEspecifico3;
+    private javax.swing.JLabel labelReporteEspecifico4;
     private javax.swing.JList listDepart;
     private javax.swing.JPanel panelBuscarMesAno;
     private javax.swing.JPanel panelCursoEstDepart;
@@ -373,6 +416,7 @@ public class PanelReporte extends javax.swing.JPanel {
             };break;
                 
             case 4: {
+                actualizarPanelInferior(panelCursoHistorico);
             };break;     
                 
             case 5: {
@@ -382,6 +426,14 @@ public class PanelReporte extends javax.swing.JPanel {
             };break;                
         };        
     } // Fin del metodo actualizarPanelBus    
+            
+    private void asignarEventos(EventosPanelLogin events){
+        comboReportes.addActionListener(events);
+        botonBuscarMesAno.addActionListener(events);
+        botonReporteCDE.addActionListener(events);
+        botonReporteNLT.addActionListener(events);    
+        botonReporteHEC.addActionListener(events);
+    } // Fin del metodo asignarEventos
     
     private void mostrarReporte(JasperPrint informe, String titulo) {
         if (informe != null) {
@@ -393,7 +445,9 @@ public class PanelReporte extends javax.swing.JPanel {
         }
 
     } // Fin del metodo  mostrarReporte   
-        
+    
+    
+    // Detalle de estudiantes en un curso por departamentos - (TABLA)	    
     private void reporteEstCursoDepar(){
         contReportes = ControladorReportes.getInstance();
         String idCurso = inputCodCursoCDE.getText();
@@ -403,6 +457,8 @@ public class PanelReporte extends javax.swing.JPanel {
         inputCodCursoCDE.setText(""); 
     } // Fin del metodo reporteEstCursoDepar
     
+    
+    // Detalle del reporte de notas por	estudiante- (TABLA)
     private void reporteEstNotas() {
         contReportes = ControladorReportes.getInstance();
         String cedula = inputCedulaNLT.getText();
@@ -412,34 +468,22 @@ public class PanelReporte extends javax.swing.JPanel {
     } // Fin del metodo reporteEstNotas
     
     
+    // Cursos con mayor asistencia en el mes (Top 10) - (GRAFICO)
     private void reporteCursosMayorAsistencia(){
         contReportes = ControladorReportes.getInstance();
         int ano = inputAno.getYear();
         int mes =  (inputMes.getMonth() + 1);         
         JasperPrint informe = contReportes.reporteCursosMayorAsistencia(ano, mes);
-        mostrarReporte(informe, "Informe Prueba");        
-    
-    } // Fin del metodo reporteHistorioCurso
-    
+        mostrarReporte(informe, "Informe Prueba");            
+    } // Fin del metodo reporteHistorioCurso      
     
     
-    
-    private  void reportePrueba(){
-        contReportes = ControladorReportes.getInstance();
-        String ano = "" + inputAno.getYear();
-        String mes = "" + (inputMes.getMonth() + 1);         
-        JasperPrint informe = contReportes.pruebaReporte(ano, mes);
-        mostrarReporte(informe, "Informe Prueba");
-    } // Fin del metodo reportePrueba
+    // Historico de estudiantes que ha ganado un Curso
+    private void reporteHisEstGanadoCurso (){
+
+    } // Fin del metodo reporteHisEstGanadoCurso
     
 
-    
-    private void asignarEventos(EventosPanelLogin events){
-        comboReportes.addActionListener(events);
-        botonBuscarMesAno.addActionListener(events);
-        botonReporteCDE.addActionListener(events);
-        botonReporteNLT.addActionListener(events);    
-    } // Fin del metodo asignarEventos
        
     private class EventosPanelLogin implements ActionListener {
 
@@ -459,6 +503,10 @@ public class PanelReporte extends javax.swing.JPanel {
             
             if (e.getSource() == botonReporteNLT) {
                 reporteEstNotas();
+            }
+            
+            if (e.getSource() == botonReporteHEC) {
+                reporteHisEstGanadoCurso();
             }
         }
     
