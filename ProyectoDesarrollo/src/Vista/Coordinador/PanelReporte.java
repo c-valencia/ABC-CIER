@@ -412,9 +412,17 @@ public class PanelReporte extends javax.swing.JPanel {
     } // Fin del metodo reporteEstNotas
     
     
-    private void reporteHistorioCurso(){
+    private void reporteCursosMayorAsistencia(){
+        contReportes = ControladorReportes.getInstance();
+        int ano = inputAno.getYear();
+        int mes =  (inputMes.getMonth() + 1);         
+        JasperPrint informe = contReportes.reporteCursosMayorAsistencia(ano, mes);
+        mostrarReporte(informe, "Informe Prueba");        
     
     } // Fin del metodo reporteHistorioCurso
+    
+    
+    
     
     private  void reportePrueba(){
         contReportes = ControladorReportes.getInstance();
@@ -442,7 +450,7 @@ public class PanelReporte extends javax.swing.JPanel {
                 actualizarPanelBuscar(index);
             }
             if (e.getSource() == botonBuscarMesAno) {
-                reportePrueba();
+                reporteCursosMayorAsistencia();
             }
             
             if (e.getSource() == botonReporteCDE) {

@@ -111,6 +111,31 @@ public class ControladorReportes {
     } // Fin del metodo reporteNotasEstudiante
     
     
+    public JasperPrint reporteCursosMayorAsistencia(int anio, int mes) {
+        EntityManager em = null;
+        JasperPrint informe= null;
+        try {
+            em = conexion.getCon().createEntityManager();
+            em.getTransaction().begin();
+            java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
+            Map parametros = new HashMap();  // Parametros del Reporte             
+            parametros.put("anio", anio);
+            parametros.put("mes", mes);
+            JasperReport jasperReport = null;
+            String path = "./src/Reporte/ReportCurMayorAsis.jasper";
+            jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
+            informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
+            em.getTransaction().commit();            
+        } catch (JRException ex) {
+            Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }  finally {
+            if (em != null) {
+                em.close();
+            }
+        }                 
+        return informe;   
+    }
+    
   // EntityManager em = emf.createEntityManager();   
 //Map parameters = new HashMap();
 // EntityManager em = emf.createEntityManager();
