@@ -20,10 +20,12 @@ import Persistencia.DaoFases;
 import Persistencia.DaoHistorialAspirante;
 import Persistencia.DaoMasterTeacher;
 import Persistencia.DaoPractica;
+import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -47,7 +49,10 @@ public class ControladorAdministrador implements Sujeto {
     private Validaciones validador;
     private ArrayList <String> idNombreCurso;
     private ArrayList <String> idNombreFases;
+    private ArrayList <String> idNombreFasesPorCurso;
+    
     private Curso curso;
+    private Fases fase;
 
     public ControladorAdministrador() {
         conexion = Conexion.getInstance();
@@ -60,9 +65,14 @@ public class ControladorAdministrador implements Sujeto {
         daoHistorialAspirante = new DaoHistorialAspirante(conexion.getCon());
         idNombreCurso = new ArrayList<String>();
         idNombreFases = new ArrayList<String>();
+<<<<<<< HEAD
         
+=======
+        idNombreFasesPorCurso = new ArrayList<String>();
+>>>>>>> 601133e99a4ee3f6db4d96b0617885f8918fba98
         validador = new Validaciones();
         curso = new Curso();
+        fase = new Fases();
         //patron observador, lista de observador
         listObservadores = new ArrayList();
     }
@@ -293,13 +303,35 @@ public class ControladorAdministrador implements Sujeto {
             Curso curso = daoCurso.buscarCurso(campo, valor);
              this.curso = curso;
              result = "El curso fue encontrado";
-        }catch(ExcepcionDatos ex){
+        }catch(NoResultException ex){
+            result = ex.getMessage();
+        }
+        
+        catch(ExcepcionDatos ex){
             result = ex.getMessage();
         }
         return result;
     }
     
-    
+    public String modificarCurso(String nombreCorto, String descripcion, String contenido){
+        String result = "";
+        try{
+            validador.validarCamposVacios(nombreCorto,descripcion,contenido);
+            curso.setNombreCorto(nombreCorto);
+            curso.setDescripcion(descripcion);
+            curso.setContenido(contenido);
+            daoCurso.edit(curso);
+            result = "El curso con el id "+curso.getIdCurso()+" fue modificado con exito";
+            
+        }catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }catch(NonexistentEntityException ex){
+            result = ex.getMessage();
+        }catch(Exception ex){
+            result = ex.getMessage();
+        }
+        return result;
+    }
 
     public ArrayList<String> getIdNombreCurso() {
         return idNombreCurso;
@@ -382,6 +414,55 @@ public class ControladorAdministrador implements Sujeto {
         return result;
     }
 
+    public String buscarFase(String idFase){
+        String result = "";
+        
+        try{
+            validador.validarStringNull(idFase,"Fase");
+            validador.validarCamposVacios(idFase);
+           Fases fase = daoFase.findFases(idFase);
+             this.fase = fase;
+             result = "El fase fue encontrado";
+        }catch(NoResultException ex){
+            result = ex.getMessage();
+        }
+        
+        catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }
+        return result;
+    }
+    
+    public String modificarFase(String numeroHoras, String numeroSemanas, String tipo, String contenido){
+        String result = "";
+        try{
+            validador.validarCamposVacios(numeroHoras,numeroSemanas,contenido, tipo);
+            validador.validarConversionInteger(numeroHoras,numeroSemanas);
+            fase.setNumeroHoras(Integer.parseInt(numeroHoras));
+            fase.setNumeroSemanas(Integer.parseInt(numeroSemanas));
+            fase.setTipo(tipo);
+            fase.setContenido(contenido);
+            daoFase.edit(fase);
+            result = "La fase  con el id "+fase.getIdFase()+" fue modificado con exito";
+            
+        }catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }catch(NonexistentEntityException ex){
+            result = ex.getMessage();
+        }catch(Exception ex){
+            result = ex.getMessage();
+        }
+        return result;
+    }
+
+    public Fases getFase() {
+        return fase;
+    }
+
+    public void setFase(Fases fase) {
+        this.fase = fase;
+    }
+    
     public ArrayList<String> getIdNombreFases() {
         return idNombreFases;
     }
@@ -390,7 +471,40 @@ public class ControladorAdministrador implements Sujeto {
         this.idNombreFases = idNombreFases;
     }
 
-    public String listFasesIds() {
+    public ArrayList<String> getIdNombreFasesPorCurso() {
+        return idNombreFasesPorCurso;
+    }
+
+    public void setIdNombreFasesPorCurso(ArrayList<String> idNombreFasesPorCurso) {
+        this.idNombreFasesPorCurso = idNombreFasesPorCurso;
+    }
+
+    public String listFasesIdsPorCurso(String idCurso) {
+        String result = "";
+        try {
+            List<Fases> fases = daoFase.findFasesEntities();
+            validador.validarColeccion(fases, "fases");
+            result = "Se listaron las fases con exito";
+            idNombreFasesPorCurso = new ArrayList<String>();
+
+            for (int i = 0; i < fases.size(); i++) {
+                if (fases.get(i).getEstado() != false && fases.get(i).getIdCurso().getIdCurso().equals(idCurso)) {
+                    String idNombre = "" + fases.get(i).getIdFase();
+                    idNombreFasesPorCurso.add(idNombre);
+                }
+            }
+            System.out.println("-------------------> "+idNombreFasesPorCurso.size());
+            if(idNombreFasesPorCurso.size()==0){
+                result = "El curso seleccionado no tiene fases asignadas";
+            }
+
+        } catch (ExcepcionDatos ex) {
+            result = ex.getMessage();
+        }
+        return result;
+    }
+    
+     public String listFasesIds() {
         String result = "";
         try {
             List<Fases> fases = daoFase.findFasesEntities();
@@ -411,8 +525,11 @@ public class ControladorAdministrador implements Sujeto {
         return result;
     }
     
+<<<<<<< HEAD
     
     
+=======
+>>>>>>> 601133e99a4ee3f6db4d96b0617885f8918fba98
 
     @Override
     public void adscribir(Observador objObservador) {        

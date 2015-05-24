@@ -114,13 +114,13 @@
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="333" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="335" max="-2" attributes="0"/>
                                   <Component id="botonLimpiarCurso" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="botonCurso" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="modificarCurso" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="226" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -152,10 +152,10 @@
                                   <Component id="labelContenido" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="11" max="32767" attributes="0"/>
+                          <EmptySpace pref="17" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="modificarCurso" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="botonLimpiarCurso" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="botonCurso" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
@@ -200,9 +200,9 @@
                     <Property name="text" type="java.lang.String" value="Contenido"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="botonCurso">
+                <Component class="javax.swing.JButton" name="modificarCurso">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Guardar Curso"/>
+                    <Property name="text" type="java.lang.String" value="Modificar Curso"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -412,7 +412,7 @@
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="botonLimpiarFase" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="botonFase" min="-2" max="-2" attributes="0"/>
+                                  <Component id="botonModificarFase" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -444,7 +444,7 @@
                           </Group>
                           <EmptySpace pref="34" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="botonFase" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="botonModificarFase" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="botonLimpiarFase" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -504,12 +504,12 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="botonFase">
+                <Component class="javax.swing.JButton" name="botonModificarFase">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Guardar Fase"/>
+                    <Property name="text" type="java.lang.String" value="Modificar Fase"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonFaseActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonModificarFaseActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="inputTipo">
@@ -560,7 +560,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="comboListFasesPF" min="-2" pref="98" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="botonBuscarFase" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -575,7 +575,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="botonBuscarFase" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="comboCurso" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="comboListFasesPF" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -601,7 +601,7 @@
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo Fase"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton1">
+                <Component class="javax.swing.JButton" name="botonBuscarFase">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Buscar"/>
                   </Properties>

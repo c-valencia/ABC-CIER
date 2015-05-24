@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
  */
 public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
        private ArrayList <String> idNombreCurso;
+       private ArrayList <String> idNombreFasesPorCurso;
        private ControladorAdministrador controladorAdministrador;
 
     /**
@@ -33,10 +34,11 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
         initComponents();
         this.controladorAdministrador = controladorAdministrador;
         this.idNombreCurso = controladorAdministrador.getIdNombreCurso();
+        
         //Observador lista de cursos
-        
-        
-        
+        modificarCurso.setVisible(false);
+        inputNombre.setEditable(false);
+        botonModificarFase.setVisible(false);
         // Eventos 
         EventosPanelLogin events = new EventosPanelLogin();
         asignarEventos(events);
@@ -59,7 +61,7 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
         inputDescripcion = new javax.swing.JTextField();
         labelDescripcion = new javax.swing.JLabel();
         labelContenido = new javax.swing.JLabel();
-        botonCurso = new javax.swing.JButton();
+        modificarCurso = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         inputContenido = new javax.swing.JTextArea();
         inputNombre = new javax.swing.JTextField();
@@ -82,13 +84,13 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
         labelContenidoFase = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         inputContenidoFase = new javax.swing.JTextArea();
-        botonFase = new javax.swing.JButton();
+        botonModificarFase = new javax.swing.JButton();
         inputTipo = new javax.swing.JComboBox();
         botonLimpiarFase = new javax.swing.JButton();
         panelInferiorFase = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        botonBuscarFase = new javax.swing.JButton();
         comboCurso = new javax.swing.JComboBox();
         comboListFasesPF = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
@@ -138,7 +140,7 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
         labelContenido.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         labelContenido.setText("Contenido");
 
-        botonCurso.setText("Guardar Curso");
+        modificarCurso.setText("Modificar Curso");
 
         inputContenido.setColumns(20);
         inputContenido.setRows(5);
@@ -166,11 +168,11 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
                             .addComponent(inputDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(inputNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelSuperiorCursoLayout.createSequentialGroup()
-                        .addGap(333, 333, 333)
+                        .addGap(335, 335, 335)
                         .addComponent(botonLimpiarCurso)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonCurso)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(modificarCurso)))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
         panelSuperiorCursoLayout.setVerticalGroup(
             panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,10 +196,10 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
                     .addGroup(panelSuperiorCursoLayout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(labelContenido)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(panelSuperiorCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonLimpiarCurso)
-                    .addComponent(botonCurso))
+                    .addComponent(modificarCurso)
+                    .addComponent(botonLimpiarCurso))
                 .addGap(35, 35, 35))
         );
 
@@ -295,10 +297,10 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
         inputContenidoFase.setRows(5);
         jScrollPane3.setViewportView(inputContenidoFase);
 
-        botonFase.setText("Guardar Fase");
-        botonFase.addActionListener(new java.awt.event.ActionListener() {
+        botonModificarFase.setText("Modificar Fase");
+        botonModificarFase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonFaseActionPerformed(evt);
+                botonModificarFaseActionPerformed(evt);
             }
         });
 
@@ -336,7 +338,7 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botonLimpiarFase)
                         .addGap(18, 18, 18)
-                        .addComponent(botonFase)
+                        .addComponent(botonModificarFase)
                         .addGap(168, 168, 168))))
         );
         panelSuperiorFaseLayout.setVerticalGroup(
@@ -360,7 +362,7 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
                     .addComponent(labelContenidoFase))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(panelSuperiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonFase)
+                    .addComponent(botonModificarFase)
                     .addComponent(botonLimpiarFase))
                 .addContainerGap())
         );
@@ -373,7 +375,11 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel5.setText("Código Fase");
 
+<<<<<<< HEAD
         jButton1.setText("Buscar");
+=======
+        botonBuscarFase.setText("Buscar");
+>>>>>>> 601133e99a4ee3f6db4d96b0617885f8918fba98
 
         jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel8.setText("Código Curso");
@@ -397,7 +403,7 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboListFasesPF, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(150, 150, 150)
-                        .addComponent(jButton1)))
+                        .addComponent(botonBuscarFase)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelInferiorFaseLayout.setVerticalGroup(
@@ -408,7 +414,7 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
                 .addGap(18, 18, 18)
                 .addGroup(panelInferiorFaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jButton1)
+                    .addComponent(botonBuscarFase)
                     .addComponent(comboCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboListFasesPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
@@ -575,9 +581,9 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
         // TODO add your handling code here:
     }//GEN-LAST:event_inputDescripcionActionPerformed
 
-    private void botonFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFaseActionPerformed
+    private void botonModificarFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarFaseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_botonFaseActionPerformed
+    }//GEN-LAST:event_botonModificarFaseActionPerformed
 
     private void panelFaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFaseMouseClicked
         
@@ -588,11 +594,15 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
     private javax.swing.JTextField InputBusquedaNombreCurso;
     private javax.swing.JTabbedPane Practica;
     private javax.swing.JButton botonBuscarCurso;
-    private javax.swing.JButton botonCurso;
-    private javax.swing.JButton botonFase;
+    private javax.swing.JButton botonBuscarFase;
     private javax.swing.JButton botonLimpiarCurso;
     private javax.swing.JButton botonLimpiarFase;
     private javax.swing.JButton botonLimpiarPractica;
+<<<<<<< HEAD
+=======
+    private javax.swing.JButton botonListarFases;
+    private javax.swing.JButton botonModificarFase;
+>>>>>>> 601133e99a4ee3f6db4d96b0617885f8918fba98
     private javax.swing.JButton botonPractica;
     private javax.swing.JComboBox campoBusquedaCurso;
     private javax.swing.JComboBox comboCurso;
@@ -608,8 +618,11 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
     private javax.swing.JTextField inputNumSemanas;
     private javax.swing.JTextField inputPorcentaje;
     private javax.swing.JComboBox inputTipo;
+<<<<<<< HEAD
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
+=======
+>>>>>>> 601133e99a4ee3f6db4d96b0617885f8918fba98
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -634,6 +647,7 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
     private javax.swing.JLabel labelNumHoras;
     private javax.swing.JLabel labelNumSemanas;
     private javax.swing.JLabel labelTipo;
+    private javax.swing.JButton modificarCurso;
     private javax.swing.JPanel panelCurso;
     private javax.swing.JPanel panelFase;
     private javax.swing.JPanel panelInferiorCurso;
@@ -648,16 +662,14 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
     
                 
     private void asignarEventos(EventosPanelLogin events){
-//        botonCurso.addActionListener(events);
-//        botonFase.addActionListener(events);
-//        botonPractica.addActionListener(events);
-//        
-//        botonListarFases.addActionListener(events);
-//        botonLimpiarCurso.addActionListener(events);
-//        botonLimpiarFase.addActionListener(events);
-//        botonLimpiarPractica.addActionListener(events);
+
         
         botonBuscarCurso.addActionListener(events);
+        modificarCurso.addActionListener(events);
+        botonLimpiarCurso.addActionListener(events);
+        comboCurso.addActionListener(events);
+        botonBuscarFase.addActionListener(events);
+        botonModificarFase.addActionListener(events);
        
     } // Fin del metodo asignarEventos
     
@@ -684,23 +696,29 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
         inputContenido.setText("");
     }
     
+    private void limpiarCamposCurso(){
+        inputDescripcion.setText("");
+        inputNombre.setText("");
+        inputNombreCorto.setText("");
+        inputContenido.setText("");
+    }
    
     
    
             
-    private void llenarFases(){
-       // controladorAdministrador = ControladorAdministrador.getInstance();
-//        String result = "";
-//        result = controladorAdministrador.listFasesIds();
-//        ArrayList <String> idNombresFases = controladorAdministrador.getIdNombreFases();
-//        if(idNombresFases!=null){
-//            for(int i = 0; i < idNombresFases.size(); i++){
-//            comboFases.addItem(idNombresFases.get(i));
-//            }
-//        }else{
-//            JOptionPane.showMessageDialog(null, result);
-//        }
+    private String llenarFases(String idCurso){
+        comboListFasesPF.removeAllItems();
+        String result = controladorAdministrador.listFasesIdsPorCurso(idCurso);
+        idNombreFasesPorCurso = controladorAdministrador.getIdNombreFasesPorCurso();
         
+        
+     
+        if(idNombreFasesPorCurso!=null){
+            for(int i = 0; i < idNombreFasesPorCurso.size(); i++){
+            comboListFasesPF.addItem(idNombreFasesPorCurso.get(i));
+            }
+        }
+        return result;
     }
     
     public void llenarCursos(){
@@ -711,9 +729,34 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
             comboCurso.addItem(idNombreCurso.get(i));
             }
         }else{
-            JOptionPane.showMessageDialog(null, result);
+            
         }
      }
+    
+    
+    private String codigoCurso(){
+        String codigoCurso = " "; 
+        String codigoNombre = " ";
+        try{
+            
+            codigoNombre = (String) comboCurso.getSelectedItem();
+            int posiSeparador = 0;
+            if(codigoNombre.equals(null)){
+                JOptionPane.showMessageDialog(null, "La lista de cursos está vacia"); 
+            }else{
+            for(int i =0; i < codigoNombre.length();i++){
+             if(codigoNombre.charAt(i)==' '){
+                    posiSeparador = i;
+                }   
+             }
+            codigoCurso = codigoNombre.substring(0, posiSeparador);
+            }
+            
+        }catch(NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "La lista de cursos está vacia"); 
+        }
+        return codigoCurso;
+    }
     
 
     @Override
@@ -736,12 +779,58 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
                 String valor = InputBusquedaNombreCurso.getText();
                 String result = controladorAdministrador.buscarCurso(campo, valor);
                 
+                if(result.equals("El curso fue encontrado")){
                 inputDescripcion.setText(controladorAdministrador.getCurso().getDescripcion());
                 inputNombre.setText(controladorAdministrador.getCurso().getNombre());
                 inputNombreCorto.setText(controladorAdministrador.getCurso().getNombreCorto());
                 inputContenido.setText(controladorAdministrador.getCurso().getContenido());
-        
+                 modificarCurso.setVisible(true);
+                }
+                JOptionPane.showMessageDialog(null, result);
+            }
+           if(e.getSource() == modificarCurso){
                
+               String descripcion = inputDescripcion.getText();
+               String nombreCorto = inputNombreCorto.getText();
+               String contenido = inputContenido.getText();
+              
+               String result = controladorAdministrador.modificarCurso(nombreCorto, descripcion, contenido);
+               JOptionPane.showMessageDialog(null, result);
+               modificarCurso.setVisible(false);
+               
+           }
+           if(e.getSource() == botonLimpiarCurso){
+               limpiarCamposCurso();
+           }
+           if(e.getSource() == botonBuscarFase){
+               int indexIdFase = comboListFasesPF.getSelectedIndex();
+               String busquedaFase = (String) comboListFasesPF.getItemAt(indexIdFase);
+               String result = controladorAdministrador.buscarFase(busquedaFase);
+               if(result.equals("El fase fue encontrado")){
+                   inputNumHoras.setText(""+controladorAdministrador.getFase().getNumeroHoras());
+                   inputNumSemanas.setText(""+controladorAdministrador.getFase().getNumeroSemanas());
+                   inputContenidoFase.setText(""+controladorAdministrador.getFase().getContenido());
+                   if(controladorAdministrador.getFase().getTipo().equals("Presencial")){
+                       inputTipo.setSelectedIndex(0);
+                   }
+                   if(controladorAdministrador.getFase().getTipo().equals("Virtual")){
+                       inputTipo.setSelectedIndex(1);
+                   }
+                   botonModificarFase.setVisible(true);
+               }
+               JOptionPane.showMessageDialog(null, result);
+           }
+           if(e.getSource() == botonModificarFase){
+               String numeroHoras = inputNumHoras.getText();
+               String numeroSemanas = inputNumSemanas.getText();
+               String contenido = inputContenidoFase.getText();
+               String tipo = (String) inputTipo.getSelectedItem();
+               
+               String result = controladorAdministrador.modificarFase(numeroHoras, numeroSemanas, tipo, contenido);
+               JOptionPane.showMessageDialog(null, result);
+           }
+           if(e.getSource() == comboCurso){
+               llenarFases(codigoCurso());
            }
         }   
     } // Fin de la clase EventosPanelLogin
