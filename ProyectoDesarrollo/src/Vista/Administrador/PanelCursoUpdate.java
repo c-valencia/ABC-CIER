@@ -375,11 +375,7 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel5.setText("Código Fase");
 
-
-        jButton1.setText("Buscar");
-
         botonBuscarFase.setText("Buscar");
-
 
         jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel8.setText("Código Curso");
@@ -476,19 +472,14 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
                     .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
-                                .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelNomPrac)
-                                    .addComponent(labelDescPrac))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(panelSuperiorPracticaLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(60, 60, 60)))
+                            .addComponent(labelNomPrac)
+                            .addComponent(labelDescPrac)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panelSuperiorPracticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(inputPorcentaje, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inputNombPrac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(inputNombPrac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(265, 265, 265))
         );
         panelSuperiorPracticaLayout.setVerticalGroup(
@@ -598,11 +589,7 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
     private javax.swing.JButton botonLimpiarCurso;
     private javax.swing.JButton botonLimpiarFase;
     private javax.swing.JButton botonLimpiarPractica;
-
-
-    private javax.swing.JButton botonListarFases;
     private javax.swing.JButton botonModificarFase;
-
     private javax.swing.JButton botonPractica;
     private javax.swing.JComboBox campoBusquedaCurso;
     private javax.swing.JComboBox comboCurso;
@@ -618,11 +605,7 @@ public class PanelCursoUpdate extends javax.swing.JPanel implements Observador {
     private javax.swing.JTextField inputNumSemanas;
     private javax.swing.JTextField inputPorcentaje;
     private javax.swing.JComboBox inputTipo;
-
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
-
-
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
