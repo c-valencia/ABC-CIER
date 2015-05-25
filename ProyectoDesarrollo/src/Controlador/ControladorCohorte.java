@@ -15,6 +15,8 @@ import Logica.CursoCohortePK;
 import Logica.LeaderTeacher;
 import Logica.Matricula;
 import Logica.MatriculaPK;
+import Logica.Practica;
+import Logica.Tarea;
 import Logica.Usuario;
 import Persistencia.DaoCohorte;
 import Persistencia.Conexion;
@@ -23,6 +25,8 @@ import Persistencia.DaoAspirante;
 import Persistencia.DaoCursoCohorte;
 import Persistencia.DaoLeaderTeacher;
 import Persistencia.DaoMatricula;
+import Persistencia.DaoPractica;
+import Persistencia.DaoTarea;
 import Persistencia.DaoUsuario;
 import Persistencia.exceptions.IllegalOrphanException;
 import Persistencia.exceptions.NonexistentEntityException;
@@ -43,7 +47,9 @@ public class ControladorCohorte {
     private DaoCohorte daoCohorte;
     private DaoCurso daoCurso;
     private DaoCursoCohorte daoCursoCohorte;
+    private DaoPractica daoPractica;
     private DaoAspirante daoAspirante;
+    private DaoTarea daoTarea;
     private Validaciones validador;
     
     public ControladorCohorte() {
@@ -52,10 +58,10 @@ public class ControladorCohorte {
         daoCurso = new DaoCurso(conn.getCon());
         daoCursoCohorte = new DaoCursoCohorte(conn.getCon());
         daoAspirante = new DaoAspirante(conn.getCon());
+        daoPractica = new DaoPractica(conn.getCon());
+        daoTarea = new DaoTarea(conn.getCon());
         validador = new Validaciones();
     }
-    
-    
     
     public List <Curso> buscarCursos(){
         Vector <Curso> listado = new Vector<>();
@@ -67,7 +73,9 @@ public class ControladorCohorte {
         return listado;
     }
     
-    public Cohorte buscarUnaCohorte(Date fechaInicio, Date fechaFin){
+    // busquedas de cohorte
+    public Cohorte buscarCohorte(Date fechaInicio, Date fechaFin)
+    {
         Cohorte cohorte = new Cohorte();
         
         cohorte.setFechaInicio(fechaInicio);
@@ -75,6 +83,21 @@ public class ControladorCohorte {
         cohorte.setEstado(true);
         cohorte = daoCohorte.buscarCohorte(cohorte);
         return cohorte;
+    }
+    
+    public Cohorte buscarCohorte(String idCohorte)
+    {
+        Cohorte cohorte = new Cohorte();
+        cohorte = daoCohorte.findCohorte(idCohorte);
+        
+        return cohorte;
+    }
+    
+    public Vector <Cohorte> buscarCohorte()
+    {
+        Vector <Cohorte> lista = new Vector<>();
+        lista = (Vector<Cohorte>)daoCohorte.findCohorteEntities();
+        return lista;
     }
     
     public boolean eliminarCohorte(){
@@ -101,15 +124,18 @@ public class ControladorCohorte {
         String result = "Error en elguardado";
         
         try{
-            Date inicio = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaInicio();
+            Date inicio = buscarCohorte(fechaInicio ,fechaFin).getFechaInicio();
 
-            Date fin = buscarUnaCohorte(fechaInicio ,fechaFin).getFechaFin();
-
+            Date fin = buscarCohorte(fechaInicio ,fechaFin).getFechaFin();
+            
+            validador.validarCamposVacios(fechaInicio.toString() ,fechaFin.toString());
             validador.validarFechas(fechaFin, fechaInicio);
+            
             Cohorte cohorte = new Cohorte();
             cohorte.setFechaInicio(fechaInicio);
             cohorte.setFechaFin(fechaFin);
-            cohorte.setEstado(true);                
+            cohorte.setEstado(true); 
+            
             daoCohorte.insertCohorte(cohorte);
             result = "Guardado exitoso";
 
@@ -191,6 +217,7 @@ public class ControladorCohorte {
     public Vector <Aspirante> listarAspirantes(String area, String departamento){
         Vector <Aspirante> listado = new Vector<>();
         listado = (Vector <Aspirante>)daoAspirante.buscarAspirantes(area, departamento);
+        
         return listado;
     }
     
@@ -236,5 +263,28 @@ public class ControladorCohorte {
             cohorte = null;
         }
         return cohorte;
+    }
+    
+    public void crearTarea(String cedulaLT, String cursoID){
+        Vector <Practica> practicas = new Vector<>();
+        practicas = buscarPractica(cursoID);
+        
+        try {
+            for(int i = 0; i < practicas.size(); i++){
+                Tarea tarea = new Tarea(practicas.get(i).getIdPractica(), cedulaLT);
+                System.out.println("tarea id = " + tarea.getTareaPK().getIdPractica() + " cedula = " + tarea.getTareaPK().getCedulaLt());
+                tarea.setNota(new Float("0"));
+                System.out.println("nota = " + tarea.getNota());
+                daoTarea.crearTarea(tarea);
+            }    
+        } catch (Exception ex) {
+            Logger.getLogger(ControladorCohorte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private Vector<Practica> buscarPractica(String cursoID){
+        Vector <Practica> practicas = new Vector<>();
+        practicas = daoPractica.buscarPracticas(cursoID);
+        return practicas;
     }
 }

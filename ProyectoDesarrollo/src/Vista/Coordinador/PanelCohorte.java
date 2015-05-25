@@ -529,8 +529,12 @@ public class PanelCohorte extends javax.swing.JPanel {
     private String cohorte;
     private Date fechafin;
     private Date fechaInicio;
+    private int poslistaLT;
     
     private void misComponentes(){
+        // vectores
+        listadoLT = new Vector();
+        poslistaLT = 0;
         // inicio del panel cohorte
         panelPrincipal.add(jPanelCrearCohorte);
         
@@ -578,6 +582,9 @@ public class PanelCohorte extends javax.swing.JPanel {
         panelPrincipal.add(panelNuevo);
         panelPrincipal.repaint();
         panelPrincipal.updateUI();
+        limpiarTablas(jTableAspiratesBD);
+        limpiarTablas(jTableCursos);
+        limpiarTablas(jTableLeaderTeacher);
     } // Fin del metodo actualizarPanelPrincipal
     
     private void asignarEventos(EventosPanelLogin events){
@@ -598,10 +605,9 @@ public class PanelCohorte extends javax.swing.JPanel {
      */
     private void aspirantesSeleccionados(){
         TableModel TMAspirante = jTableAspiratesBD.getModel();
-        
+        poslistaLT = listadoLT.size();
         DefaultTableModel TMSelecionados = (DefaultTableModel) jTableLeaderTeacher.getModel();
         int fila = TMAspirante.getRowCount();
-        listadoLT = new Vector();
         
         if(0 == JOptionPane.showConfirmDialog(null, "¿Esta seguro que estos son los aspirantes que va a seleccionar?")){
             for(int i=0; i< fila; i++) { 
@@ -610,7 +616,7 @@ public class PanelCohorte extends javax.swing.JPanel {
                 }
             }
             
-            for (int i = 0; i < listadoLT.size(); i++){
+            for (int i = poslistaLT; i < listadoLT.size(); i++){
                 
                 TMSelecionados.addRow(new Object[] {listadoLT.get(i).getCedula(), listadoLT.get(i).getNombres(),
                                                     listadoLT.get(i).getApellidos(), listadoLT.get(i).getCorreo(),
@@ -630,11 +636,11 @@ public class PanelCohorte extends javax.swing.JPanel {
         fechaInicio = jDateChooserFechaInicio.getDate();
         fechafin = jDateChooserFechaFin.getDate();
         String estado = "Las fechas ya existen para una cohorte, intente con otras fechas";
-        String idcohorte = controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getIdCohorte();
+        String idcohorte = controlCohorte.buscarCohorte(fechaInicio ,fechafin).getIdCohorte();
         
         if( idcohorte.equals("")){
             estado = controlCohorte.ingresarCohorte(fechaInicio ,fechafin); 
-            cohorte= controlCohorte.buscarUnaCohorte(fechaInicio ,fechafin).getIdCohorte();
+            cohorte= controlCohorte.buscarCohorte(fechaInicio ,fechafin).getIdCohorte();
         }
         if (estado.equals("Guardado exitoso")){
             JOptionPane.showMessageDialog(null, estado + " en la base de datos");
@@ -674,6 +680,7 @@ public class PanelCohorte extends javax.swing.JPanel {
                 controlCohorte.ingresarMatricula(cohorte, curso.getValueAt(i, 4).toString(), listadoLT.get(i).getCedula());
                 controlCohorte.modificarAspirante(listadoLT.get(i));
                 controlCohorte.crearUsuario(listadoLT.get(i));
+                controlCohorte.crearTarea(listadoLT.get(i).getCedula(), curso.getValueAt(i, 4).toString());
                 System.out.println(" si ingreso");
             }
 
@@ -752,7 +759,6 @@ public class PanelCohorte extends javax.swing.JPanel {
     private void listarCursos(){
         listadoCursos = new Vector<>();
         listadoCursos = (Vector<Curso>) controlCohorte.buscarCursos();
-        
         DefaultTableModel dtm = (DefaultTableModel) jTableCursos.getModel();
         
         for (int i = 0; i < listadoCursos.size(); i++)
@@ -783,7 +789,7 @@ public class PanelCohorte extends javax.swing.JPanel {
         jButtonListarCursos.setEnabled(true);
         jButtonGuardarCursoSeleccionado.setEnabled(false);
         jButtonSiguienteEnPCurso.setEnabled(false);
-        jTableCursos.removeAll();
+        limpiarTablas(jTableCursos);
     }
     
     /**
@@ -791,7 +797,7 @@ public class PanelCohorte extends javax.swing.JPanel {
      */
     private void limpiarPanelMatricula(){
         jComboBoxPCMArea.removeAllItems();
-        jTableLeaderTeacher.removeAll();
+        limpiarTablas(jTableLeaderTeacher);
         jButtonGuardarMatricula.setEnabled(true);
         jButtonFinalizarMatricula.setEnabled(false);
     }
@@ -801,7 +807,7 @@ public class PanelCohorte extends javax.swing.JPanel {
      */
     private void limpiarPanelAspirante(){
         jLabelNombreArea.setText("");
-        jTableAspiratesBD.removeAll();
+        limpiarTablas(jTableAspiratesBD);
     }
     
      /**
@@ -809,9 +815,19 @@ public class PanelCohorte extends javax.swing.JPanel {
      */
     private void limpiarPanel(){
         limpiarPanelCohorte();
+        
         limpiarPanelCursos();
         limpiarPanelMatricula();
         limpiarPanelAspirante();
+    }
+    
+    private void limpiarTablas(JTable tabla){
+        DefaultTableModel borrar = (DefaultTableModel) tabla.getModel();
+        System.out.println("llego ");
+        for (int i = 0; i < borrar.getRowCount(); i++){
+            borrar.removeRow(i);
+            System.out.println("lo hizo");
+        }
     }
     
     private class EventosPanelLogin implements ActionListener {

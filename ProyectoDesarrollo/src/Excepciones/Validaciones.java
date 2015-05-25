@@ -59,7 +59,7 @@ public class Validaciones {
    
     public static  void validarStringNull(String campo, String  tipo) throws ExcepcionDatos {
     if(campo == null){
-            throw new ExcepcionDatos("El campo "+tipo+"  no se ha selecccionado");
+            throw new ExcepcionDatos("El campo "+tipo+"  no se ha seleccionado");
        }
     } 
     

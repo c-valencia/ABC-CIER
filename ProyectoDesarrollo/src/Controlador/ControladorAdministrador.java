@@ -52,6 +52,7 @@ public class ControladorAdministrador implements Sujeto {
     private ArrayList <String> idNombreFasesPorCurso;
     
     private Curso curso;
+    private Fases fase;
 
     public ControladorAdministrador() {
         conexion = Conexion.getInstance();
@@ -64,9 +65,14 @@ public class ControladorAdministrador implements Sujeto {
         daoHistorialAspirante = new DaoHistorialAspirante(conexion.getCon());
         idNombreCurso = new ArrayList<String>();
         idNombreFases = new ArrayList<String>();
+
+        
+
         idNombreFasesPorCurso = new ArrayList<String>();
+
         validador = new Validaciones();
         curso = new Curso();
+        fase = new Fases();
         //patron observador, lista de observador
         listObservadores = new ArrayList();
     }
@@ -408,6 +414,55 @@ public class ControladorAdministrador implements Sujeto {
         return result;
     }
 
+    public String buscarFase(String idFase){
+        String result = "";
+        
+        try{
+            validador.validarStringNull(idFase,"Fase");
+            validador.validarCamposVacios(idFase);
+           Fases fase = daoFase.findFases(idFase);
+             this.fase = fase;
+             result = "El fase fue encontrado";
+        }catch(NoResultException ex){
+            result = ex.getMessage();
+        }
+        
+        catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }
+        return result;
+    }
+    
+    public String modificarFase(String numeroHoras, String numeroSemanas, String tipo, String contenido){
+        String result = "";
+        try{
+            validador.validarCamposVacios(numeroHoras,numeroSemanas,contenido, tipo);
+            validador.validarConversionInteger(numeroHoras,numeroSemanas);
+            fase.setNumeroHoras(Integer.parseInt(numeroHoras));
+            fase.setNumeroSemanas(Integer.parseInt(numeroSemanas));
+            fase.setTipo(tipo);
+            fase.setContenido(contenido);
+            daoFase.edit(fase);
+            result = "La fase  con el id "+fase.getIdFase()+" fue modificado con exito";
+            
+        }catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }catch(NonexistentEntityException ex){
+            result = ex.getMessage();
+        }catch(Exception ex){
+            result = ex.getMessage();
+        }
+        return result;
+    }
+
+    public Fases getFase() {
+        return fase;
+    }
+
+    public void setFase(Fases fase) {
+        this.fase = fase;
+    }
+    
     public ArrayList<String> getIdNombreFases() {
         return idNombreFases;
     }
@@ -438,6 +493,10 @@ public class ControladorAdministrador implements Sujeto {
                     idNombreFasesPorCurso.add(idNombre);
                 }
             }
+            System.out.println("-------------------> "+idNombreFasesPorCurso.size());
+            if(idNombreFasesPorCurso.size()==0){
+                result = "El curso seleccionado no tiene fases asignadas";
+            }
 
         } catch (ExcepcionDatos ex) {
             result = ex.getMessage();
@@ -466,6 +525,7 @@ public class ControladorAdministrador implements Sujeto {
         return result;
     }
     
+
 
     @Override
     public void adscribir(Observador objObservador) {        
