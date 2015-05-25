@@ -281,7 +281,6 @@ public class PanelModificarCoordinador extends javax.swing.JPanel {
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         // TODO add your handling code here:
         modificarCoordinador ();
-        limpiarPanelDatos ();
         jButtonModificar.setEnabled(false);
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
@@ -371,22 +370,11 @@ public class PanelModificarCoordinador extends javax.swing.JPanel {
        String direccion = jTextFieldDireccion.getText(); 
        String telefono = jTextFieldTelefono.getText(); 
        boolean estado = true;
-       if (contAdministrador.validarDatosCoordinador(cedula, nombres, apellidos, email, cargo, direccion, 
-                                                    telefono).equals("1")){
-           String result = contAdministrador.modificarEmpleado(cedula,  nombres,  apellidos, email, cargo,  direccion, telefono, estado);
-           if (result.equals("1")) {
-               mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-               "La operacion se realiza exitosamente", "Confirmacion Operacion");
-        }
-       
-       } else {
-           mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                      contAdministrador.validarDatosCoordinador(cedula, nombres, apellidos, email, cargo, direccion, 
-                                                                telefono) , "error");}
-       
-       
-       
-       
+       String result = contAdministrador.modificarEmpleado(cedula,nombres,apellidos,email,cargo,direccion,telefono,estado);
+       JOptionPane.showMessageDialog(null, result);
+       if (result.equals("Se actualizo el empleado con exito")) { 
+           limpiarPanelDatos ();
+       }
      }
     
     public void limpiarPanelBuscar () { 

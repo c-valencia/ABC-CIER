@@ -8,6 +8,7 @@
 package Vista.Administrador;
 
 import Controlador.ControladorAdministrador;
+import Excepciones.ExcepcionDatos;
 import Vista.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -263,20 +264,14 @@ public class PanelCrearCoordinador extends javax.swing.JPanel {
        String telefono= jTextTelefono.getText(); 
        boolean estado = true;
        
-       if (contAdministrador.validarDatosCoordinador(cedula, nombres, apellidos, email, cargo, direccion, 
-                                                    telefono).equals("1")){
-           String result = contAdministrador.crearEmpleado(cedula,nombres, apellidos,email, cargo, 
+       String result = contAdministrador.crearEmpleado(cedula,nombres, apellidos,email, cargo, 
                                                            direccion, telefono, estado);
-           if (result.equals("1")) {
-               mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                       "La operacion se realiza exitosamente", "Confirmacion Operacion");
-           }
-       } else { 
-           mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                      contAdministrador.validarDatosCoordinador(cedula, nombres, apellidos, email, cargo, direccion, 
-                                                                telefono) , "error");}
-       
+       JOptionPane.showMessageDialog(null, result);
+       if (result.equals("Se creo el empleado con exito")) { 
+           limpiarPanelDatos ();
+       }
       }
+    
     private void mostarMensaje(int tipo, String titulo, String mensaje) {
         JOptionPane.showMessageDialog(null, titulo, mensaje, tipo);   
     } // Fin del metodo 
@@ -293,7 +288,6 @@ public class PanelCrearCoordinador extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == jButtonGuardarCoordinador) {    
                 guardarCoordiandor ();      
-                limpiarPanelDatos ();
             }
         }
     

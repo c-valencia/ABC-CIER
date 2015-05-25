@@ -434,18 +434,12 @@ public class PanelModificarMasterTeacher extends javax.swing.JPanel {
        boolean estado = true;
        String result="";
        
-       if (contAdministrador.validarDatosMasterTeacher(cedula, nombre, apellido, email, ciudad, pais, 
-                                                    contAdministrador.getDaoCurso().findCurso( codigoCurso())).equals("1")){
-           result = contAdministrador.modificarMasterTeacher(cedula, nombre, apellido, email, ciudad, pais, estado, 
+       result = contAdministrador.modificarMasterTeacher(cedula, nombre, apellido, email, ciudad, pais, estado, 
                                                              contAdministrador.getDaoCurso().findCurso(codigoCurso()));
-           if (result.equals("1")) {
-               mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                       "La operacion se realiza exitosamente", "Confirmacion Operacion");
-           }
-       } else { 
-           mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                         contAdministrador.crearMasterTeacher (cedula,nombre, apellido,email, ciudad, pais,estado,
-                                                               contAdministrador.getDaoCurso().findCurso( codigoCurso()) ) , "error");}
+       JOptionPane.showMessageDialog(null, result);
+       if (result.equals("Se creo el master teacher con exito")) { 
+           limpiarPanelDatos ();
+       }
                 }
      
      public void limpiarPanelDatos () { 
