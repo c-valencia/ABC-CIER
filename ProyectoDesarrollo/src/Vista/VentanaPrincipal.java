@@ -133,7 +133,7 @@ public class VentanaPrincipal extends JFrame {
         this.addWindowListener(events);
         botonCerrar.addActionListener(events);
     }
-    
+        
     private class EventosVentanaPrincipal implements ActionListener, WindowListener{
 
         @Override
@@ -153,7 +153,9 @@ public class VentanaPrincipal extends JFrame {
         @Override
         public void windowClosing(WindowEvent e) {
             // EN ESTE SE DEBE ACTULIZAR EL VALOR DE LA SESION EN LA BASE DE DATOS
+            System.out.println("---->");
         }        
+        
         @Override
         public void windowClosed(WindowEvent e) {
         }
