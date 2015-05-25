@@ -591,6 +591,9 @@ public class PanelReporte extends javax.swing.JPanel {
         botonReporteEMD.addActionListener(events);
     } // Fin del metodo asignarEventos
     
+    private void mostrarMensaje(int tipo, String titulo, String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje, titulo, tipo);
+    } // Fin del metodo mostrarMensaje     
     
     private void mostrarReporte(JasperPrint informe, String titulo) {
         if (informe != null) {
@@ -609,8 +612,14 @@ public class PanelReporte extends javax.swing.JPanel {
         contReportes = ControladorReportes.getInstance();
         int ano = inputAno.getYear();
         int mes =  (inputMes.getMonth() + 1);         
-        JasperPrint informe = contReportes.reporteCursosMayorAsistencia(ano, mes);
-        mostrarReporte(informe, "Reporte");            
+        String result  = contReportes.reporteCursosMayorAsistencia(ano, mes);
+        if (result.equals("OK")) {
+            JasperPrint informe = contReportes.getInforme();
+            mostrarReporte(informe, "Reporte");
+            inputCodCohorteCMA.setText("");
+        } else {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", result);          
+        }           
     } // Fin del metodo reporteHistorioCurso      
     
     
@@ -618,7 +627,8 @@ public class PanelReporte extends javax.swing.JPanel {
     private void reporteCursoMenosAvance(){
         contReportes = ControladorReportes.getInstance();  
         String codCohorte = inputCodCohorteCMA.getText();
-        System.out.println("---->" + codCohorte);
+        System.out.println("--ssssssssssss-->" + codCohorte);
+        // OJO CAMBIAR
         // JasperPrint informe = contReportes.reporteCursoMenosAvance(codCohorte);
         // mostrarReporte(informe, "Reporte");
     } //  Fin del metodo reporteCursoMenosAvance
@@ -628,10 +638,19 @@ public class PanelReporte extends javax.swing.JPanel {
     private void reporteEstCursoDepar(){
         contReportes = ControladorReportes.getInstance();
         String idCurso = inputCodCursoCDE.getText();
-        String departamento = ""+ listDepart.getSelectedValue();
-        JasperPrint informe = contReportes.reporteEstCurDepart(idCurso, departamento);
-        mostrarReporte(informe, "Reporte");
-        inputCodCursoCDE.setText(""); 
+        String departamento = "";
+        if (listDepart.getSelectedValue() != null) {
+            departamento = ""+ listDepart.getSelectedValue();
+        }
+        String result = contReportes.reporteEstCurDepart(idCurso, departamento);
+        if (result.equals("OK")) {
+            JasperPrint informe = contReportes.getInforme();
+            mostrarReporte(informe, "Reporte");
+            inputCodCursoCDE.setText("");
+        } else {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", result);          
+        }
+
     } // Fin del metodo reporteEstCursoDepar
     
     
@@ -640,8 +659,14 @@ public class PanelReporte extends javax.swing.JPanel {
         contReportes = ControladorReportes.getInstance();
         int ano = inputAnoEMD.getYear();
         int mes =  (inputMesEMD.getMonth() + 1);
-        JasperPrint informe = contReportes.reporteEstMesDepart(ano, mes);
-        mostrarReporte(informe, "Reporte");           
+        String  result = contReportes.reporteEstMesDepart(ano, mes);                
+        if (result.equals("OK")) {
+            JasperPrint informe = contReportes.getInforme();
+            mostrarReporte(informe, "Reporte");
+            inputCodCohorteCMA.setText("");
+        } else {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", result);          
+        }          
     }
         
     
@@ -649,9 +674,14 @@ public class PanelReporte extends javax.swing.JPanel {
     private void reporteEstNotas() {
         contReportes = ControladorReportes.getInstance();
         String cedula = inputCedulaNLT.getText();
-        JasperPrint informe = contReportes.reporteNotasEstudiante(cedula);
-        mostrarReporte(informe, "Reporte");        
-        inputCedulaNLT.setText("");
+        String result = contReportes.reporteNotasEstudiante(cedula);                       
+        if (result.equals("OK")) {
+            JasperPrint informe = contReportes.getInforme();
+            mostrarReporte(informe, "Reporte");
+            inputCedulaNLT.setText("");
+        } else {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", result);          
+        }        
     } // Fin del metodo reporteEstNotas        
     
 
@@ -659,9 +689,14 @@ public class PanelReporte extends javax.swing.JPanel {
     private void reporteHisEstGanadoCurso (){
         contReportes = ControladorReportes.getInstance();
         String codCurso = inputCodCurosHEC.getText();
-        JasperPrint informe = contReportes.reporteHistoricoEstudCurso(codCurso);
-        mostrarReporte(informe, "Reporte");        
-        inputCedulaNLT.setText("");        
+        String result = contReportes.reporteHistoricoEstudCurso(codCurso);
+        if (result.equals("OK")) {
+            JasperPrint informe = contReportes.getInforme();
+            mostrarReporte(informe, "Reporte");
+            inputCedulaNLT.setText("");
+        } else {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", result);          
+        }                  
     } // Fin del metodo reporteHisEstGanadoCurso
         
     

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9334a742-f004-411b-bb16-7341d14c135c">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9334a742-f004-411b-bb16-7341d14c135c">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="13"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="109"/>
 	<parameter name="anio" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -25,16 +25,21 @@ LIMIT 10;]]>
 	<field name="estado" class="java.lang.Boolean"/>
 	<field name="count" class="java.lang.Long"/>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="75dd561e-0e1e-464e-9e2a-8af652c8e91b" x="75" y="21" width="405" height="37"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cursos con mayor asistencia en el mes]]></text>
+			</staticText>
+		</band>
 	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
 	<detail>
-		<band height="230" splitType="Stretch">
+		<band height="271" splitType="Stretch">
 			<stackedBarChart>
 				<chart>
-					<reportElement uuid="b5693fd4-b310-46af-b287-8d22be790235" x="106" y="0" width="383" height="230"/>
+					<reportElement uuid="b5693fd4-b310-46af-b287-8d22be790235" x="86" y="17" width="383" height="230"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -53,4 +58,33 @@ LIMIT 10;]]>
 			</stackedBarChart>
 		</band>
 	</detail>
+	<columnFooter>
+		<band height="31">
+			<line>
+				<reportElement uuid="36585d68-e318-4536-bde4-c064630b3f7d" positionType="FixRelativeToBottom" x="10" y="13" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="41">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="d8f6fbb9-b697-4395-b5b7-21ad180db299" x="10" y="18" width="100" height="20" forecolor="#666666"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8d4898d8-3b06-47db-823b-4607ef7bed3c" x="435" y="18" width="80" height="20" forecolor="#666666" backcolor="#FEFEFE"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="8c923852-d674-4fc9-bce2-e682efc1255a" x="515" y="18" width="40" height="20" forecolor="#666666" backcolor="#FEFEFE"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
 </jasperReport>

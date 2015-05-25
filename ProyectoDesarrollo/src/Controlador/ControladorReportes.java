@@ -1,5 +1,7 @@
 package Controlador;
 
+import Excepciones.ExcepcionDatos;
+import Excepciones.Validaciones;
 import Persistencia.Conexion;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +25,7 @@ public class ControladorReportes {
     
     private Conexion conexion;        
     private static ControladorReportes contReportes;
+    private JasperPrint informe;
     
     
     private ControladorReportes(){
@@ -39,10 +42,12 @@ public class ControladorReportes {
     
     
     // Detalle de estudiantes en un curso por departamentos - (TABLA)	  	  
-    public JasperPrint reporteEstCurDepart(String idCurso, String departamento){
+    public String reporteEstCurDepart(String idCurso, String departamento){
         EntityManager em = null;
-        JasperPrint informe= null;
+        informe= null;
+        String result = "";
         try {
+            Validaciones.validarCamposVacios(idCurso, departamento);
             em = conexion.getCon().createEntityManager();
             em.getTransaction().begin();
             java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
@@ -53,23 +58,30 @@ public class ControladorReportes {
             String path = "./src/Reporte/ReportCurEstDepar.jasper";
             jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
             informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
-            em.getTransaction().commit();            
+            em.getTransaction().commit();  
+            result = "OK";
         } catch (JRException ex) {
-            Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
-        }  finally {
+            // Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Problema al generar el Reporte";
+        } catch (ExcepcionDatos excepcionDatos) {
+            result = excepcionDatos.getMessage();
+        } 
+        finally {
             if (em != null) {
                 em.close();
             }
         }                 
-        return informe;    
+        return result;    
     } // Fin del metodo reporteEstCurDepart
     
     
     // Detalle del reporte de notas por	estudiante- (TABLA)
-    public JasperPrint reporteNotasEstudiante (String cedula) {
+    public String reporteNotasEstudiante (String cedula) {
         EntityManager em = null;
-        JasperPrint informe= null;
+        informe= null;
+        String result = "";
         try {
+            Validaciones.validarCamposVacios(cedula);
             em = conexion.getCon().createEntityManager();
             em.getTransaction().begin();
             java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
@@ -79,23 +91,30 @@ public class ControladorReportes {
             String path = "./src/Reporte/ReportEstNotas.jasper";
             jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
             informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
-            em.getTransaction().commit();            
+            em.getTransaction().commit();
+            result = "OK";
         } catch (JRException ex) {
-            Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
-        }  finally {
+            //Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Problema al generar el Reporte";
+        }catch (ExcepcionDatos excepcionDatos) {
+            result = excepcionDatos.getMessage();
+        } 
+        finally {
             if (em != null) {
                 em.close();
             }
         }                 
-        return informe;        
+        return result;        
     } // Fin del metodo reporteNotasEstudiante
     
     
     // Cursos con mayor asistencia en el mes (Top 10) - (GRAFICO)
-    public JasperPrint reporteCursosMayorAsistencia(int anio, int mes) {
+    public String reporteCursosMayorAsistencia(int anio, int mes) {
         EntityManager em = null;
-        JasperPrint informe= null;
+        String result = "";
+        informe= null;
         try {
+            Validaciones.validarCamposVacios(""+anio, ""+mes);            
             em = conexion.getCon().createEntityManager();
             em.getTransaction().begin();
             java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
@@ -106,23 +125,29 @@ public class ControladorReportes {
             String path = "./src/Reporte/ReportCurMayorAsis.jasper";
             jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
             informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
-            em.getTransaction().commit();            
+            em.getTransaction().commit();  
+            result = "OK";
         } catch (JRException ex) {
-            Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
-        }  finally {
+            // Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Problema al generar el Reporte";
+        }catch (ExcepcionDatos excepcionDatos) {
+            result = excepcionDatos.getMessage();
+        }   finally {
             if (em != null) {
                 em.close();
             }
         }                 
-        return informe;   
+        return result;   
     } // Fin del metodo reporteCursosMayorAsistencia
     
     
     // Historico de estudiantes que ha ganado un Curso - (TABLA)
-    public JasperPrint reporteHistoricoEstudCurso(String codCurso){
+    public String reporteHistoricoEstudCurso(String codCurso){
        EntityManager em = null;
-        JasperPrint informe= null;
+       informe= null;
+       String result = "";
         try {
+            Validaciones.validarCamposVacios(codCurso);   
             em = conexion.getCon().createEntityManager();
             em.getTransaction().begin();
             java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
@@ -132,23 +157,30 @@ public class ControladorReportes {
             String path = "./src/Reporte/ReportHistEstCursoGanaron.jasper";
             jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
             informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
-            em.getTransaction().commit();            
+            em.getTransaction().commit();     
+            result = "OK";
         } catch (JRException ex) {
-            Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
-        }  finally {
+            // Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Problema al generar el Reporte";
+        }catch (ExcepcionDatos excepcionDatos) {
+            result = excepcionDatos.getMessage();
+        }   finally {
             if (em != null) {
                 em.close();
             }
         }                 
-        return informe;           
+        return result;                
     } // Fin del metodo reporteHistoricoEstudCurso
 
     
     // Curso con menos potencial de avance (TOP 5) - (GRAFICO)
-    public JasperPrint reporteCursoMenosAvance(String codCohorte) {
+    public String reporteCursoMenosAvance(String codCohorte) {
        EntityManager em = null;
-        JasperPrint informe= null;
+       
+       informe= null;
+       String result = "";
         try {
+            Validaciones.validarCamposVacios(codCohorte);   
             em = conexion.getCon().createEntityManager();
             em.getTransaction().begin();
             java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
@@ -158,23 +190,29 @@ public class ControladorReportes {
             String path = "./src/Reporte/ReportHistEstCursoGanaron.jasper";
             jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
             informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
-            em.getTransaction().commit();            
+            em.getTransaction().commit();  
+            result = "OK";
         } catch (JRException ex) {
-            Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
-        }  finally {
+            // Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Problema al generar el Reporte";
+        }catch (ExcepcionDatos excepcionDatos) {
+            result = excepcionDatos.getMessage();
+        }   finally {
             if (em != null) {
                 em.close();
             }
-        }                 
-        return informe;     
+        }            
+        return result;     
     } // Fin del metodo reporteCursoMenosAvance
     
     
     // Estudiantes que han llegado en el mes por departamento - (GRAFICO)
-    public JasperPrint reporteEstMesDepart(int anio, int mes){
+    public String reporteEstMesDepart(int anio, int mes){
        EntityManager em = null;
-        JasperPrint informe= null;
+       informe= null;
+       String result = "";
         try {
+            Validaciones.validarCamposVacios(""+anio, ""+mes); 
             em = conexion.getCon().createEntityManager();
             em.getTransaction().begin();
             java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
@@ -186,15 +224,21 @@ public class ControladorReportes {
             jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
             informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
             em.getTransaction().commit();            
+            result = "OK";
         } catch (JRException ex) {
-            Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
-        }  finally {
+            // Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Problema al generar el Reporte";
+        }catch (ExcepcionDatos excepcionDatos) {
+            result = excepcionDatos.getMessage();
+        }   finally {
             if (em != null) {
                 em.close();
             }
-        }                 
-        return informe;            
+        }                
+        return result;            
     }
-  
-    
+
+    public JasperPrint getInforme() {
+        return informe;
+    }      
 } // Fin de la clase ControladorReportes
