@@ -12,6 +12,8 @@ import Logica.Cohorte;
 import Logica.Curso;
 import Logica.CursoCohorte;
 import Logica.CursoCohortePK;
+import Logica.HistorialAspirante;
+import Logica.HistorialAspirantePK;
 import Logica.LeaderTeacher;
 import Logica.Matricula;
 import Logica.MatriculaPK;
@@ -23,6 +25,7 @@ import Persistencia.Conexion;
 import Persistencia.DaoCurso;
 import Persistencia.DaoAspirante;
 import Persistencia.DaoCursoCohorte;
+import Persistencia.DaoHistorialAspirante;
 import Persistencia.DaoLeaderTeacher;
 import Persistencia.DaoMatricula;
 import Persistencia.DaoPractica;
@@ -50,7 +53,9 @@ public class ControladorCohorte {
     private DaoPractica daoPractica;
     private DaoAspirante daoAspirante;
     private DaoTarea daoTarea;
+    private DaoHistorialAspirante daoHistorial;
     private Validaciones validador;
+    private DaoMatricula daoMatricula;
     
     public ControladorCohorte() {
         conn =  Conexion.getInstance();
@@ -60,16 +65,15 @@ public class ControladorCohorte {
         daoAspirante = new DaoAspirante(conn.getCon());
         daoPractica = new DaoPractica(conn.getCon());
         daoTarea = new DaoTarea(conn.getCon());
+        daoMatricula = new DaoMatricula(conn.getCon());
+        daoHistorial = new DaoHistorialAspirante(conn.getCon());
         validador = new Validaciones();
     }
     
     public List <Curso> buscarCursos(){
         Vector <Curso> listado = new Vector<>();
-        System.out.println("esta iniciando...");
         
         listado = (Vector<Curso>) daoCurso.findCursoEntities();
-        
-        System.out.println("tamaño = " + listado.size());
         return listado;
     }
     
@@ -107,15 +111,14 @@ public class ControladorCohorte {
     
     public void eliminaCursoCohorte(String cohorte, String curso){
         CursoCohortePK ccpk = new CursoCohortePK(cohorte, curso);
-       // DaoCursoCohorte daoCursoCohorte = new DaoCursoCohorte(conn.getCon());
         
         try {
             daoCursoCohorte.destroy(ccpk);
             //return false;
         } catch (IllegalOrphanException ex) {
-            System.err.println("error en guardar IllegalOrphanException = " + ex.getLocalizedMessage());
+            System.err.println("error en guardar IllegalOrphanException = " + ex.getMessage());
         } catch (NonexistentEntityException ex) {
-            System.err.println("error en guardar NonexistentEntityException = " + ex.getLocalizedMessage());
+            System.err.println("error en guardar NonexistentEntityException = " + ex.getMessage());
         }
     }
     
@@ -149,16 +152,23 @@ public class ControladorCohorte {
         return result;
     }
 
+    public Vector<CursoCohorte> buscarCursoCohorte(String idCohorte)
+    {
+        Vector<CursoCohorte> listado = new Vector<>();
+        listado = daoCursoCohorte.buscarCursoCohorte(idCohorte);
+        
+        return listado;
+    }
     
     public boolean ingresarCursosCohorte(String cohorte, String curso){
-        CursoCohorte cc = new CursoCohorte();
+        CursoCohorte cursoCohorte = new CursoCohorte();
        
-        cc.setCohorte(new Cohorte(cohorte));
-        cc.setCurso(new Curso(curso));
-        cc.setNumEstudiantes(0);
+        cursoCohorte.setCohorte(new Cohorte(cohorte));
+        cursoCohorte.setCurso(new Curso(curso));
+        cursoCohorte.setNumEstudiantes(0);
         
         try {
-            daoCursoCohorte.create(cc);
+            daoCursoCohorte.create(cursoCohorte);
             return true;
         } catch (Exception ex) {
             System.err.println("error en guardar ingresarCursosCohorte = " + ex.getLocalizedMessage());
@@ -169,15 +179,23 @@ public class ControladorCohorte {
     
     public boolean ingresarMatricula(String cohorte, String curso, String idLT){
         try {
-            DaoMatricula dm = new DaoMatricula(conn.getCon());
-            
-            dm.ingresarMatricula(cohorte, curso, idLT);
+            daoMatricula.ingresarMatricula(cohorte, curso, idLT);
             
             return true;
         } catch (Exception ex) {
             Logger.getLogger(ControladorCohorte.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
+        
+    }
+    
+    public void eliminarMatricula(String cedulaLt, String idCohorte, String idCurso)
+    {
+        try {
+            daoMatricula.destroy(new MatriculaPK(cedulaLt, idCohorte, idCurso));
+        } catch (NonexistentEntityException ex) {
+            System.out.println("no existe la matricula = " + cedulaLt + ", " + idCohorte + ", " + idCurso);;
+        }
     }
     
     public  boolean ingresarLT(Aspirante aspirante){
@@ -221,12 +239,9 @@ public class ControladorCohorte {
         return listado;
     }
     
-    public void modificarAspirante(Aspirante  aspirante){
-        aspirante.setEstado(false);
+    public void modificarAspirante(String idCurso, String cedulaAspirante, boolean estado){
         try {
-            daoAspirante.edit(aspirante);
-        } catch (NonexistentEntityException ex) {
-            Logger.getLogger(ControladorCohorte.class.getName()).log(Level.SEVERE, null, ex);
+            daoHistorial.modificarHistorial(idCurso, cedulaAspirante, estado);
         } catch (Exception ex) {
             Logger.getLogger(ControladorCohorte.class.getName()).log(Level.SEVERE, null, ex);
         }

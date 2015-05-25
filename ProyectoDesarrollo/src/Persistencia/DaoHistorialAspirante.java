@@ -240,4 +240,11 @@ public class DaoHistorialAspirante implements Serializable {
         }
     }
     
+    public void modificarHistorial(String idCurso, String cedulaAspirante, boolean estado)throws NonexistentEntityException, Exception{
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createNativeQuery("update historial_aspirante set estado = '" + estado + "' "
+                + "where id_curso='" + idCurso +"' and cedula_as = '" + cedulaAspirante + "';", HistorialAspirante.class);
+        em.getTransaction().commit();
+    }
 }

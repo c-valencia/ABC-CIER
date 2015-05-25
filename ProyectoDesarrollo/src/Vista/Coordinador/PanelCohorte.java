@@ -678,7 +678,7 @@ public class PanelCohorte extends javax.swing.JPanel {
             for (int i  = 0; i < listadoLT.size(); i++){
                 controlCohorte.ingresarLT(listadoLT.get(i));
                 controlCohorte.ingresarMatricula(cohorte, curso.getValueAt(i, 4).toString(), listadoLT.get(i).getCedula());
-                controlCohorte.modificarAspirante(listadoLT.get(i));
+                controlCohorte.modificarAspirante(curso.getValueAt(i, 4).toString(), listadoLT.get(i).getCedula(), false);
                 controlCohorte.crearUsuario(listadoLT.get(i));
                 controlCohorte.crearTarea(listadoLT.get(i).getCedula(), curso.getValueAt(i, 4).toString());
                 System.out.println(" si ingreso");

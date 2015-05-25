@@ -9,6 +9,7 @@ package Vista.Coordinador;
 
 import Controlador.ControladorCohorte;
 import Logica.Cohorte;
+import Logica.Curso;
 import Logica.CursoCohorte;
 import Vista.*;
 import java.awt.event.ActionEvent;
@@ -385,6 +386,10 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
     private javax.swing.JPanel panelPrincipal;
     // End of variables declaration//GEN-END:variables
     private Controlador.ControladorCohorte controlCohorte;
+    private Vector <Cohorte> listadoCohorte;
+    private Vector <Curso> listadoCursos;
+    private Vector <CursoCohorte> listadoCursoCohorte;
+    
     private void misComponentes()
     {
         actualizarPanelPrincipal(jPanelBuscarCohortes);
@@ -415,7 +420,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
     
     
     public void mostrarCohortes(){
-        Vector <Cohorte> listadoCohorte = new Vector<>();
+        listadoCohorte = new Vector<>();
         
         listadoCohorte = controlCohorte.buscarCohorte();
         DefaultTableModel tabla = (DefaultTableModel) jTableListaCohorte.getModel();
@@ -433,21 +438,59 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
     private void mostrarInfoCohorte()
     {
         boolean cuantos = true;
-        int seleccion1 = -1;
         DefaultTableModel tabla = (DefaultTableModel) jTableListaCohorte.getModel();
         for (int i = 0; i < tabla.getRowCount(); i++)
         {
-            System.out.println("tamalista = " + tabla.getRowCount());
             if (cuantos && tabla.getValueAt(i, 3).equals(true))
             {
-                seleccion1 = i;
-                JOptionPane.showMessageDialog(null, "Se mostrara la informacion de la cohorte " + tabla.getValueAt(seleccion1, 0));
+                JOptionPane.showMessageDialog(null, "Se mostrara la informacion de la cohorte " + tabla.getValueAt(i, 0));
                 cuantos = false;
+                
+                jLabelIdCohorte.setText(listadoCohorte.get(i).getIdCohorte());
+                jDateChooserFechaInicio.setDate(listadoCohorte.get(i).getFechaInicio());
+                jDateChooserFechaFin.setDate(listadoCohorte.get(i).getFechaFin());
             }
-            else if (!cuantos){
-                JOptionPane.showMessageDialog(null, "Se mostrara la informacion de la cohorte " + tabla.getValueAt(seleccion1, 0));
+            else if (!cuantos && tabla.getValueAt(i, 3).equals(true)){
+                JOptionPane.showMessageDialog(null, "No se mostrara la informacion de la cohorte " + tabla.getValueAt(i, 0));
             }
         }
+    }
+    
+    private void listarCursos()
+    {
+        String idcurso = new String();
+        String idcursoCohorte = new String();
+        listadoCursos = new Vector<>();
+        listadoCursoCohorte = new Vector<CursoCohorte>();
+        
+        listadoCursos = (Vector<Curso>) controlCohorte.buscarCursos();
+        listadoCursoCohorte = controlCohorte.buscarCursoCohorte(jLabelIdCohorte. getText());
+        
+        DefaultTableModel dtm = (DefaultTableModel) jTableCursos.getModel();
+        
+        for (int i = 0; i < listadoCursos.size(); i++)
+        {
+            dtm.addRow(new Object[] {listadoCursos.get(i).getIdCurso(), listadoCursos.get(i).getNombre() , false});
+            idcurso = listadoCursos.get(i).getIdCurso();
+            for(int j = 0; j < listadoCursoCohorte.size(); j++){
+                
+                idcursoCohorte = listadoCursoCohorte.get(j).getCurso().getIdCurso();
+                
+                if(idcurso.equals(idcursoCohorte)){
+                    dtm.setValueAt(true, i, 2);
+                   // dtm.se
+                }
+            }
+        }
+    }
+    
+    private void  guardarCursoCohorte()
+    {
+        DefaultTableModel dtm = (DefaultTableModel) jTableCursos.getModel();
+        for (int i = 0; i < dtm.getRowCount(); i++){
+            
+        }
+        
     }
     
     private class EventosPanelLogin implements ActionListener {
@@ -461,13 +504,13 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
                 mostrarInfoCohorte();
                 actualizarPanelPrincipal(jPanelModificarCohorte);
             }
+            else if(e.getSource() == jButtonListarCursos){
+                listarCursos();
+            }
             else if(e.getSource() == jButtonGuardarCursoSeleccionado){
                 
             }
             else if(e.getSource() == jButtonSiguienteEnPCurso){
-                
-            }
-            else if(e.getSource() == jButtonListarCursos){
                 
             }
             else if(e.getSource() == jButtonGuardarMatricula){
