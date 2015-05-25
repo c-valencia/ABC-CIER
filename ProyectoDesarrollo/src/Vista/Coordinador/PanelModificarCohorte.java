@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -415,9 +416,12 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
     private Controlador.ControladorCohorte controlCohorte;
     private Vector <Cohorte> listadoCohorte;
     private Vector <Curso> listadoCursos;
+    private Vector <Logica.Curso> cursosSelect;
     private Vector <CursoCohorte> listadoCursoCohorte;
     private Vector <Aspirante> listaAspirantes;
+    private Vector<Aspirante> listadoLT;
     private ControladorTablas contoltablas;
+    private int poslistaLT;
     
     private void misComponentes()
     {
@@ -447,6 +451,8 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         jComboBoxPCMZona.addItem("Tolima");
         jComboBoxPCMZona.addItem("Tumaco");
         jComboBoxPCMZona.addItem("Valle del Cauca");
+        
+        listadoLT = new Vector();
     }
          
     private void actualizarPanelPrincipal(JPanel panelNuevo) {
@@ -465,7 +471,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         jButtonGuardarCursoSeleccionado.addActionListener(events);
         jButtonFinalizar.addActionListener(events);
         jButtonListarAspirantes.addActionListener(events);
-        jButtonListarAspirantes.addActionListener(events);
+        jButtonSeleccionarAspirante.addActionListener(events);
         jButtonBuscarAspirantes.addActionListener(events);
     } // Fin del metodo asignarEventos
     
@@ -478,23 +484,18 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         
         contoltablas = new ControladorTablas(listadoCohorte);
         
-        DefaultTableModel modelo = new DefaultTableModel(contoltablas.contruirCuerpo(4), contoltablas.titulos(4));
-        
-        jTableListaCohorte.getColumnModel().getColumn(3).setCellEditor(jTableListaCohorte.getDefaultEditor(boolean.class));
+        DefaultTableModel modelo = new DefaultTableModel(contoltablas.contruirCuerpo(4), contoltablas.titulos(4)){
+            public boolean isCellEditable(int row, int column) { 
+                if (column == 3) return true; 
+                else return false; 
+            }
+        };
+        jTableListaCohorte.setModel(modelo);
+//        
+        jTableListaCohorte.getColumnModel().getColumn(3).setCellEditor(jTableListaCohorte.getDefaultEditor(Boolean.class));
         jTableListaCohorte.getColumnModel().getColumn(3).setCellRenderer(jTableListaCohorte.getDefaultRenderer(Boolean.class));
         jTableListaCohorte.getTableHeader().setReorderingAllowed(false);
-//        DefaultTableModel tabla = (DefaultTableModel) jTableListaCohorte.getModel();
-//        System.out.println("tabla.getRowCount() " + tabla.getRowCount());
-//        limpiarTablas(jTableListaCohorte, listadoCohorte.size());
-//        
-//        for (int i = 0; i < listadoCohorte.size(); i++)
-//        {
-//            tabla.addRow(new Object[]{listadoCohorte.get(i).getIdCohorte(),
-//                                      listadoCohorte.get(i).getFechaInicio(),
-//                                      listadoCohorte.get(i).getFechaFin(),
-//            
-//                                      false});
-//        }
+        
     }
     
     private void mostrarInfoCohorte()
@@ -520,7 +521,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
     }
     
     private void crearJDialog(JDialog dialog){
-        listarCursos();
+        listarAspirantes();
         dialog.setVisible(true);
         dialog.pack();
     } // fin del metodo crearJDialogs
@@ -530,6 +531,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         String idcurso = new String();
         String idcursoCohorte = new String();
         listadoCursos = new Vector<>();
+        cursosSelect = new Vector<>();
         listadoCursoCohorte = new Vector<CursoCohorte>();
         
         listadoCursos = (Vector<Curso>) controlCohorte.buscarCursos();
@@ -547,6 +549,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
                 
                 if(idcurso.equals(idcursoCohorte)){
                     jComboBoxCurso.addItem(listadoCursos.get(i).getIdCurso() + " " + listadoCursos.get(i).getNombre());
+                    cursosSelect.add(listadoCursos.get(1));
                 }
             }
         }
@@ -562,34 +565,68 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
     }
        
     private void listarAspirantes(){
-        String area = listadoCursos.get(jComboBoxCurso.getSelectedIndex() - 1).getIdCurso();
+        String area = listadoCursoCohorte.get(jComboBoxCurso.getSelectedIndex() - 1).getCursoCohortePK().getIdCurso();
         String dep = jComboBoxPCMZona.getSelectedItem().toString();
-        jLabelNombreArea.setText(listadoCursos.get(jComboBoxCurso.getSelectedIndex() - 1).getNombre());
+        jLabelNombreArea.setText(jComboBoxCurso.getSelectedItem().toString());
         listaAspirantes = new Vector<>();
         listaAspirantes = controlCohorte.listarAspirantes(area, dep);
-        System.out.println("listaAspirantes " + listaAspirantes.size());
+        System.out.println("listaAspirantes " + listaAspirantes.size() + ", " + area);
         contoltablas = new ControladorTablas(listaAspirantes);
         
         DefaultTableModel modelo = new DefaultTableModel(contoltablas.contruirCuerpo(2), contoltablas.titulos(2))
-//        { 
-//            public boolean isCellEditable(int row, int column) { 
-//                if (column == 4) return true; 
-//                else return false; 
-//            }}
-                ;
+        { 
+            public boolean isCellEditable(int row, int column) { 
+                if (column == 4) return true; 
+                else return false; 
+            }
+        };
+        
         jTableAspiratesBD.setModel(modelo);
         
         jTableAspiratesBD.getColumnModel().getColumn(4).setCellEditor(jTableAspiratesBD.getDefaultEditor(new Boolean(false).getClass()));
         jTableAspiratesBD.getColumnModel().getColumn(4).setCellRenderer(jTableAspiratesBD.getDefaultRenderer(Boolean.class));
         jTableAspiratesBD.getTableHeader().setReorderingAllowed(false);
         
-    }// fin del metodo listarALTs
+    }// fin del metodo listarAspirantes
+    
+    /**
+     * trae los campos que hay en la bd y los muestra en la tabla que apaerece 
+     * en el dialog y lo incluye en la tabla del panelMatricula
+     */
+    private void aspirantesSeleccionados(){
+        TableModel TMAspirante = jTableAspiratesBD.getModel();
+        poslistaLT = listadoLT.size();
+        DefaultTableModel TMSelecionados = (DefaultTableModel) jTableLTyAsp.getModel();
+        int fila = TMAspirante.getRowCount();
+        
+        if(0 == JOptionPane.showConfirmDialog(null, "¿Esta seguro que estos son los aspirantes que va a seleccionar?")){
+            for(int i=0; i< fila; i++) { 
+                if(TMAspirante.getValueAt(i, 4).equals(true)){
+                    listadoLT.addElement(listaAspirantes.get(i));
+                }
+            }
+            
+            for (int i = poslistaLT; i < listadoLT.size(); i++){
+                
+                TMSelecionados.addRow(new Object[] {listadoLT.get(i).getCedula(),
+                                                    listadoLT.get(i).getNombres(),
+                                                    listadoLT.get(i).getApellidos(),
+                                                    "Aspirante",
+                                                    cursosSelect.get(jComboBoxCurso.getSelectedIndex()- 1).getIdCurso(),
+                                                    cursosSelect.get(jComboBoxCurso.getSelectedIndex()- 1).getNombre(),
+                                                    false}
+                );
+            }
+            
+            jDialogAspirantes.setVisible(false);
+        }
+    } // fin del metodo AspirantesSeleccionados
     
     private void  guardarCursoCohorte()
     {
         DefaultTableModel dtm = (DefaultTableModel) jTableLTyAsp.getModel();
         for (int i = 0; i < dtm.getRowCount(); i++){
-            
+            System.out.println("guardarCursoCohorte = " + dtm.getValueAt(i, 6));
         }
         
     }
@@ -610,16 +647,16 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
                 crearJDialog(jDialogAspirantes);
             }
             else if(e.getSource() == jButtonListarAspirantes){
-                
+                listarAspirantes();
             }
             else if(e.getSource() == jButtonGuardarCursoSeleccionado){
-                
+                guardarCursoCohorte();
             }
             else if(e.getSource() == jButtonFinalizar){
                 
             }
-            else if(e.getSource() == jButtonListarAspirantes){
-                
+            else if(e.getSource() == jButtonSeleccionarAspirante){
+                aspirantesSeleccionados();
             }
         }
         

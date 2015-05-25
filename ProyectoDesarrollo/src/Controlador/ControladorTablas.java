@@ -34,7 +34,7 @@ public class ControladorTablas {
        
        titulo = new Vector();
        cuerpo = new Vector();
-       System.out.print("tamaño del vector dentro del iterador"+datos.size());
+       System.out.println("tamaño del vector dentro del iterador"+datos.size());
        iterador = new ObjectColeccion(datos);
    }
     
@@ -92,7 +92,7 @@ public class ControladorTablas {
         
         switch(obj){
             case 1:
-                System.out.print("se agrego al objeto");
+                System.out.println("se agrego al objeto");
                 while (libroIterator.hasNext()) {
                     Object objeto = libroIterator.next();
 
@@ -115,7 +115,7 @@ public class ControladorTablas {
                     System.out.println(cuerpo.get(i));
                     i++;
                 }
-                System.out.println("se agrego al objeto 1");
+                System.out.println("se agrego al objeto aspirante");
                 break;
             case 3:
                 int j = 0;
