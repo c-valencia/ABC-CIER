@@ -8,23 +8,30 @@
 package Controlador;
 
 import Logica.Sesion;
+import Logica.Usuario;
+import Persistencia.Conexion;
+import Persistencia.DaoUsuario;
 
-/**
- *
- * @author oscar
- */
 public class ControladorSesion {
 
-    public Sesion ingresar(String usuario, String contrasena){
-        Sesion nuevaSesion = null;
-        /**
-         * Con usuario y contrasena va y consulta a la base de datos (Tabla Usuario)
-         * si el Usuario no tiene mas sesiones si no esta crea un Objeto Sesion
-         * y si esta retorna un null
-         */
-        nuevaSesion = Sesion.getInstance(usuario, contrasena);
-        // nuevaSesion.setTipo("Administrador");
-        return nuevaSesion;
-    } // Fin del metodo login
     
+    private Conexion conexion;
+    private DaoUsuario daoUsuario;
+    private Usuario objUsuario;
+    
+    public ControladorSesion () {
+        conexion = Conexion.getInstance();
+        daoUsuario = new DaoUsuario(conexion.getCon());
+    } // Fin del Constructor
+    
+    
+    public Sesion iniciarSesion(String usuario, String contrasena){ 
+        objUsuario = daoUsuario.buscarUsuario(usuario, contrasena);
+        Sesion objSesion =  null;
+        if (objUsuario != null) {
+            objSesion = Sesion.getInstance(objUsuario.getLogin(), objUsuario.getPasswd());      
+            objSesion.setTipo(objUsuario.getTipo());        
+        }
+        return objSesion;
+    } // Fin del metodo ingresar
 } // Fin de controlador Login

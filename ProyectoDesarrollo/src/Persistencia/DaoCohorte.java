@@ -13,6 +13,7 @@ import Persistencia.exceptions.PreexistingEntityException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -250,6 +251,4 @@ public class DaoCohorte implements Serializable {
             }
         }
     }
-    
-
 } // Fin de la clase DaoCohorte

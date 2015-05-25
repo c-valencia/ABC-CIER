@@ -200,5 +200,15 @@ public class DaoTarea implements Serializable {
             em.close();
         }
     }
-
+    
+    public boolean crearTarea(Tarea tarea){
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createNativeQuery("INSERT INTO tarea (id_practica, cedula_lt, nota) " + 
+                    "VALUES ('" + tarea.getTareaPK().getIdPractica() + "', '" + tarea.getTareaPK().getCedulaLt() + "', 0);");
+        
+        query.executeUpdate();
+        em.getTransaction().commit();
+        return true;
+    }
 } // Fin de la clase DaoTarea

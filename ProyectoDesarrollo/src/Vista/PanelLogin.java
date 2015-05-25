@@ -137,33 +137,26 @@ public class PanelLogin extends javax.swing.JPanel {
             
     private void ingresar(){
         String usuario = inputUsuario.getText();
-        String contrasena = new String(inputContrasena.getPassword());    
-                
+        String contrasena = new String(inputContrasena.getPassword());                    
         // SE CREA LA SESION DE USUARIO
-        Sesion objSesion = contSesion.ingresar(usuario, contrasena);    
-        // SE UTILIZA LA FABRICA PARA TRAER EL PANEL SEUGUN EL TIPO DE USUARIO
-        JPanel panelSesion = fabricaPaneles.createProduct(usuario);
-        gestorVentana(panelSesion);
-// TEMPORAL -> PARA INGREAR COMO UN TIPO DE USUARIO DEBEN colocar en "Usuario: "
-//        "Administrador"  
-//        "Master Teacher"  
-//        "Leader Teacher"                   
-//        "Coordinador"
+        Sesion objSesion = contSesion.iniciarSesion(usuario, contrasena);    
+        if (objSesion !=null) {
+            // SE UTILIZA LA FABRICA PARA TRAER EL PANEL SEUGUN EL TIPO DE USUARIO
+            JPanel panelSesion = fabricaPaneles.createProduct(objSesion.getTipo());
+            gestorVentana(panelSesion);
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+            limpiarCampos();                
+        }
     } // Fin del metodo ingresar
-    
-    
+        
     private void limpiarCampos() {
         inputUsuario.setText("");
         inputContrasena.setText("");
-    }
-    
-    private void gestorVentana (JPanel panelUsuario){
-        if (panelUsuario != null){
-            framePadre.actualizarPanelInferior(panelUsuario);
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuario no encontrado");
-            limpiarCampos();        
-        }        
+    } // Fin del metodo limpiarCampos
+
+    private void gestorVentana(JPanel panelUsuario) {
+        framePadre.actualizarPanelInferior(panelUsuario);
     } // Fin del metodo gestorVentana 
     
     private void asignarEventos(EventosPanelLogin events){

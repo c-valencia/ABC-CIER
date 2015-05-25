@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0c20d8bf-0995-4d77-92e9-05cc5f331d95">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="anio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mes" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT departamento, COUNT(nombres)
+FROM leader_teacher NATURAL JOIN 
+(SELECT cedula_lt as cedula FROM matricula
+NATURAL JOIN (SELECT id_curso, id_cohorte FROM curso_cohorte 
+NATURAL JOIN (SELECT id_cohorte FROM cohorte 
+WHERE extract(year from fecha_inicio) = $P{anio}
+and extract(month from fecha_inicio) = $P{mes}) as cohorte) as curso) as matricula
+GROUP BY (departamento);]]>
+	</queryString>
+	<field name="departamento" class="java.lang.String"/>
+	<field name="count" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="195" splitType="Stretch">
+			<stackedBarChart>
+				<chart>
+					<reportElement uuid="b406025e-c9dc-4530-933d-0345226525e7" x="0" y="0" width="572" height="195"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{departamento}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{departamento}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{count}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+				</barPlot>
+			</stackedBarChart>
+		</band>
+	</detail>
+</jasperReport>

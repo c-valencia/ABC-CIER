@@ -13,10 +13,13 @@ import Logica.Matricula;
 import Persistencia.exceptions.IllegalOrphanException;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  * Nombre del Archivo: DaoCursoCohorte.java
@@ -269,6 +272,24 @@ public class DaoCursoCohorte implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+    public Vector<CursoCohorte> buscarCursoCohorte(String idCohorte){
+        EntityManager em = getEntityManager();
+        Vector <CursoCohorte> lista = new Vector<>();
+        try {
+            em.getTransaction().begin();
+            Query query = em.createNativeQuery("SELECT cc.id_cohorte, cc.id_curso, num_estudiantes FROM curso_cohorte cc  WHERE  cc.id_cohorte = '" + idCohorte + "' ;", CursoCohorte.class);
+            
+            em.getTransaction().commit(); // OSCAR
+            return (Vector<CursoCohorte>) query.getResultList();
+        } catch(NoResultException nre){
+            return lista;
+        }finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
 

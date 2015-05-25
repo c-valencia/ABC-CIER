@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -140,5 +141,26 @@ public class DaoUsuario implements Serializable {
             em.close();
         }
     }
+    
+    
+    public Usuario buscarUsuario (String login, String password){
+        EntityManager em = getEntityManager();
+        Usuario result = null;
+        try {
+            em.getTransaction().begin();
+            String buscar = "SELECT * FROM usuario "
+                    + "WHERE login = '" + login + "' "
+                    + "AND passwd = '" + password + "';";
+
+            Query query = em.createNativeQuery(buscar, Usuario.class);
+            result = (Usuario)query.getSingleResult();
+        }catch(NoResultException noResultException) {        
+//             Esta excepcion se lanza cuando no encuentra ningun registro que responda 
+//             a la consulta
+        }  finally {
+            em.close();
+        }
+        return result;
+    } // Fin del metodo buscarUsuario    
 
 } // Fin de la clase DaoUsuario
