@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1656bbd6-1bf3-4dad-8358-fa1f9313edb7">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="87"/>
 	<style name="Title" fontName="Serif" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Serif" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Serif" fontSize="12" isBold="true"/>
@@ -32,7 +32,7 @@ WHERE leader_teacher.cedula = $P{cedula_lt};]]>
 		<groupExpression><![CDATA[$F{nombre}]]></groupExpression>
 		<groupHeader>
 			<band height="34">
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement uuid="aa0a72ea-6747-4fb5-873b-e40c7d5681f9" style="SubTitle" x="47" y="10" width="506" height="24" forecolor="#CC0000"/>
 					<textElement>
 						<font isBold="true"/>
@@ -44,7 +44,7 @@ WHERE leader_teacher.cedula = $P{cedula_lt};]]>
 				</rectangle>
 			</band>
 			<band height="36">
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement uuid="5ec41e0d-749a-4858-a802-a7d5606f0544" style="Detail" x="105" y="15" width="92" height="15"/>
 					<textElement/>
 					<textFieldExpression><![CDATA[$F{id_fase}]]></textFieldExpression>
@@ -67,7 +67,9 @@ WHERE leader_teacher.cedula = $P{cedula_lt};]]>
 		<band height="70" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="74abf1eb-8ca2-4a6c-ab4e-8ceb743826c4" style="Title" x="84" y="19" width="386" height="33"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
 				<text><![CDATA[Reporte de Calificaciones]]></text>
 			</staticText>
 		</band>
@@ -95,21 +97,21 @@ WHERE leader_teacher.cedula = $P{cedula_lt};]]>
 				</textElement>
 				<text><![CDATA[Cedula:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="6e286666-86c3-406f-ab21-b2e8638cc80b" style="Detail" x="105" y="22" width="103" height="19"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="0f53f7fd-fecd-4c00-b8dc-835eadca16d1" style="Detail" x="105" y="61" width="103" height="18"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="b047f822-341d-4bee-b9d1-2615a96dc200" x="105" y="96" width="100" height="20"/>
 				<textElement>
 					<font size="14"/>
@@ -146,14 +148,14 @@ WHERE leader_teacher.cedula = $P{cedula_lt};]]>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="19a02d9d-839e-40e7-9d38-8d0c5c83ff1b" style="Detail" x="223" y="0" width="92" height="15"/>
 				<textElement textAlignment="Center">
 					<font isStrikeThrough="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre_practica}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="0f20c213-bcb1-4087-a31c-5274873cc95c" style="Detail" x="404" y="0" width="92" height="15"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{nota}]]></textFieldExpression>

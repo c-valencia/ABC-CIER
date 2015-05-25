@@ -690,7 +690,7 @@
               <StringArray count="8">
                 <StringItem index="0" value=" "/>
                 <StringItem index="1" value="Detalle de estudiantes en un curso por departamentos"/>
-                <StringItem index="2" value="Detalle del reporte de notas por estudiante."/>
+                <StringItem index="2" value="Detalle del reporte de notas por estudiante"/>
                 <StringItem index="3" value="Cursos con mayor n&#xfa;mero de asistentes en el mes"/>
                 <StringItem index="4" value="Historico de estudiantes que ha ganado un Curso"/>
                 <StringItem index="5" value="Curso con menos potencial de avance"/>

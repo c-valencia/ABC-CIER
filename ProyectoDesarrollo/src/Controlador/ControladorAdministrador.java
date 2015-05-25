@@ -81,10 +81,6 @@ public class ControladorAdministrador implements Sujeto {
         listObservadores = new ArrayList();
     }
 
-    
-    
-   
-
     public static ControladorAdministrador getInstance() {
         if (controladorAdministrador == null) {
             controladorAdministrador = new ControladorAdministrador();
@@ -97,15 +93,19 @@ public class ControladorAdministrador implements Sujeto {
 
         String result = "";
         try {
+            validador.validarCamposVacios( cedula,nombres,apellidos,email,cargo,direcion,telefono );
             Empleado empleado = new Empleado(cedula, nombres, apellidos, email, cargo, direcion, telefono, estado);
             daoEmpleado.edit(empleado);
-            result = "1";
+            result = "Se actualizo el empleado con exito";
+        } catch (PreexistingEntityException ex) {
+            result = "Ya existe un coordinador con cedula o correo igual";        
+        } catch (ExcepcionDatos ex) {
+            result = "Todos los campos deben ser llenados";
         } catch (NullPointerException ex) {
-
-            result = "Ingreso un objeto vacio";
+            result = "Ingreso un objeto vacio";       
         } catch (Exception ex) {
             Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-            result = "No se pudo insertar el curso";
+            result = "No se realizo la operacion";
         }
 
         return result;
@@ -132,29 +132,29 @@ public class ControladorAdministrador implements Sujeto {
         return daoEmpleado.findEmpleado(id);
     }
 
-    
-
     // Getters and Setters
     public DaoCurso getDaoCurso() {
         return daoCurso;
     }
-
     //
-
-    
-    
-    
 
     public String crearEmpleado(String cedula, String nombres, String apellidos, String email,
             String cargo, String direccion, String telefono, boolean estado) {
         String result = "";
         try {
+            validador.validarCamposVacios( cedula, nombres, apellidos, email, cargo, direccion, telefono);
+            
             Empleado nuevoEmpleado = new Empleado(cedula, nombres, apellidos, email,
                     cargo, direccion, telefono, estado);
             daoEmpleado.create(nuevoEmpleado);
-            result = "1";
-        } // Fin del metodo crearAspirante
-        catch (Exception ex) {
+            result = "Se creo el empleado con exito";
+        } catch (PreexistingEntityException ex) {
+            result = "Ya existe un coordinador con cedula o correo igual";        
+        } catch (ExcepcionDatos ex) {
+            result = "Todos los campos deben ser llenados";
+        } catch (NullPointerException ex) {
+            result = "Ingreso un objeto vacio";       
+        } catch (Exception ex) {
             Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
             result = "No se realizo la operacion";
         }
@@ -187,15 +187,19 @@ public class ControladorAdministrador implements Sujeto {
 
         String result = "";
         try {
+            validador.validarCamposVacios(cedula,nombre,apellido,correo,ciudad,pais );
             MasterTeacher master = new MasterTeacher(cedula, nombre, apellido, correo, ciudad, pais, estado, idCurso);
             daoMasterTeacher.edit(master);
-            result = "1";
+            result = "Se actualizo el master teacher con exito";
+        } catch (PreexistingEntityException ex) {
+            result = "Ya existe un master teacher con cedula o correo igual";        
+        } catch (ExcepcionDatos ex) {
+            result = "Todos los campos deben ser llenados";
         } catch (NullPointerException ex) {
-
-            result = "Ingreso un objeto vacio";
+            result = "Ingreso un objeto vacio";       
         } catch (Exception ex) {
             Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-            result = "No se pudo insertar el curso";
+            result = "No se realizo la operacion";
         }
 
         return result;
@@ -205,12 +209,19 @@ public class ControladorAdministrador implements Sujeto {
             String ciudad, String pais, boolean estado, Curso IdCurso) {
         String result = "";
         try {
+            validador.validarCamposVacios(cedula,nombre,apellido,correo,ciudad,pais);
+            
             MasterTeacher nuevoMasterTeacher = new MasterTeacher(cedula, nombre, apellido, correo,
                     ciudad, pais, estado, IdCurso);
             daoMasterTeacher.create(nuevoMasterTeacher);
-            result = "1";
-        } // Fin del metodo crearAspirante
-        catch (Exception ex) {
+            result = "Se creo el master teacher con exito";
+        } catch (PreexistingEntityException ex) {
+            result = "Ya existe un master teacher con cedula o correo igual";        
+        } catch (ExcepcionDatos ex) {
+            result = "Todos los campos deben ser llenados";
+        } catch (NullPointerException ex) {
+            result = "Ingreso un objeto vacio";       
+        } catch (Exception ex) {
             Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
             result = "No se realizo la operacion";
         }

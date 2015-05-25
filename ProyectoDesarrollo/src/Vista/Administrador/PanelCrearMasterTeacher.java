@@ -267,22 +267,26 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
        String ciudad= jTextCiudad.getText(); 
        String pais = jTextPais.getText();
        boolean estado = true;
+       Curso curso = new Curso (codigoCurso());
+       String result = contAdministrador.crearMasterTeacher (cedula,nombres, apellidos,email, ciudad, pais,
+                                                                 estado,curso );
        
-       if (contAdministrador.validarDatosMasterTeacher(cedula, nombres, apellidos, email, ciudad, pais, 
-                                                    contAdministrador.getDaoCurso().findCurso( codigoCurso())).equals("1")){
-           String result = contAdministrador.crearMasterTeacher (cedula,nombres, apellidos,email, ciudad, pais,
-                                                                 estado,contAdministrador.getDaoCurso().findCurso( codigoCurso()) );
-           if (result.equals("1")) {
-               mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                    "La operacion se realiza exitosamente", "Confirmacion Operacion");
-          }
-       } else { 
-           mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                         contAdministrador.crearMasterTeacher (cedula,nombres, apellidos,email, ciudad, pais,estado,
-                                                               contAdministrador.getDaoCurso().findCurso( codigoCurso()) ) , "error");}
-       
+       JOptionPane.showMessageDialog(null, result);
+       if (result.equals("Se creo el master teacher con exito")) { 
+           limpiarPanelDatos ();
+       }
        
       }
+    
+    public void limpiarPanelDatos () { 
+        jTextCedula.setText("");
+        jTextApellidos.setText("");
+        jTexNombres.setText("");
+        jTextEmail.setText("" );     
+        jTextCiudad.setText("");
+        jTextPais.setText("");
+        jComboBoxIdCurso.setSelectedItem("");
+    }
     
     private void mostarMensaje(int tipo, String titulo, String mensaje) {
         JOptionPane.showMessageDialog(null, titulo, mensaje, tipo);   
