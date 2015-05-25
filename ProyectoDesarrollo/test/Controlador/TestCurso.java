@@ -87,14 +87,14 @@ public class TestCurso {
         result = contAdministrador.crearCurso(nombre, nombreCorto, descripcion, contenido, estado);
         assertEquals(expResult, result);
         System.out.println("Resultado Operacion: " + result);
-        try {
-            Curso objCurso = daoCurso.buscarCurso("nombre", "Curso 1");
-            daoCurso.destroy(objCurso.getIdCurso());
-        } catch (IllegalOrphanException ex) {
-            Logger.getLogger(TestCurso.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NonexistentEntityException ex) {
-            Logger.getLogger(TestCurso.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            Curso objCurso = daoCurso.buscarCurso("nombre", "Curso 1");
+//            daoCurso.destroy(objCurso.getIdCurso());
+//        } catch (IllegalOrphanException ex) {
+//            Logger.getLogger(TestCurso.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (NonexistentEntityException ex) {
+//            Logger.getLogger(TestCurso.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     } // Fin del metodo testCrearCurso
 
     @Test

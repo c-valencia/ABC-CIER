@@ -66,7 +66,8 @@ public class ControladorTablas {
                 titulo.add("SI/NO");
             };break;
             case 3 : {
-               titulo.add("Porcentaje"); 
+               titulo.add("Practica"); 
+               titulo.add("Porcentaje Practica"); 
                titulo.add("Notas");
             };break;
                         
@@ -109,7 +110,23 @@ public class ControladorTablas {
                     System.out.println(cuerpo.get(i));
                     i++;
                 }
-                System.out.println("se agrego al objeto");
+                System.out.println("se agrego al objeto 1");
+                break;
+            case 3:
+                int j = 0;
+                while (libroIterator.hasNext()) {
+                    Tarea objeto = (Tarea) libroIterator.next();
+                    //Object objeto = libroIterator.next();
+                    Vector objetos2 = new Vector();
+                    objetos2.add(objeto.getPractica().getNombre());
+                    objetos2.add(objeto.getPractica().getPorcentaje());
+                    objetos2.add(objeto.getNota());
+                    cuerpo.add(objetos2);
+                    System.out.println(cuerpo.get(j));
+                    j++;
+                }
+                System.out.println("se agrego al objeto 2");
+                break;    
         }
         return cuerpo;
     }
