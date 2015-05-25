@@ -70,7 +70,12 @@ public class ControladorTablas {
                titulo.add("Porcentaje Practica"); 
                titulo.add("Notas");
             };break;
-                        
+            case 4:
+                titulo.add("CODIGO");
+                titulo.add("FECHA INICIO");
+                titulo.add("FECHA FIN");
+                titulo.add("MODIFICAR (UNO)");
+                break;
             default: {
                 System.out.println("Titulos invalidos");
             };
@@ -126,7 +131,19 @@ public class ControladorTablas {
                     j++;
                 }
                 System.out.println("se agrego al objeto 2");
-                break;    
+                break;
+            case 4:
+                while (libroIterator.hasNext()) {
+                    Cohorte objeto = (Cohorte) libroIterator.next();
+                    //Object objeto = libroIterator.next();
+                    Vector objetos2 = new Vector();
+                    objetos2.add(objeto.getIdCohorte());
+                    objetos2.add(objeto.getFechaInicio());
+                    objetos2.add(objeto.getFechaFin());
+                    objetos2.add(false);
+                    cuerpo.add(objetos2);
+                }
+                break;
         }
         return cuerpo;
     }
