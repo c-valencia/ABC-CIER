@@ -738,6 +738,7 @@ public class PanelCohorte extends javax.swing.JPanel {
         jTableAspiratesBD.getTableHeader().setReorderingAllowed(false);
         
         for(int i = 0; i < listaAspirantes.size(); i++){
+            //                             fila columna
             jTableAspiratesBD.isCellEditable(i, 0);
             jTableAspiratesBD.isCellEditable(i, 1);
             jTableAspiratesBD.isCellEditable(i, 2);

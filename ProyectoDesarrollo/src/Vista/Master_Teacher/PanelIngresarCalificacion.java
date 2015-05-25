@@ -9,9 +9,12 @@ package Vista.Master_Teacher;
 
 import Controlador.ControladorAdministrador;
 import Controlador.ControladorCohorte;
+import Controlador.ControladorMasterTeacher;
 import Controlador.ControladorTablas;
 import Controlador.ControladorTarea;
+import Excepciones.ExcepcionDatos;
 import Logica.Cohorte;
+import Logica.Matricula;
 import Logica.Tarea;
 import Persistencia.DaoTarea;
 import Vista.*;
@@ -19,6 +22,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +34,7 @@ import javax.swing.table.DefaultTableModel;
 public class PanelIngresarCalificacion extends javax.swing.JPanel {
 
     ArrayList <Tarea> listaTareas = new ArrayList <> ();
+    Matricula matricula = new Matricula ();
     
     /**
      * Creates new form PanelLogin
@@ -63,7 +70,11 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableNotasPorcentaje = new javax.swing.JTable();
+        jLabelNotaDefinitiva = new javax.swing.JLabel();
+        jTextFieldNotaDefinitiva = new javax.swing.JTextField();
+        jButtonGuardarYCalcular = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setPreferredSize(new java.awt.Dimension(750, 505));
@@ -140,30 +151,35 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableNotasPorcentaje.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Porcentaje", "Nota"
+                "Practica", "Porcentaje Pracitca", "Nota"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        jScrollPane2.setViewportView(jTableNotasPorcentaje);
+        if (jTableNotasPorcentaje.getColumnModel().getColumnCount() > 0) {
+            jTableNotasPorcentaje.getColumnModel().getColumn(0).setResizable(false);
+            jTableNotasPorcentaje.getColumnModel().getColumn(1).setResizable(false);
+            jTableNotasPorcentaje.getColumnModel().getColumn(2).setResizable(false);
         }
+
+        jLabelNotaDefinitiva.setText("Nota Definitiva Calculada: ");
+
+        jTextFieldNotaDefinitiva.setEditable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -171,18 +187,43 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabelNotaDefinitiva)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldNotaDefinitiva, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNotaDefinitiva)
+                    .addComponent(jTextFieldNotaDefinitiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jScrollPane1.setViewportView(jPanel2);
+
+        jButtonGuardarYCalcular.setText("Guardar y Calcular");
+        jButtonGuardarYCalcular.setEnabled(false);
+        jButtonGuardarYCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarYCalcularActionPerformed(evt);
+            }
+        });
+
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -192,7 +233,12 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonCancelar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonGuardarYCalcular)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -201,27 +247,49 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonGuardarYCalcular)
+                    .addComponent(jButtonCancelar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
-        buscarTareas ();
+//        buscarTareas ();
+        ListarTareas ();
+        inicializarNotaDefinitiva ();
     }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jButtonGuardarYCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarYCalcularActionPerformed
+        // TODO add your handling code here:
+        guardarYCalcular ();
+        jButtonGuardarYCalcular.setEnabled(false);
+    }//GEN-LAST:event_jButtonGuardarYCalcularActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:
+        limpiarcampos ();
+        jButtonGuardarYCalcular.setEnabled(false);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonGuardarYCalcular;
     private javax.swing.JComboBox jComboBoxCohorte;
     private javax.swing.JComboBox jComboBoxCurso;
+    private javax.swing.JLabel jLabelNotaDefinitiva;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableNotasPorcentaje;
     private javax.swing.JTextField jTextFieldCedulaLt;
+    private javax.swing.JTextField jTextFieldNotaDefinitiva;
     private javax.swing.JLabel labelBuscarCoordinador;
     private javax.swing.JLabel labelCedulaLt;
     private javax.swing.JLabel labelIdCorhorte;
@@ -232,6 +300,7 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
     ControladorAdministrador contAdministrador;
     ControladorCohorte ContCohorte;
     ControladorTarea ContTarea;
+    ControladorMasterTeacher ContMasterTeacher;
     
     public void inicializarComboboxIdCurso () {  
         contAdministrador = ControladorAdministrador.getInstance();
@@ -243,6 +312,40 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
         }
         
     }   
+    
+        public void inicializarNotaDefinitiva (  ) { 
+            String idCohorte= (String) jComboBoxCohorte.getSelectedItem();
+            String cedulaLt = jTextFieldCedulaLt.getText();
+            String idCurso  = (String) jComboBoxCurso.getSelectedItem();
+            
+            try {
+              ContMasterTeacher = ControladorMasterTeacher.getInstance();
+              matricula = ContMasterTeacher.buscarMatricula(cedulaLt, idCohorte, codigoCurso());
+              jTextFieldNotaDefinitiva.setText(matricula.getNota().toString());  
+              jButtonGuardarYCalcular.setEnabled(true);
+            } catch (Exception ex) { 
+            //Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Las consulta no arrojo resultados, por favor verifique los datos");
+            jTextFieldNotaDefinitiva.setText("");
+            jButtonGuardarYCalcular.setEnabled(false);
+            } 
+        }
+    public void calcularNotaDefinitiva () { 
+        float nota = 0;
+        for (int i = 0; i < listaTareas.size() ; i++) { 
+            nota = (float) (nota + (listaTareas.get(i).getNota()*listaTareas.get(i).getPractica().getPorcentaje()));
+                    }
+
+        try {
+              matricula.setNota(nota);
+              ContMasterTeacher = ControladorMasterTeacher.getInstance();
+              ContMasterTeacher.modificarMAtricula(matricula); 
+            } catch (Exception ex) { 
+            //Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo modificar las nota definitiva");
+            jTextFieldNotaDefinitiva.setText("");
+            }
+    }    
     
     public void inicializarComboboxIdCohorte () {  
         ContCohorte = new ControladorCohorte();
@@ -264,12 +367,75 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
         ContTarea = ControladorTarea.getInstance();
         listaTareas.clear ();
         listaTareas = ContTarea.listaTarea(codigoCurso(), cohorte, cedula);
-        System.out.println ("tamano: " + listaTareas.size());
-        for (int i = 0; i< listaTareas.size() ; i++) { 
-            System.out.println ("nota: " + listaTareas.get(i).getNota() + 
-                                " IdPractica: " + listaTareas.get(i).getTareaPK().getIdPractica() + 
-                                " cedula: " + listaTareas.get(i).getTareaPK().getCedulaLt());
+//        System.out.println ("tamano: " + listaTareas.size());
+//        for (int i = 0; i< listaTareas.size() ; i++) { 
+//            System.out.println ("nota: " + listaTareas.get(i).getNota() + 
+//                                " IdPractica: " + listaTareas.get(i).getTareaPK().getIdPractica() + 
+//                                " cedula: " + listaTareas.get(i).getTareaPK().getCedulaLt());
+//                    }
+    }
+    
+    public void limpiarcampos () { 
+        Vector vecT = new Vector ();
+        ControladorTablas ct = new ControladorTablas(vecT);
+        DefaultTableModel modelo = new DefaultTableModel(ct.contruirCuerpo(3), ct.titulos(3)) { 
+            public boolean isCellEditable(int row, int column) { 
+                if (column == 2) return true; 
+                else return false; 
+            }};
+        jTableNotasPorcentaje.setModel(modelo);
+        jComboBoxCohorte.setSelectedItem("");
+        jComboBoxCurso.setSelectedItem("");
+        jTextFieldCedulaLt.setText("");
+        jTextFieldNotaDefinitiva.setText("");
+    }
+    
+    public void ListarTareas () { 
+        buscarTareas ();
+        Vector vecTareas = new Vector();
+        for (int i = 0; i < listaTareas.size() ; i++) { 
+            vecTareas.add (listaTareas.get(i));
                     }
+        ControladorTablas ct = new ControladorTablas(vecTareas);
+        DefaultTableModel modelo = new DefaultTableModel(ct.contruirCuerpo(3), ct.titulos(3)) { 
+            public boolean isCellEditable(int row, int column) { 
+                if (column == 2) return true; 
+                else return false; 
+            }};
+        jTableNotasPorcentaje.setModel(modelo);
+        
+//        for(int i = 0; i < listaTareas.size(); i++){
+//            //                             fila columna
+//            jTableNotasPorcentaje.isCellEditable(i, 0);
+//            jTableNotasPorcentaje.isCellEditable(i, 1);
+//        }
+    } 
+    
+    public void guardarYCalcular () { 
+        ContMasterTeacher = ControladorMasterTeacher.getInstance();
+        float nota = 0;
+        try { 
+            
+           for(int i=0;i<jTableNotasPorcentaje.getRowCount();i++){
+               //System.out.println (jTableNotasPorcentaje.getValueAt(i, 2).toString());
+               nota = Float.parseFloat(jTableNotasPorcentaje.getValueAt(i, 2).toString());
+               
+               if (nota != listaTareas.get(i).getNota()) { 
+                   listaTareas.get(i).setNota(Float.parseFloat(jTableNotasPorcentaje.getValueAt(i, 2).toString()));
+                   System.out.println (listaTareas.get(i).getNota());
+                   ContMasterTeacher.modificarTarea(listaTareas.get(i));
+               }
+               
+           }
+        calcularNotaDefinitiva ();   
+        JOptionPane.showMessageDialog(null, "Las notas se modificaron de forma correcta");
+        limpiarcampos ();
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "Una de las notas ingresadas no es un decimal");   
+        } catch (Exception ex) { 
+            Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo Modificar las notas");
+        }
     }
     
     private String codigoCurso(){
