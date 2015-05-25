@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import org.postgresql.util.PSQLException;
 
 /**
  * Nombre del Archivo: DaoFases.java
@@ -43,7 +44,7 @@ public class DaoFases implements Serializable {
                     + "values('"+fase.getIdCurso().getIdCurso()+"','"+fase.getNumeroHoras()+"','"+fase.getNumeroSemanas()+"','"+fase.getTipo()+"','"+fase.getContenido()+"',"+fase.getEstado()+"); ");
             query.executeUpdate();
              em.getTransaction().commit();
-        } catch (Exception ex){
+        }catch (Exception ex){
             System.err.print(ex.getMessage());
         }finally {
             if (em != null) {

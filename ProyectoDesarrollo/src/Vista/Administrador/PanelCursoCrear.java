@@ -723,8 +723,10 @@ public class PanelCursoCrear extends javax.swing.JPanel {
             for(int i =0; i < codigoNombre.length();i++){
              if(codigoNombre.charAt(i)==' '){
                     posiSeparador = i;
-                }   
+                    i = codigoNombre.length();
+                }  
              }
+           
             codigoCurso = codigoNombre.substring(0, posiSeparador);
             }
             

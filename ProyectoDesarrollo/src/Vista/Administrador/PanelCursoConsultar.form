@@ -26,7 +26,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="Practica" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="Practica" pref="727" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -116,11 +119,9 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="335" max="-2" attributes="0"/>
                                   <Component id="botonLimpiarCurso" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="modificarCurso" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="226" max="32767" attributes="0"/>
+                          <EmptySpace pref="188" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -152,11 +153,8 @@
                                   <Component id="labelContenido" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="17" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="modificarCurso" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="botonLimpiarCurso" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace pref="11" max="32767" attributes="0"/>
+                          <Component id="botonLimpiarCurso" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -198,11 +196,6 @@
                       <Font name="Ubuntu" size="18" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Contenido"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="modificarCurso">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Modificar Curso"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -252,7 +245,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace pref="68" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="InputBusquedaNombreCurso" min="-2" pref="245" max="-2" attributes="0"/>
@@ -406,14 +399,12 @@
                                           <Component id="jScrollPane3" min="-2" pref="338" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="143" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="botonLimpiarFase" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="botonModificarFase" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="298" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -443,10 +434,7 @@
                               <Component id="labelContenidoFase" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="34" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="botonModificarFase" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="botonLimpiarFase" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="botonLimpiarFase" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -504,14 +492,6 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="botonModificarFase">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Modificar Fase"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonModificarFaseActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="javax.swing.JComboBox" name="inputTipo">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -559,11 +539,11 @@
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="comboListFasesPF" min="-2" pref="98" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="botonBuscarFase" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="106" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -684,8 +664,7 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="-2" pref="278" max="-2" attributes="0"/>
                                   <Component id="botonLimpiarPractica" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="botonModificarPractica" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
@@ -694,7 +673,7 @@
                                       <Component id="labelDescPrac" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="75" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="inputPorcentaje" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jScrollPane6" alignment="0" max="32767" attributes="0"/>
@@ -724,10 +703,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jScrollPane6" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="botonModificarPractica" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="botonLimpiarPractica" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="botonLimpiarPractica" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="labelDescPrac" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -758,11 +734,6 @@
                       <Font name="Ubuntu" size="18" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Descripci&#xf3;n"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="botonModificarPractica">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="ModificarPractica"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane6">

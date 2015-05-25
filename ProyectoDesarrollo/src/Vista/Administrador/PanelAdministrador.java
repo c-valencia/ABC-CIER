@@ -92,6 +92,8 @@ public class PanelAdministrador extends javax.swing.JPanel {
     PanelBuscarMasterTeacher pBuscarMasterTeacher;
     PanelModificarMasterTeacher pModificarMasterTeacher;
     PanelEliminarMasterTeacher pEliminarMasterTeacher;
+    PanelCursoConsultar pConsultarCurso;
+    PanelCursoEliminar pEliminarCurso;
     
     // MENU
     private JMenuBar barraLateral;  
@@ -121,6 +123,7 @@ public class PanelAdministrador extends javax.swing.JPanel {
         pBuscarMasterTeacher = new PanelBuscarMasterTeacher ();
         pModificarMasterTeacher = new PanelModificarMasterTeacher ();
         pEliminarMasterTeacher = new PanelEliminarMasterTeacher ();
+        
     } 
      
     /**|
@@ -266,17 +269,25 @@ public class PanelAdministrador extends javax.swing.JPanel {
                 controladorAdministrador = panelCurso.getControladorAdministrador();
                 controladorAdministrador.listaCursoCodigos();
                 panelCursoUpdate = new PanelCursoUpdate(controladorAdministrador);
-                //System.out.print("El tamaño de los items es de "+panelCursoUpdate.getIdNombreCurso().size()+"\n");
-               
                 controladorAdministrador.adscribir(panelCursoUpdate);
                 controladorAdministrador.notificar();
                 actualizarPaneDer(panelCursoUpdate);
                 //panelCursoUpdate.llenarCursos();
             }
             if (e.getSource() == itemBuscarCur) {
-                
-            }
+                controladorAdministrador = new ControladorAdministrador();
+                panelCurso = new PanelCursoCrear(controladorAdministrador);
+                controladorAdministrador = panelCurso.getControladorAdministrador();
+                controladorAdministrador.listaCursoCodigos();
+                pConsultarCurso = new PanelCursoConsultar(controladorAdministrador);
+                controladorAdministrador.adscribir(pConsultarCurso);
+                controladorAdministrador.notificar();
+                actualizarPaneDer(pConsultarCurso);
+             }
             if (e.getSource() == itemEliminarCur) {            
+                controladorAdministrador = new ControladorAdministrador();
+                pEliminarCurso = new PanelCursoEliminar(controladorAdministrador);
+                actualizarPaneDer(pEliminarCurso);
             }                  
         }
     } // Fin de la clase EventosPanelPrincipal

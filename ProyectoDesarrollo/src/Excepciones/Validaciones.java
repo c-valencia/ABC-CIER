@@ -40,7 +40,7 @@ public class Validaciones {
             Double.parseDouble(elemento);
             
         }catch(NumberFormatException e){
-            throw new ExcepcionDatos("El dato -"+campo+"- no es un decimal");
+            throw new ExcepcionDatos("El dato -"+elemento+"- no es un decimal");
         }
       }
    }

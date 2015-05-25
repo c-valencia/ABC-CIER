@@ -50,9 +50,12 @@ public class ControladorAdministrador implements Sujeto {
     private ArrayList <String> idNombreCurso;
     private ArrayList <String> idNombreFases;
     private ArrayList <String> idNombreFasesPorCurso;
+    private ArrayList <String> idPracticaPorFase;
+    
     
     private Curso curso;
     private Fases fase;
+    private Practica practica;
 
     public ControladorAdministrador() {
         conexion = Conexion.getInstance();
@@ -65,7 +68,7 @@ public class ControladorAdministrador implements Sujeto {
         daoHistorialAspirante = new DaoHistorialAspirante(conexion.getCon());
         idNombreCurso = new ArrayList<String>();
         idNombreFases = new ArrayList<String>();
-
+        idPracticaPorFase = new ArrayList<String>();
         
 
         idNombreFasesPorCurso = new ArrayList<String>();
@@ -73,9 +76,12 @@ public class ControladorAdministrador implements Sujeto {
         validador = new Validaciones();
         curso = new Curso();
         fase = new Fases();
+        practica = new Practica();
         //patron observador, lista de observador
         listObservadores = new ArrayList();
     }
+
+    
     
    
 
@@ -332,6 +338,24 @@ public class ControladorAdministrador implements Sujeto {
         }
         return result;
     }
+    
+    public String eliminarCurso(String idCurso){
+        String result = "";
+        try{
+            validador.validarCamposVacios(idCurso);
+            Curso temp = daoCurso.findCurso(idCurso);
+            temp.setEstado(false);
+            daoCurso.edit(temp);
+            result = "El curso con el id "+idCurso+" fue eliminado con exito";
+        }catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }catch(NonexistentEntityException ex){
+            result = ex.getMessage();
+        }catch(Exception ex){
+            result = ex.getMessage();
+        }
+        return result;
+    }
 
     public ArrayList<String> getIdNombreCurso() {
         return idNombreCurso;
@@ -345,7 +369,7 @@ public class ControladorAdministrador implements Sujeto {
         String result = "";
         try {
             List<Curso> cursos = daoCurso.findCursoEntities();
-            System.out.print("el tamaño de la lista es "+cursos.size());
+            //System.out.print("el tamaño de la lista es "+cursos.size());
             validador.validarColeccion(cursos, "curso");
             result = "Se listaron los cursos con exito";
             idNombreCurso = new ArrayList<String>();
@@ -381,7 +405,8 @@ public class ControladorAdministrador implements Sujeto {
             fase.setEstado(estado);
             daoFase.insertarFase(fase);
             result = "La fase fue adicionada con exito";
-        } catch (ExcepcionDatos ex) {
+        } 
+        catch (ExcepcionDatos ex) {
             result = ex.getMessage();
         } catch (Exception ex) {
             result = "No se pudo ingresar la fase";
@@ -389,32 +414,8 @@ public class ControladorAdministrador implements Sujeto {
 
         return result;
     }
-
-    public String crearPractica(String idFase, String nombre, String descripcion, String porcentaje, boolean estado) {
-        String result = "";
-        try {
-            validador.validarCamposVacios(idFase, nombre, descripcion, porcentaje);
-            Fases temp = new Fases();
-            temp.setIdFase(idFase);
-            Practica practica = new Practica();
-            practica.setIdFase(temp);
-            practica.setNombre(nombre);
-            practica.setDescripcion(descripcion);
-            validador.validarConversionDouble(porcentaje);
-            practica.setPorcentaje(Double.parseDouble(porcentaje));
-
-            daoPractica.insertarPractica(practica);
-
-            result = "La practica fue ingrezada con exito";
-        } catch (ExcepcionDatos ex) {
-            result = ex.getMessage();
-        } catch (Exception ex) {
-            result = "No se pudo ingresar la practica";
-        }
-        return result;
-    }
-
-    public String buscarFase(String idFase){
+    
+     public String buscarFase(String idFase){
         String result = "";
         
         try{
@@ -454,6 +455,146 @@ public class ControladorAdministrador implements Sujeto {
         }
         return result;
     }
+    
+    public String eliminarFase(String idFase){
+        String result = "";
+        try{
+            validador.validarCamposVacios(idFase);
+            Fases temp = daoFase.findFases(idFase);
+            temp.setEstado(false);
+            daoFase.edit(temp);
+            result = "La fase con el id "+idFase+" fue eliminado con exito";
+        }catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }catch(NonexistentEntityException ex){
+            result = ex.getMessage();
+        }catch(Exception ex){
+            result = ex.getMessage();
+        }
+        return result;
+    }
+    
+    
+
+    public String crearPractica(String idFase, String nombre, String descripcion, String porcentaje, boolean estado) {
+        String result = "";
+        try {
+            validador.validarCamposVacios(idFase, nombre, descripcion, porcentaje);
+            Fases temp = new Fases();
+            temp.setIdFase(idFase);
+            Practica practica = new Practica();
+            practica.setIdFase(temp);
+            practica.setNombre(nombre);
+            practica.setDescripcion(descripcion);
+            validador.validarConversionDouble(porcentaje);
+            practica.setPorcentaje(Double.parseDouble(porcentaje));
+
+            daoPractica.insertarPractica(practica);
+
+            result = "La practica fue ingrezada con exito";
+        } catch (ExcepcionDatos ex) {
+            result = ex.getMessage();
+        } catch (Exception ex) {
+            result = "No se pudo ingresar la practica";
+        }
+        return result;
+    }
+
+    public String buscarPractica(String idPractica){
+        String result = "";
+        try{
+            validador.validarStringNull(idPractica,"Practica");
+            validador.validarCamposVacios(idPractica);
+           Practica practica = daoPractica.findPractica(idPractica);
+             this.practica = practica;
+             result = "La practica fue encontrado";
+        }catch(NoResultException ex){
+            result = ex.getMessage();
+        }
+        catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }
+        return result;
+    }
+    
+    public String modificarPractica(String nombre, String descripcion, String porcentaje){
+        String result = "";
+        try{
+            validador.validarCamposVacios(nombre, descripcion , porcentaje);
+            validador.validarConversionDouble(porcentaje);
+            practica.setNombre(nombre);
+            practica.setDescripcion(descripcion);
+            practica.setPorcentaje(Double.parseDouble(porcentaje));
+            daoPractica.edit(practica);
+            result = "La practica  con el id "+practica.getIdPractica()+" fue modificada con exito";
+            
+        }catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }catch(NonexistentEntityException ex){
+            result = ex.getMessage();
+        }catch(Exception ex){
+            result = ex.getMessage();
+        }
+        return result;
+    }
+    
+    public String eliminarPractica(String idPractica){
+        String result = "";
+        try{
+            validador.validarCamposVacios(idPractica);
+            Practica temp = daoPractica.findPractica(idPractica);
+            temp.setEstado(false);
+            daoPractica.edit(temp);
+            result = "La practica con el id "+idPractica+" fue eliminado con exito";
+        }catch(ExcepcionDatos ex){
+            result = ex.getMessage();
+        }catch(NonexistentEntityException ex){
+            result = ex.getMessage();
+        }catch(Exception ex){
+            result = ex.getMessage();
+        }
+        return result;
+    }
+    
+    public String listarPracticasPorFase(String idFase){
+        String result = "";
+        try {
+            List<Practica> practicas = daoPractica.findPracticaEntities();
+            validador.validarColeccion(practicas, "Practica");
+            result = "Se listaron las Practicas con exito";
+            idPracticaPorFase = new ArrayList<String>();
+            for (int i = 0; i < practicas.size(); i++) {
+               if (practicas.get(i).getEstado() != false && practicas.get(i).getIdFase().getIdFase().equals(idFase)) {
+                    String idNombre = "" + practicas.get(i).getIdPractica();
+                    idPracticaPorFase.add(idNombre);
+                }
+            }
+            if(idPracticaPorFase.size()==0){
+                result = "La fase  seleccionado no tiene practicas asignadas o no esta registrado en la base de datos";
+            }
+
+        } catch (ExcepcionDatos ex) {
+            result = ex.getMessage();
+        }
+        return result;
+    }
+
+    public ArrayList<String> getIdPracticaPorFase() {
+        return idPracticaPorFase;
+    }
+
+    public void setIdPracticaPorFase(ArrayList<String> idPracticaPorFase) {
+        this.idPracticaPorFase = idPracticaPorFase;
+    }
+    
+    public Practica getPractica() {
+        return practica;
+    }
+
+    public void setPractica(Practica practica) {
+        this.practica = practica;
+    }
+    
 
     public Fases getFase() {
         return fase;
@@ -493,7 +634,7 @@ public class ControladorAdministrador implements Sujeto {
                     idNombreFasesPorCurso.add(idNombre);
                 }
             }
-            System.out.println("-------------------> "+idNombreFasesPorCurso.size());
+            //System.out.println("-------------------> "+idNombreFasesPorCurso.size());
             if(idNombreFasesPorCurso.size()==0){
                 result = "El curso seleccionado no tiene fases asignadas";
             }

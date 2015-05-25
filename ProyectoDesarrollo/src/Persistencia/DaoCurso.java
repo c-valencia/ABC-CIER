@@ -290,7 +290,7 @@ public class DaoCurso implements Serializable {
                 curso = em.getReference(Curso.class, id);
                 curso.getIdCurso();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The curso with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("El curso con el id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
             List<CursoCohorte> cursoCohorteListOrphanCheck = curso.getCursoCohorteList();
