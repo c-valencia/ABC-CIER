@@ -413,7 +413,7 @@ public class PanelReporte extends javax.swing.JPanel {
         labelListaReportes.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
         labelListaReportes.setText("Lista de Reportes: ");
 
-        comboReportes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Detalle de estudiantes en un curso por departamentos", "Detalle del reporte de notas por estudiante.", "Cursos con mayor número de asistentes en el mes", "Historico de estudiantes que ha ganado un Curso", "Curso con menos potencial de avance", "Estudiantes que han llegado en el mes por departamento", "item6" }));
+        comboReportes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Detalle de estudiantes en un curso por departamentos", "Detalle del reporte de notas por estudiante", "Cursos con mayor número de asistentes en el mes", "Historico de estudiantes que ha ganado un Curso", "Curso con menos potencial de avance", "Estudiantes que han llegado en el mes por departamento", "item6" }));
         comboReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboReportesActionPerformed(evt);
