@@ -25,7 +25,7 @@ public class ControladorSesion {
     } // Fin del Constructor
     
     
-    public Sesion ingresar(String usuario, String contrasena){ 
+    public Sesion iniciarSesion(String usuario, String contrasena){ 
         objUsuario = daoUsuario.buscarUsuario(usuario, contrasena);
         Sesion objSesion =  null;
         if (objUsuario != null) {
@@ -34,10 +34,4 @@ public class ControladorSesion {
         }
         return objSesion;
     } // Fin del metodo ingresar
-    
-    public void cerrarSesion(){
-        if (objUsuario != null) {            
-            // daoUsuario.edit(null);
-        }
-    }
 } // Fin de controlador Login
