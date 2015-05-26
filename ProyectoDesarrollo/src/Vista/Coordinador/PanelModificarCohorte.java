@@ -625,8 +625,17 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
     private void  guardarCursoCohorte()
     {
         DefaultTableModel dtm = (DefaultTableModel) jTableLTyAsp.getModel();
-        for (int i = 0; i < dtm.getRowCount(); i++){
-            System.out.println("guardarCursoCohorte = " + dtm.getValueAt(i, 6));
+        int valor = JOptionPane.showConfirmDialog(null, "¿Desea guardar todos los cambios?");
+        String mensaje = new String();
+        
+        if(valor == 0){
+            mensaje = "Guardando los cambios:\n- fechas de la cohorte\n- nuevos aspirantes matriculados\n- desmatriculado de los LT's";
+            JOptionPane.showMessageDialog(null, mensaje);
+            for (int i = 0; i < dtm.getRowCount(); i++){
+                controlCohorte.modificarCohorte(jLabelIdCohorte.getText(), jDateChooserFechaInicio.getDate(), jDateChooserFechaFin.getDate());
+                
+                System.out.println("guardarCursoCohorte = " + dtm.getValueAt(i, 6));
+            }
         }
         
     }
@@ -653,7 +662,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
                 guardarCursoCohorte();
             }
             else if(e.getSource() == jButtonFinalizar){
-                
+                actualizarPanelPrincipal(jPanelBuscarCohortes);
             }
             else if(e.getSource() == jButtonSeleccionarAspirante){
                 aspirantesSeleccionados();

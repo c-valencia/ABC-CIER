@@ -91,6 +91,7 @@ public class PanelCoordinador extends javax.swing.JPanel {
     private Panel_EliminarLT panelEliminarLT;
     private PanelReporte panelReporte;
     private PanelModificarCohorte panelModCohorte;
+    private PanelCertificados panelCertificados;
     
     // MENU
     private JMenuBar barraLateral;  
@@ -224,7 +225,9 @@ public class PanelCoordinador extends javax.swing.JPanel {
                 actualizarPaneDer(panelModCohorte);
             }
             // Menu Certificados
-            if (e.getSource() == itemGenerar) {            
+            if (e.getSource() == itemGenerar) {
+                panelCertificados = new PanelCertificados();
+                actualizarPaneDer(panelCertificados);
             }
             // Menu Reportes
             if (e.getSource() == itemReport1) {            
