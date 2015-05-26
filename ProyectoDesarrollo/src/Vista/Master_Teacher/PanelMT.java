@@ -81,6 +81,7 @@ public class PanelMT extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     // PANELES 
     PanelIngresarCalificacion pIngresarCalificacion;
+    PanelAsistencia PAsistencia;
 
     // MENU
     private JMenuBar barraLateral;  
@@ -90,8 +91,12 @@ public class PanelMT extends javax.swing.JPanel {
     private JMenuItem itemBuscarCalif; // Calificaciones
     private JMenuItem itemEliminarCalif; // Calificaciones  
     
+    private JMenu menuAsistencia;// Asistencia
+    private JMenuItem itemCrearAsisten; // Asistencia
+    
     public void inicializarPaneles() {  
         pIngresarCalificacion = new PanelIngresarCalificacion();
+        PAsistencia = new PanelAsistencia();
     }
     
     /**|
@@ -118,8 +123,17 @@ public class PanelMT extends javax.swing.JPanel {
         JPanel panelTemporal = new JPanel();
         panelTemporal.setBorder(BorderFactory.createEmptyBorder(20, 0, 50, 0));
         barraLateral = new JMenuBar();
-        barraLateral.setLayout(new GridLayout(1, 1));
+        barraLateral.setLayout(new GridLayout(2, 1));
+        // Menu Asistencia
+        menuAsistencia = new JMenu("Asistencia");
+        //menuAsistencia.setPreferredSize(new Dimension(180, 50));
+        menuAsistencia.setMenuLocation(180, 0);
+        // Components
+        itemCrearAsisten = new JMenuItem("Ingresar");
+        // Add Components
+        menuAsistencia.add(itemCrearAsisten);
 
+        
         // Menu Calificaciones
         menuCalificaciones = new JMenu("Calificaciones");
         menuCalificaciones.setPreferredSize(new Dimension(180, 50));
@@ -137,6 +151,7 @@ public class PanelMT extends javax.swing.JPanel {
                
         // Add elements to JMenu
         barraLateral.add(menuCalificaciones);
+        barraLateral.add(menuAsistencia);
         
         // Add to JPanel
         panelTemporal.add(barraLateral);
@@ -149,7 +164,10 @@ public class PanelMT extends javax.swing.JPanel {
         itemCrearCalif.addActionListener(events); 
         itemModificarCalif.addActionListener(events);
         itemBuscarCalif.addActionListener(events);
-        itemEliminarCalif.addActionListener(events);              
+        itemEliminarCalif.addActionListener(events);   
+        
+        // Menu Asistencia
+        itemCrearAsisten.addActionListener(events); 
     } // Fin del metodo asignarEventos
     
     private class EventosPanelAdministrador implements ActionListener{
@@ -166,7 +184,13 @@ public class PanelMT extends javax.swing.JPanel {
             if (e.getSource() == itemBuscarCalif) {            
             }
             if (e.getSource() == itemEliminarCalif) {            
-            }              
+            }
+            
+            // Menu Asistencia
+            if (e.getSource() == itemCrearAsisten) {
+                actualizarPaneDer(PAsistencia);
+                
+            }
         }
     } // Fin de la clase EventosPanelPrincipal
 
