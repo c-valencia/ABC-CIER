@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f7cc5bfc-baf8-4074-a804-39988f7f92ec">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="39"/>
+	<style name="Title" fontName="Serif" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Serif" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Serif" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Serif" fontSize="12"/>
+	<parameter name="cedulaLT" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idCurso" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT fecha_inicio, fecha_fin,id_cohorte, nota_final, id_curso, nombre_curso, id_fase, id_practica, nombre_practica, nota_tarea, cedula_lt 
+FROM cohorte NATURAL JOIN (SELECT id_cohorte, nota_final, id_curso, nombre_curso, id_fase, id_practica, nombre_practica, nota_tarea, cedula_lt 
+	FROM curso_cohorte NATURAL JOIN (SELECT id_cohorte, nota as nota_final, id_curso, nombre_curso, id_fase, id_practica, nombre_practica, nota_tarea, cedula_lt 
+		FROM matricula NATURAL JOIN (SELECT id_curso, nombre as nombre_curso, id_fase, id_practica, nombre_practica, nota as nota_tarea, cedula_lt 
+			FROM curso NATURAL JOIN (SELECT id_curso, id_fase, id_practica, nombre_practica, nota, cedula_lt  
+				FROM fases NATURAL JOIN (SELECT id_practica, id_fase, nombre as nombre_practica, nota, cedula_lt 
+					FROM practica NATURAL JOIN (SELECT id_practica, nota, cedula_lt FROM tarea WHERE cedula_lt = $P{cedulaLT}) as tarea) as practica) as fases
+			WHERE curso.id_curso = $P{idCurso}) as curso) as matricula) curso_cohorte;]]>
+	</queryString>
+	<field name="fecha_inicio" class="java.sql.Date"/>
+	<field name="fecha_fin" class="java.sql.Date"/>
+	<field name="id_cohorte" class="java.lang.String"/>
+	<field name="nota_final" class="java.lang.Float"/>
+	<field name="id_curso" class="java.lang.String"/>
+	<field name="nombre_curso" class="java.lang.String"/>
+	<field name="id_fase" class="java.lang.String"/>
+	<field name="id_practica" class="java.lang.String"/>
+	<field name="nombre_practica" class="java.lang.String"/>
+	<field name="nota_tarea" class="java.lang.Float"/>
+	<field name="cedula_lt" class="java.lang.String"/>
+	<group name="id_fase">
+		<groupExpression><![CDATA[$F{id_fase}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement uuid="408033b8-ef26-4e16-a757-2683bc51e444" style="SubTitle" x="183" y="13" width="250" height="24" forecolor="#CC0000"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_fase}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement uuid="757b7594-ddbd-4676-8c5f-7db30f46de9c" mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="9001b24f-3083-44ff-b456-04577e687a80" x="42" y="13" width="127" height="24" forecolor="#CC0000"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<text><![CDATA[Codigo Fase :]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="1bc93389-0772-4cda-a524-2f747893ef0a" x="98" y="18" width="359" height="33"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Calificaciones]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="160" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ff8bb616-f0a4-4b2b-b37d-28cfc7fa7066" style="Column header" x="12" y="126" width="110" height="15"/>
+				<textElement/>
+				<text><![CDATA[Nota Final: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="4fa263df-d446-422e-beea-b48f1717ac59" style="Detail" x="142" y="126" width="118" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nota_final}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="61994986-5754-47f1-8184-4aaced7f40ce" style="Column header" x="12" y="94" width="110" height="15"/>
+				<textElement/>
+				<text><![CDATA[Nombre Curso: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c5dab01e-989c-4859-a3a4-89d8ec539e39" style="Column header" x="12" y="52" width="110" height="15"/>
+				<textElement/>
+				<text><![CDATA[Codigo Curso: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="5b48c2ce-fc98-4fdf-bb50-846f41214ea4" style="Detail" x="142" y="52" width="118" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{id_curso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="997839ad-1801-4776-af5c-abf7fe6bfe6c" style="Detail" x="142" y="94" width="118" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre_curso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1135776d-9c24-4279-8097-4fa1bc3b5a73" style="Column header" x="12" y="11" width="55" height="15"/>
+				<textElement/>
+				<text><![CDATA[Cedula:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f3c36510-4125-48a0-b4a1-50de7d6764ee" style="Detail" x="84" y="11" width="176" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cedula_lt}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="92f07ed1-f133-4755-88f1-c41dd0870517" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="a8999b47-4dfd-4373-967a-d1238228a13a" style="Column header" x="214" y="19" width="83" height="15"/>
+				<textElement/>
+				<text><![CDATA[Id Practica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ff199cef-b61c-4762-b4c4-10325b72e2e5" style="Column header" x="330" y="19" width="127" height="15"/>
+				<textElement/>
+				<text><![CDATA[Nombre Practica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1e6c04cd-7538-4d6a-90ba-6cfe2c55e0bd" style="Column header" x="495" y="19" width="55" height="15"/>
+				<textElement/>
+				<text><![CDATA[Nota]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="3bd5b5a4-7077-4f53-b320-735f954a6fad" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="e38067f0-3a5a-4b79-8d4a-681eda7d7b98" style="Detail" x="214" y="1" width="83" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{id_practica}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bb4e40f6-302a-4826-a5dd-3badbc8d3808" style="Detail" x="330" y="0" width="127" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre_practica}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a37224fe-1127-43cb-9ce7-788446b6978b" style="Detail" x="495" y="0" width="55" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nota_tarea}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="f0555a64-53a1-449b-a2eb-26aa537b4885" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="6f075e8a-3ab8-401b-a5be-04e5b9e5ed41" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="bdc678d6-19ef-4812-9af0-35875d197c7f" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="4a61f20c-56d0-47c3-8018-255c1dd9c486" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

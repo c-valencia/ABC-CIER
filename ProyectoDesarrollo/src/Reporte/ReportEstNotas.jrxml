@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1656bbd6-1bf3-4dad-8358-fa1f9313edb7">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="87"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Serif" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Serif" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Serif" fontSize="12" isBold="true"/>
@@ -33,14 +33,14 @@ WHERE leader_teacher.cedula = $P{cedula_lt};]]>
 		<groupHeader>
 			<band height="34">
 				<textField isBlankWhenNull="true">
-					<reportElement uuid="aa0a72ea-6747-4fb5-873b-e40c7d5681f9" style="SubTitle" x="47" y="10" width="506" height="24" forecolor="#CC0000"/>
+					<reportElement uuid="aa0a72ea-6747-4fb5-873b-e40c7d5681f9" style="SubTitle" x="47" y="5" width="506" height="24" forecolor="#CC0000"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 				</textField>
 				<rectangle>
-					<reportElement uuid="099ff8fa-1463-4a40-bb7c-a4bbdf3d76ff" mode="Opaque" x="0" y="10" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+					<reportElement uuid="099ff8fa-1463-4a40-bb7c-a4bbdf3d76ff" mode="Opaque" x="13" y="10" width="20" height="14" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
 				</rectangle>
 			</band>
 			<band height="36">

@@ -390,26 +390,30 @@ public class PanelIngresarCalificacion extends javax.swing.JPanel {
         jTextFieldNotaDefinitiva.setText("");
     }
     
-    public void ListarTareas () { 
-        buscarTareas ();
+    public void ListarTareas() {
+        buscarTareas();
         Vector vecTareas = new Vector();
-        for (int i = 0; i < listaTareas.size() ; i++) { 
-            vecTareas.add (listaTareas.get(i));
-                    }
+        for (int i = 0; i < listaTareas.size(); i++) {
+            vecTareas.add(listaTareas.get(i));
+        }
         ControladorTablas ct = new ControladorTablas(vecTareas);
-        DefaultTableModel modelo = new DefaultTableModel(ct.contruirCuerpo(3), ct.titulos(3)) { 
-            public boolean isCellEditable(int row, int column) { 
-                if (column == 2) return true; 
-                else return false; 
-            }};
+        DefaultTableModel modelo = new DefaultTableModel(ct.contruirCuerpo(3), ct.titulos(3)) {
+            public boolean isCellEditable(int row, int column) {
+                if (column == 2) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
         jTableNotasPorcentaje.setModel(modelo);
-        
+
 //        for(int i = 0; i < listaTareas.size(); i++){
 //            //                             fila columna
 //            jTableNotasPorcentaje.isCellEditable(i, 0);
 //            jTableNotasPorcentaje.isCellEditable(i, 1);
 //        }
-    } 
+    }
     
     public void guardarYCalcular () { 
         ContMasterTeacher = ControladorMasterTeacher.getInstance();
