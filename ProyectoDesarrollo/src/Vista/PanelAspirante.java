@@ -177,10 +177,22 @@ public class PanelAspirante extends javax.swing.JPanel {
         buttonGroupArea.add(radioButtonArea3);
         radioButtonArea3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         radioButtonArea3.setText("Lenguaje (Lenguaje Castellana, Idiomas Extranjeros, Humaniades)");
+        radioButtonArea3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonArea3ActionPerformed(evt);
+            }
+        });
+
+        inputAreaOtro.setEnabled(false);
 
         buttonGroupArea.add(radioButtonArea4);
         radioButtonArea4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         radioButtonArea4.setText("Otro: ");
+        radioButtonArea4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonArea4ActionPerformed(evt);
+            }
+        });
 
         buttonGroupPTA.add(radioButtonPTANo);
         radioButtonPTANo.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -402,11 +414,23 @@ public class PanelAspirante extends javax.swing.JPanel {
 
     private void radioButtonArea1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonArea1ActionPerformed
         // TODO add your handling code here:
+        inputAreaOtro.setEnabled(false);
     }//GEN-LAST:event_radioButtonArea1ActionPerformed
 
     private void radioButtonArea2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonArea2ActionPerformed
         // TODO add your handling code here:
+        inputAreaOtro.setEnabled(false);
     }//GEN-LAST:event_radioButtonArea2ActionPerformed
+
+    private void radioButtonArea4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonArea4ActionPerformed
+        // TODO add your handling code here:
+        inputAreaOtro.setEnabled(true);
+    }//GEN-LAST:event_radioButtonArea4ActionPerformed
+
+    private void radioButtonArea3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonArea3ActionPerformed
+        // TODO add your handling code here:
+        inputAreaOtro.setEnabled(false);
+    }//GEN-LAST:event_radioButtonArea3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -464,7 +488,29 @@ public class PanelAspirante extends javax.swing.JPanel {
     private ControladorAdministrador contAdministrador;
     private ControladorAspirante contladorAspirante;
     
-            
+    public void limpiarPanelDatos () { 
+        buttonGroupArea.clearSelection();
+        buttonGroupColombiaAprende.clearSelection();
+        buttonGroupPTA.clearSelection();
+  
+        inputNombre.setText("");
+        inputApellido.setText("");
+        inputCedula.setText("");
+        inputCorreo.setText("" );     
+        inputCelular.setText("");
+        inputDireccion.setText("");
+        inputSede.setText("" );     
+        inputInstitucion.setText("");
+        inputDane.setText("");
+        inputGrado.setText("" );     
+        inputMunicipio.setText("");
+        inputDepartamento.setText("");
+        inputAreaOtro.setText("" );     
+        
+        inputSecEducacion.setSelectedItem("");
+        jComboBoxCursos.setSelectedItem("");
+    }
+    
     private void asignarEventos(EventosPanelAspirante events){
         botonRegistrarse.addActionListener(events);
     } // Fin del metodo asignarEventos
@@ -523,6 +569,7 @@ public class PanelAspirante extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, result);
         
         if  (result.equals("Se creo el aspirante con exito")) {
+            limpiarPanelDatos ();
             java.util.Date fecha = new Date();
             String result2 = contladorAspirante.crearHistorialAspirante (cedula, codigoCurso(),fecha, estado);
             JOptionPane.showMessageDialog(null, result2);
@@ -537,26 +584,28 @@ public class PanelAspirante extends javax.swing.JPanel {
      */
     private void initInformation(){
         inputSecEducacion.addItem("");
-        inputSecEducacion.addItem("Amazonas");
+        inputSecEducacion.addItem("Amazonas"); //------
+        inputSecEducacion.addItem("Huila"); //------
+        inputSecEducacion.addItem("Nariño");//------
+        inputSecEducacion.addItem("Tolima"); //------
+        inputSecEducacion.addItem("Valle del Cauca");//------
+        inputSecEducacion.addItem("");//------
         inputSecEducacion.addItem("Buenaventura");
         inputSecEducacion.addItem("Buga");
         inputSecEducacion.addItem("Cali");
         inputSecEducacion.addItem("Caquetá");
         inputSecEducacion.addItem("Cartago");
         inputSecEducacion.addItem("Florencia");
-        inputSecEducacion.addItem("Huila");
         inputSecEducacion.addItem("Ibagué");
         inputSecEducacion.addItem("Ipiales");
         inputSecEducacion.addItem("Jamundí");
-        inputSecEducacion.addItem("Nariño");
         inputSecEducacion.addItem("Neiva");
         inputSecEducacion.addItem("Palmira");
         inputSecEducacion.addItem("Pasto");
         inputSecEducacion.addItem("Popayán");
         inputSecEducacion.addItem("Putumayo");
-        inputSecEducacion.addItem("Tolima");
         inputSecEducacion.addItem("Tumaco");
-        inputSecEducacion.addItem("Valle del Cauca");
+        
     } // Fin del metodo intiInformation  
         
     private void mostarMensaje(int tipo, String titulo, String mensaje) {
@@ -598,7 +647,8 @@ public class PanelAspirante extends javax.swing.JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == botonRegistrarse) {    
-                guardarAspirante();            
+                guardarAspirante();   
+                
             }
         }
     } // Fin de la clase EventosPanelAspirante

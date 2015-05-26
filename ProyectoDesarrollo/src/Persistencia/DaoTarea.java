@@ -48,6 +48,7 @@ public class DaoTarea implements Serializable {
                     + "WHERE  m.cedula_lt = '" + Cedula_lt 
                        + "' AND m.id_cohorte = '" + cohorte 
                        + "' AND c.id_curso = '" + curso
+                       + "' AND t.cedula_lt = '" + Cedula_lt 
                        + "' AND f.id_curso = c.id_curso;", Tarea.class);
             
             return query.getResultList();
