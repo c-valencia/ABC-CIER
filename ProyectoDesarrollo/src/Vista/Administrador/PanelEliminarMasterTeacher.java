@@ -73,7 +73,6 @@ public class PanelEliminarMasterTeacher extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(750, 505));
 
         panelBuscar2.setBackground(new java.awt.Color(245, 245, 245));
-        panelBuscar2.setBorder(null);
 
         labelBuscarMaster.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         labelBuscarMaster.setForeground(new java.awt.Color(15, 15, 111));
@@ -94,6 +93,8 @@ public class PanelEliminarMasterTeacher extends javax.swing.JPanel {
 
         inputBuscarPor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cedula", "Correo" }));
         inputBuscarPor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        inputDatoBusqueda.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout panelBuscar2Layout = new javax.swing.GroupLayout(panelBuscar2);
         panelBuscar2.setLayout(panelBuscar2Layout);
@@ -158,22 +159,22 @@ public class PanelEliminarMasterTeacher extends javax.swing.JPanel {
         jLabelPais.setText("Pais:");
 
         jTextFieldCedula.setEditable(false);
-        jTextFieldCedula.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldCedula.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldApellidos.setEditable(false);
-        jTextFieldApellidos.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldApellidos.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldNombres.setEditable(false);
-        jTextFieldNombres.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldNombres.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldEmail.setEditable(false);
-        jTextFieldEmail.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldEmail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldCiudad.setEditable(false);
         jTextFieldCiudad.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
 
         jTextFieldPais.setEditable(false);
-        jTextFieldPais.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldPais.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jButtonEliminarMT.setText("Eliminar");
         jButtonEliminarMT.setEnabled(false);
@@ -184,6 +185,7 @@ public class PanelEliminarMasterTeacher extends javax.swing.JPanel {
         });
 
         jTextFieldIdCurso.setEditable(false);
+        jTextFieldIdCurso.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -199,30 +201,26 @@ public class PanelEliminarMasterTeacher extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonCancelar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonEliminarMT, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelCedula)
-                            .addComponent(jLabelApellidos)
-                            .addComponent(jLabelNombres)
-                            .addComponent(jLabelEmail)
-                            .addComponent(jLabelCiudad)
-                            .addComponent(jLabelPais)
-                            .addComponent(jLabelIdCurso))
-                        .addGap(80, 80, 80)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                            .addComponent(jTextFieldNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                            .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                            .addComponent(jTextFieldCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                            .addComponent(jTextFieldCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                            .addComponent(jTextFieldPais, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                            .addComponent(jTextFieldIdCurso))
-                        .addContainerGap(236, Short.MAX_VALUE))))
+                    .addComponent(jLabelCedula)
+                    .addComponent(jLabelApellidos)
+                    .addComponent(jLabelNombres)
+                    .addComponent(jLabelEmail)
+                    .addComponent(jLabelCiudad)
+                    .addComponent(jLabelPais)
+                    .addComponent(jLabelIdCurso))
+                .addGap(80, 80, 80)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(jTextFieldNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(jTextFieldCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(jTextFieldCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(jTextFieldPais, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(jTextFieldIdCurso))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonCancelar)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonEliminarMT, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,10 +255,13 @@ public class PanelEliminarMasterTeacher extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabelIdCurso))
                     .addComponent(jTextFieldIdCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(0, 33, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonEliminarMT)
-                    .addComponent(jButtonCancelar)))
+                    .addComponent(jButtonCancelar)
+                    .addComponent(jButtonEliminarMT))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -284,7 +285,7 @@ public class PanelEliminarMasterTeacher extends javax.swing.JPanel {
                 .addComponent(panelBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
+                .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -339,42 +340,71 @@ public class PanelEliminarMasterTeacher extends javax.swing.JPanel {
     ControladorAdministrador contAdministrador;
     
     
-     public MasterTeacher buscarMasterTeacher () { 
-         
-        jButtonEliminarMT.setEnabled(true);
-         
-        MasterTeacher master = new MasterTeacher ();
+     public void buscarMasterTeacher () { 
         contAdministrador = ControladorAdministrador.getInstance();
         String ItemSeleccionado = inputBuscarPor.getSelectedItem().toString();
         if (ItemSeleccionado.equals("Cedula")) { 
-            master = contAdministrador.buscarMasterTeacherPorCedula(inputDatoBusqueda.getText());
+            MasterTeacher master = contAdministrador.buscarMasterTeacherPorCedula(inputDatoBusqueda.getText());
             if (master == null) {
             mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-            "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
+                         "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
             limpiarPanelBuscar ();
+            limpiarPanel ();
             } else {
-            mostrarInfoMasterTeacher (master);
-            limpiarPanelBuscar ();}
+                if (master.getEstado()) {
+                            mostrarInfoMasterTeacher (master);
+                            limpiarPanelBuscar ();} 
+                   else { 
+                       JOptionPane.showMessageDialog(null, "El master teacher ya ha sido eliminado");
+                       limpiarPanel ();
+                   }
+            }
         } 
 
         if (ItemSeleccionado.equals("Correo")) { 
             ArrayList <MasterTeacher> mt = contAdministrador.listaMasterTeacher ();
+            boolean bandera = false ;
             for (int i=0; i< mt.size(); i++) { 
+                
                 if (mt.get(i).getCorreo() .equals(inputDatoBusqueda.getText())) { 
-                     master = contAdministrador.buscarMasterTeacherPorCedula(mt.get(i).getCedula());
-                     if (master == null) {
-                        mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                        "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
-                        limpiarPanelBuscar ();
-                         } else {
-                         mostrarInfoMasterTeacher (master);
-                         limpiarPanelBuscar ();}
+                    MasterTeacher master = contAdministrador.buscarMasterTeacherPorCedula(mt.get(i).getCedula());
+                    if (master == null) {
+                       mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                       "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
+                       limpiarPanelBuscar ();
+                       limpiarPanel ();
+                       } else {
+                        if (master.getEstado()) {
+                            mostrarInfoMasterTeacher (master);
+                            limpiarPanelBuscar ();
+                            bandera = true;
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null, "El master teacher ya ha sido eliminado");
+                            limpiarPanel ();
+                            limpiarPanelBuscar ();
+                        }
+                    
                     }
-            } 
+                }
+            }
+            
+            if (!bandera) { JOptionPane.showMessageDialog(null, "Error: la consulta para el campo correo no arrojo niungun resultado");
+                            limpiarPanel ();}
        }
         
-        return master;
-    } 
+        
+    }
+     
+     public void limpiarPanel() { 
+        jTextFieldApellidos.setText("");
+        jTextFieldCedula.setText("");
+        jTextFieldCiudad.setText("");
+        jTextFieldEmail.setText("");
+        jTextFieldIdCurso.setText("");
+        jTextFieldNombres.setText("");
+        jTextFieldPais.setText("");
+     }
      
     public void limpiarPanelBuscar () { 
         inputDatoBusqueda.setText("");

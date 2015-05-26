@@ -68,7 +68,6 @@ public class PanelModificarCoordinador extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(750, 505));
 
         panelBuscar2.setBackground(new java.awt.Color(245, 245, 245));
-        panelBuscar2.setBorder(null);
 
         labelModificarCoordinador.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         labelModificarCoordinador.setForeground(new java.awt.Color(15, 15, 111));
@@ -89,6 +88,8 @@ public class PanelModificarCoordinador extends javax.swing.JPanel {
 
         inputBuscarPor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cedula", "Correo" }));
         inputBuscarPor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        inputDatoBusqueda.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout panelBuscar2Layout = new javax.swing.GroupLayout(panelBuscar2);
         panelBuscar2.setLayout(panelBuscar2Layout);
@@ -153,17 +154,17 @@ public class PanelModificarCoordinador extends javax.swing.JPanel {
         jLabelDireccion.setText("Direccion: ");
 
         jTextFieldCedula.setEditable(false);
-        jTextFieldCedula.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldCedula.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
-        jTextFieldApellidos.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldApellidos.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
-        jTextFieldNombres.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldNombres.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
-        jTextFieldEmail.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldEmail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
-        jTextFieldCargo.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldCargo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
-        jTextFieldDireccion.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldDireccion.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jButtonModificar.setText("Modificar");
         jButtonModificar.setEnabled(false);
@@ -244,7 +245,7 @@ public class PanelModificarCoordinador extends javax.swing.JPanel {
                             .addComponent(jLabelDireccion))
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonModificar)
                     .addComponent(jButtonCancelar)))
@@ -257,7 +258,7 @@ public class PanelModificarCoordinador extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 726, Short.MAX_VALUE)
+                    .addComponent(panelBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 730, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -267,8 +268,7 @@ public class PanelModificarCoordinador extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(panelBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -287,6 +287,7 @@ public class PanelModificarCoordinador extends javax.swing.JPanel {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
         limpiarPanelDatos ();
+        limpiarPanelBuscar ();
         jButtonModificar.setEnabled(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -327,7 +328,6 @@ public class PanelModificarCoordinador extends javax.swing.JPanel {
     } // Fin del metodo 
     
     public void buscarCoordinador () { 
-        jButtonModificar.setEnabled(true);
         contAdministrador = ControladorAdministrador.getInstance();
         String ItemSeleccionado = inputBuscarPor.getSelectedItem().toString();
         if (ItemSeleccionado.equals("Cedula")) { 
@@ -336,27 +336,61 @@ public class PanelModificarCoordinador extends javax.swing.JPanel {
             mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
                     "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
             limpiarPanelBuscar ();
+            limpiarPanel ();
             } else {
+                   if (empleado.getEstado()) {
+                            mostrarInfoCoordinador (empleado);
+                            limpiarPanelBuscar ();} 
+                   else { 
+                       JOptionPane.showMessageDialog(null, "El coordinador ya ha sido eliminado");
+                       limpiarPanel ();
+                       limpiarPanelBuscar ();
+                   }
+            }
             
-            mostrarInfoCoordinador (empleado);
-            limpiarPanelBuscar ();} 
-        }
+        } 
+
         if (ItemSeleccionado.equals("Correo")) { 
             ArrayList <Empleado> empleados = contAdministrador.listaEmpleados();
+            boolean bandera = false ;
             for (int i=0; i<empleados.size(); i++) { 
+                
                 if (empleados.get(i).getEmail().equals(inputDatoBusqueda.getText())) { 
                     Empleado empleado = contAdministrador.buscarEmpleadoPorCedula(empleados.get(i).getCedula());
                     if (empleado == null) {
                      mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                     "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
-                     limpiarPanelBuscar ();
-                     } else {
-                    mostrarInfoCoordinador (empleado);
+                    "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
                     limpiarPanelBuscar ();
+                    limpiarPanel ();
+                    } else {
+                        if (empleado.getEstado()) {
+                            mostrarInfoCoordinador (empleado);
+                            limpiarPanelBuscar ();
+                            bandera = true;
+                        } 
+                        else {
+                            JOptionPane.showMessageDialog(null, "El coordinador ya ha sido eliminado");
+                             limpiarPanel ();}
+                        
                     }
-                }
+                }  
             } 
-       }  
+            
+            if (!bandera) { JOptionPane.showMessageDialog(null, "Error: la consulta para el campo correo no arrojo niungun resultado");
+                            limpiarPanel ();}
+       }
+   
+    } 
+    
+    public void limpiarPanel () { 
+        inputDatoBusqueda.setText("");
+        jTextFieldApellidos.setText("");
+        jTextFieldCargo.setText("");
+        jTextFieldCedula.setText("");
+        jTextFieldDireccion.setText("");
+        jTextFieldEmail.setText("");
+        jTextFieldNombres.setText("");
+        jTextFieldTelefono.setText("");
     }
     
     public void modificarCoordinador () { 

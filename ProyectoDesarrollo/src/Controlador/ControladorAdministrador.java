@@ -222,8 +222,10 @@ public class ControladorAdministrador implements Sujeto {
         } catch (NullPointerException ex) {
             result = "Ingreso un objeto vacio";       
         } catch (Exception ex) {
-            Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
             result = "No se realizo la operacion";
+            result = "Ya existe un master teacher con cedula o correo igual"; 
+
         }
         return result;
     }

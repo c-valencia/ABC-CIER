@@ -67,11 +67,9 @@ public class PanelBuscarMasterTeacher extends javax.swing.JPanel {
         jTextFieldId_Curso = new javax.swing.JTextField();
         jTextFieldPais = new javax.swing.JTextField();
 
-        setBorder(null);
         setPreferredSize(new java.awt.Dimension(750, 505));
 
         panelBuscar2.setBackground(new java.awt.Color(245, 245, 245));
-        panelBuscar2.setBorder(null);
 
         labelBuscarMaster.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         labelBuscarMaster.setForeground(new java.awt.Color(15, 15, 111));
@@ -92,6 +90,8 @@ public class PanelBuscarMasterTeacher extends javax.swing.JPanel {
 
         inputBuscarPor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cedula", "Correo" }));
         inputBuscarPor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        inputDatoBusqueda.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout panelBuscar2Layout = new javax.swing.GroupLayout(panelBuscar2);
         panelBuscar2.setLayout(panelBuscar2Layout);
@@ -156,24 +156,25 @@ public class PanelBuscarMasterTeacher extends javax.swing.JPanel {
         jLabelPais.setText("Pais:");
 
         jTextFieldCedula.setEditable(false);
-        jTextFieldCedula.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldCedula.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldApellidos.setEditable(false);
-        jTextFieldApellidos.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldApellidos.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldNombres.setEditable(false);
-        jTextFieldNombres.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldNombres.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldEmail.setEditable(false);
-        jTextFieldEmail.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldEmail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldCiudad.setEditable(false);
-        jTextFieldCiudad.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldCiudad.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldId_Curso.setEditable(false);
+        jTextFieldId_Curso.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldPais.setEditable(false);
-        jTextFieldPais.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldPais.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -233,7 +234,7 @@ public class PanelBuscarMasterTeacher extends javax.swing.JPanel {
                             .addComponent(jLabelPais))
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldId_Curso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -244,7 +245,7 @@ public class PanelBuscarMasterTeacher extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(panelBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 728, Short.MAX_VALUE))
+                        .addComponent(panelBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 730, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -257,7 +258,7 @@ public class PanelBuscarMasterTeacher extends javax.swing.JPanel {
                 .addComponent(panelBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(6, 6, 6))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -306,27 +307,50 @@ public class PanelBuscarMasterTeacher extends javax.swing.JPanel {
             MasterTeacher master = contAdministrador.buscarMasterTeacherPorCedula(inputDatoBusqueda.getText());
             if (master == null) {
             mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-            "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
+                         "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
             limpiarPanelBuscar ();
+            limpiarPanel ();
             } else {
-            mostrarInfoMasterTeacher (master);
-            limpiarPanelBuscar (); }
+                if (master.getEstado()) {
+                            mostrarInfoMasterTeacher (master);
+                            limpiarPanelBuscar ();} 
+                   else { 
+                       JOptionPane.showMessageDialog(null, "El master teacher ya ha sido eliminado");
+                       limpiarPanel ();
+                   }
+            }
         } 
 
         if (ItemSeleccionado.equals("Correo")) { 
             ArrayList <MasterTeacher> mt = contAdministrador.listaMasterTeacher ();
+            boolean bandera = false ;
             for (int i=0; i< mt.size(); i++) { 
+                
                 if (mt.get(i).getCorreo() .equals(inputDatoBusqueda.getText())) { 
                     MasterTeacher master = contAdministrador.buscarMasterTeacherPorCedula(mt.get(i).getCedula());
                     if (master == null) {
                        mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
                        "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
                        limpiarPanelBuscar ();
+                       limpiarPanel ();
                        } else {
-                    mostrarInfoMasterTeacher (master);
-                    limpiarPanelBuscar ();}
+                        if (master.getEstado()) {
+                            mostrarInfoMasterTeacher (master);
+                            limpiarPanelBuscar ();
+                            bandera = true;
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null, "El master teacher ya ha sido eliminado");
+                            limpiarPanel ();
+                            limpiarPanelBuscar ();
+                        }
+                    
                     }
-            } 
+                }
+            }
+            
+            if (!bandera) { JOptionPane.showMessageDialog(null, "Error: la consulta para el campo correo no arrojo niungun resultado");
+                            limpiarPanel ();}
        }
         
         
@@ -335,6 +359,16 @@ public class PanelBuscarMasterTeacher extends javax.swing.JPanel {
      public void limpiarPanelBuscar () { 
         inputDatoBusqueda.setText("");
     }
+     
+     public void limpiarPanel() { 
+        jTextFieldApellidos.setText("");
+        jTextFieldCedula.setText("");
+        jTextFieldCiudad.setText("");
+        jTextFieldEmail.setText("");
+        jTextFieldId_Curso.setText("");
+        jTextFieldNombres.setText("");
+        jTextFieldPais.setText("");
+     }
     
      public void mostrarInfoMasterTeacher (MasterTeacher master) {
         if (master.getCedula() != null) {

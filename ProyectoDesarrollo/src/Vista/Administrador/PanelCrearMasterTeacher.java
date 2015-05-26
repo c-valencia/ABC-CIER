@@ -87,22 +87,22 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
         jLabelIdCurso.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelIdCurso.setText("Id Curso:");
 
-        jTextCedula.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextCedula.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextCedula.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTexNombres.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTexNombres.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTexNombres.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTextEmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextEmail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextEmail.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTextApellidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextApellidos.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextApellidos.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTextCiudad.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextCiudad.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextCiudad.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTextPais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextPais.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextPais.setMinimumSize(new java.awt.Dimension(6, 300));
 
         jButtonGuardarMT.setText("GUARDAR MASTER TEACHER");
@@ -147,7 +147,7 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
                                             .addComponent(jTextPais, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                                             .addComponent(jComboBoxIdCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addGap(0, 219, Short.MAX_VALUE))
+                        .addGap(0, 231, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonGuardarMT)))
@@ -304,7 +304,7 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == jButtonGuardarMT) {    
                 //System.out.println (jComboBoxIdCurso.getSelectedItem().toString());
-                guardarMasterTeacher ();            
+                guardarMasterTeacher (); 
             }
         }
     
