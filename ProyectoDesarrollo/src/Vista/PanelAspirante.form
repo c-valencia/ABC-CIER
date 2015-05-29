@@ -99,7 +99,6 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelDepartamento" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -115,7 +114,6 @@
                                           </Group>
                                       </Group>
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="labelMunicipio" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="labelGrado" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="labelInstitucion" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="labelSede" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -144,22 +142,24 @@
                                           <Component id="inputSede" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Component id="inputGrado" min="-2" pref="376" max="-2" attributes="0"/>
+                                  <Component id="inputDepartamento" alignment="0" min="-2" pref="376" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="jComboBoxDepartamento" max="32767" attributes="0"/>
                                       <Component id="inputSecEducacion" alignment="0" max="32767" attributes="0"/>
                                       <Component id="labelSecEducacion" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="inputMunicipio" alignment="0" pref="376" max="32767" attributes="0"/>
-                                      <Component id="inputGrado" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="inputDepartamento" alignment="0" min="-2" pref="376" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="83" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="labelCursoDeseaIncribir" max="32767" attributes="0"/>
-                                  <Component id="jComboBoxCursos" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="labelDepartamento" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelMunicipio" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="labelCursoDeseaIncribir" max="32767" attributes="0"/>
+                                      <Component id="jComboBoxCursos" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -224,13 +224,13 @@
                       <Component id="labelSecEducacion" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="inputSecEducacion" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="labelMunicipio" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="inputMunicipio" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="labelDepartamento" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jComboBoxDepartamento" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Component id="labelMunicipio" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="inputDepartamento" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="labelArea" min="-2" max="-2" attributes="0"/>
@@ -441,8 +441,6 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="inputMunicipio">
-            </Component>
             <Component class="javax.swing.JRadioButton" name="radioButtonArea1">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
@@ -580,6 +578,13 @@
                     <StringItem index="2" value="Item 3"/>
                     <StringItem index="3" value="Item 4"/>
                   </StringArray>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBoxDepartamento">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
             </Component>
