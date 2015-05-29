@@ -172,7 +172,9 @@ public class PanelConsultarCalificacion extends javax.swing.JPanel {
         String result = contLederTeacher.listarCursos(inputCedulaLT);      
         if (result != "OK") {
                 mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, "Infomacion",
-                        "Por favor ingrese la cedula");        
+                        result);        
+                inputCedulaLt.setText("");
+                listaCursos.setListData(new String[0]);
         } else {
             listaCursos.setListData(contLederTeacher.getListaCursosLT());           
         }
@@ -185,7 +187,8 @@ public class PanelConsultarCalificacion extends javax.swing.JPanel {
         int index = listaCursos.getSelectedIndex();
         if (index == -1) {
             mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error",
-                    "Verifique que tenga cursos matriculados");
+                    "Por favor seleccione un curso o \n"
+                            + "Verifique que tenga cursos matriculados");
         } else {
             String result = contLederTeacher.reporteCalificaciones(cedulaLt, index);
             if (result.equals("OK")) {

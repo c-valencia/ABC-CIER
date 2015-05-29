@@ -53,14 +53,12 @@ public class ControladorLeaderTeacher {
     
     public String listarCursos(String idCedula){ 
         listaCursosLT = new String[0];        
-        
+        String result = "Leader Teacher no encontrado";
         List <Curso> resultOperation = daoCurso.listarCursosLeaderTeacher(idCedula);
         if (resultOperation != null) {
             listCursos = new ArrayList<Curso>();
             listCursos.addAll(daoCurso.listarCursosLeaderTeacher(idCedula)); 
-        }
-              
-        String result = "";
+        }                      
         try {
             Validaciones.validarCamposVacios(idCedula);
             if (listCursos != null) {
