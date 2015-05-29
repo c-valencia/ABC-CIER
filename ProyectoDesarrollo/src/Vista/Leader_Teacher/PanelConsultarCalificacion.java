@@ -192,6 +192,7 @@ public class PanelConsultarCalificacion extends javax.swing.JPanel {
                 JasperPrint informe = contLederTeacher.getInforme();
                 mostrarReporte(informe, "Reporte");
                 inputCedulaLt.setText("");
+                listaCursos.setListData(new String[0]);
             } else {
                 mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", result);
             }

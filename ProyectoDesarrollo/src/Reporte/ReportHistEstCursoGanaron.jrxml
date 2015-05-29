@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="12f27cd6-333a-41f0-93ce-51323ff62339">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="12f27cd6-333a-41f0-93ce-51323ff62339">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -32,7 +32,7 @@ WHERE curso.id_curso = $P{codCurso};]]>
 		<groupExpression><![CDATA[$F{anio_incio}]]></groupExpression>
 		<groupHeader>
 			<band height="40">
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement uuid="a80926d3-1a82-4296-8ebb-187b59dc4022" style="SubTitle" x="92" y="13" width="283" height="24" forecolor="#CC0000"/>
 					<textElement>
 						<font isBold="true"/>
@@ -67,7 +67,7 @@ WHERE curso.id_curso = $P{codCurso};]]>
 				</textElement>
 				<text><![CDATA[CURSO]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="f77d1a9e-dcc2-4ac2-b84f-bd6bf4c1be91" style="Detail" x="237" y="17" width="196" height="35" forecolor="#666666"/>
 				<textElement>
 					<font size="24" isBold="true"/>
@@ -129,37 +129,37 @@ WHERE curso.id_curso = $P{codCurso};]]>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="61b01c4f-08ac-4907-b501-6f11f540e12a" style="Detail" x="0" y="0" width="69" height="15"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{id_cohorte}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="5915fba2-111a-4de2-aadd-e3e8af951cae" style="Detail" x="92" y="1" width="69" height="15"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{fecha_inicio}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="29332a3e-a9f9-4a8e-b1fd-ef0b121d331e" style="Detail" x="179" y="1" width="69" height="15"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{fecha_fin}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="8913234b-4335-4c6c-9591-0f49e9e33911" style="Detail" x="345" y="0" width="69" height="15"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="6c68adb8-1116-4d72-954f-4c5d07cb5d3a" style="Detail" x="433" y="1" width="69" height="15"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="8b71987b-5c49-4838-95ff-5a792b0e34ab" style="Detail" x="513" y="0" width="40" height="15"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{nota}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="4bcaa74d-8402-4f32-b441-1975bd8f82d3" style="Detail" x="263" y="0" width="69" height="15"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
