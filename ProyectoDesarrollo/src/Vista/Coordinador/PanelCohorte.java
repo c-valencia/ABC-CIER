@@ -661,7 +661,7 @@ public class PanelCohorte extends javax.swing.JPanel {
     /**
      * crea un jdialog donde se muesstra lo aspirantes que hay en un departamento por area
      */
-    private void crearJDialog(){
+    private void crearjDialogAspirantes(){
         jDialogAspirantes.setVisible(true);
         jDialogAspirantes.pack();
         listarALTs();
@@ -673,7 +673,8 @@ public class PanelCohorte extends javax.swing.JPanel {
      */
     private void crearMatricula(){
         TableModel curso = jTableLeaderTeacher.getModel();
-        if(0 == JOptionPane.showConfirmDialog(null, "¿Esta seguro que quiere matricular solo a estos Aspirantes?")){
+        if(0 == JOptionPane.showConfirmDialog(null, "¿Esta seguro que quiere matricular solo a estos Aspirantes?"))
+        {
             JOptionPane.showMessageDialog(null, "Espere un momento esta guardando en la base de datos!");
             for (int i  = 0; i < listadoLT.size(); i++){
                 controlCohorte.ingresarLT(listadoLT.get(i));
@@ -681,6 +682,9 @@ public class PanelCohorte extends javax.swing.JPanel {
                 controlCohorte.modificarAspirante(curso.getValueAt(i, 4).toString(), listadoLT.get(i).getCedula(), false);
                 controlCohorte.crearUsuario(listadoLT.get(i));
                 controlCohorte.crearTarea(listadoLT.get(i).getCedula(), curso.getValueAt(i, 4).toString());
+                controlCohorte.enviarCorreos(listadoLT.get(i).getCorreo(),
+                                             listadoLT.get(i).getNombres() + " " + listadoLT.get(i).getApellidos(),
+                                             listadoLT.get(i).getCedula());
                 System.out.println(" si ingreso");
             }
 
@@ -847,7 +851,7 @@ public class PanelCohorte extends javax.swing.JPanel {
                 actualizarPanelPrincipal(jPanelCrearMatricula);
             }
             else if (e.getSource() == jButtonBuscarAspirantes){
-                crearJDialog();
+                crearjDialogAspirantes();
             }
             else if (e.getSource() == jButtonListarCursos){
                 listarCursos();

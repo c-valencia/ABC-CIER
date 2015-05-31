@@ -18,6 +18,7 @@ import Logica.LeaderTeacher;
 import Logica.Matricula;
 import Logica.MatriculaPK;
 import Logica.Practica;
+import Logica.SendEmail;
 import Logica.Tarea;
 import Logica.Usuario;
 import Persistencia.DaoCohorte;
@@ -313,5 +314,11 @@ public class ControladorCohorte {
         Vector <Practica> practicas = new Vector<>();
         practicas = daoPractica.buscarPracticas(cursoID);
         return practicas;
+    }
+    
+    public void enviarCorreos(String correoLT, String nombre, String cedula)
+    {
+        SendEmail envio = new SendEmail();
+        envio.start("goedi-22@hotmail.com", "Diego Bedoya", "1144039258");
     }
 }
