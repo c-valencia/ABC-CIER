@@ -78,6 +78,8 @@ public class PanelReporte extends javax.swing.JPanel {
         labelMesEMD = new javax.swing.JLabel();
         inputMesEMD = new com.toedter.calendar.JMonthChooser();
         botonReporteEMD = new javax.swing.JButton();
+        panelPrueba = new javax.swing.JPanel();
+        botonPrueba = new javax.swing.JButton();
         panelSuperior = new javax.swing.JPanel();
         labelReporte = new javax.swing.JLabel();
         labelListaReportes = new javax.swing.JLabel();
@@ -384,18 +386,34 @@ public class PanelReporte extends javax.swing.JPanel {
                 .addComponent(labelReporteEspecifico6)
                 .addGap(30, 30, 30)
                 .addGroup(panelLTMesDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelLTMesDepartLayout.createSequentialGroup()
-                        .addGroup(panelLTMesDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inputAnoEMD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelMesEMD))
-                        .addGap(104, 104, 104))
+                    .addComponent(inputAnoEMD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMesEMD)
                     .addGroup(panelLTMesDepartLayout.createSequentialGroup()
                         .addGroup(panelLTMesDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelAnoEMD)
                             .addComponent(inputMesEMD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(42, 42, 42)
-                        .addComponent(botonReporteEMD)
-                        .addGap(33, 33, 33))))
+                        .addComponent(botonReporteEMD)))
+                .addGap(35, 35, 35))
+        );
+
+        botonPrueba.setText("Generar Reporte");
+
+        javax.swing.GroupLayout panelPruebaLayout = new javax.swing.GroupLayout(panelPrueba);
+        panelPrueba.setLayout(panelPruebaLayout);
+        panelPruebaLayout.setHorizontalGroup(
+            panelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPruebaLayout.createSequentialGroup()
+                .addGap(305, 305, 305)
+                .addComponent(botonPrueba)
+                .addContainerGap(321, Short.MAX_VALUE))
+        );
+        panelPruebaLayout.setVerticalGroup(
+            panelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPruebaLayout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(botonPrueba)
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         setBackground(new java.awt.Color(245, 245, 245));
@@ -483,6 +501,7 @@ public class PanelReporte extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscarMesAno;
+    private javax.swing.JButton botonPrueba;
     private javax.swing.JButton botonReporteCDE;
     private javax.swing.JButton botonReporteCMA;
     private javax.swing.JButton botonReporteEMD;
@@ -522,6 +541,7 @@ public class PanelReporte extends javax.swing.JPanel {
     private javax.swing.JPanel panelEstdianteNotas;
     private javax.swing.JPanel panelInferior;
     private javax.swing.JPanel panelLTMesDepart;
+    private javax.swing.JPanel panelPrueba;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JScrollPane scrollPanelListDepar;
     // End of variables declaration//GEN-END:variables
@@ -571,7 +591,7 @@ public class PanelReporte extends javax.swing.JPanel {
             };break;       
                 
             case 7: {
-                
+                actualizarPanelInferior(panelPrueba);
             };break;
                 
             case 8: {
@@ -589,6 +609,7 @@ public class PanelReporte extends javax.swing.JPanel {
         botonReporteHEC.addActionListener(events);
         botonReporteCMA.addActionListener(events);
         botonReporteEMD.addActionListener(events);
+        botonPrueba.addActionListener(events);
     } // Fin del metodo asignarEventos
     
     private void mostrarMensaje(int tipo, String titulo, String mensaje) {
@@ -699,7 +720,16 @@ public class PanelReporte extends javax.swing.JPanel {
         }                  
     } // Fin del metodo reporteHisEstGanadoCurso
         
-    
+    private void reportePrueba() {
+        contReportes = ControladorReportes.getInstance();
+        String result = contReportes.reporteEjemplo();
+        if (result.equals("OK")) {
+            JasperPrint informe = contReportes.getInforme();
+            mostrarReporte(informe, "Reporte");
+        } else {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", result);          
+        }           
+    }
     
     
     private class EventosPanelLogin implements ActionListener {
@@ -732,6 +762,10 @@ public class PanelReporte extends javax.swing.JPanel {
             
             if (e.getSource() == botonReporteEMD) {
                 reportEstMesDepar();
+            }
+            
+            if (e.getSource() == botonPrueba) {
+                reportePrueba();
             }
         }
     

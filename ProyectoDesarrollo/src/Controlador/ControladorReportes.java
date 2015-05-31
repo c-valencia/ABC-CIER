@@ -237,6 +237,37 @@ public class ControladorReportes {
         }                
         return result;            
     }
+    
+    public String reporteEjemplo(){
+       EntityManager em = null;
+       informe= null;
+       String result = "";
+        try {
+            Validaciones.validarCamposVacios("----"); 
+            em = conexion.getCon().createEntityManager();
+            em.getTransaction().begin();
+            java.sql.Connection connection = em.unwrap(java.sql.Connection.class);                        
+            Map parametros = new HashMap();  // Parametros del Reporte             
+            parametros.put("idCurso", "IC1");
+            parametros.put("entrada_1", "DIEGO");
+            JasperReport jasperReport = null;
+            String path = "./src/Reporte/ReportEjemplo.jasper";
+            jasperReport = (JasperReport) JRLoader.loadObjectFromFile(path);
+            informe = JasperFillManager.fillReport(jasperReport, parametros, connection);
+            em.getTransaction().commit();            
+            result = "OK";
+        } catch (JRException ex) {
+            // Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
+            result = "Problema al generar el Reporte";
+        }catch (ExcepcionDatos excepcionDatos) {
+            result = excepcionDatos.getMessage();
+        }   finally {
+            if (em != null) {
+                em.close();
+            }
+        }                
+        return result;            
+    }    
 
     public JasperPrint getInforme() {
         return informe;

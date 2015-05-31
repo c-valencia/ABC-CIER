@@ -19,6 +19,7 @@ import Logica.Matricula;
 import Logica.MatriculaPK;
 import Logica.Practica;
 import Logica.Tarea;
+import Logica.TareaPK;
 import Logica.Usuario;
 import Persistencia.DaoCohorte;
 import Persistencia.Conexion;
@@ -306,6 +307,19 @@ public class ControladorCohorte {
             }    
         } catch (Exception ex) {
             Logger.getLogger(ControladorCohorte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void eliminarTarea(String cedulaLT, String cursoID){
+        Vector <Practica> practicas = new Vector<>();
+        
+        try {
+            for(int i = 0; i < practicas.size(); i++){
+                
+                daoTarea.destroy(new TareaPK(practicas.get(i).getIdPractica(), cedulaLT));
+            }
+        } catch (NonexistentEntityException ex) {
+            //Logger.getLogger(ControladorCohorte.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

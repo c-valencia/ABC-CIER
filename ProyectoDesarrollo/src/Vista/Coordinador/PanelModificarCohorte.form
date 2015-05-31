@@ -140,7 +140,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jButtonListarAspirantes" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonListarLTs" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButtonGuardarCursoSeleccionado" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
@@ -232,7 +232,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonFinalizar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonGuardarCursoSeleccionado" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonListarAspirantes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonListarLTs" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
@@ -321,7 +321,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jButtonListarAspirantes">
+        <Component class="javax.swing.JButton" name="jButtonListarLTs">
           <Properties>
             <Property name="text" type="java.lang.String" value="Listar LT&apos;s"/>
           </Properties>

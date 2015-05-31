@@ -16,14 +16,14 @@ FROM
 	<title>
 		<band height="70" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="e5fa1431-0bd6-4b70-86e2-88e82991702e" x="230" y="19" width="178" height="33" forecolor="#010101"/>
+				<reportElement uuid="e5fa1431-0bd6-4b70-86e2-88e82991702e" x="315" y="19" width="178" height="33" forecolor="#010101"/>
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="fa8f8faf-5018-4cef-9854-18ba00d9085d" x="149" y="19" width="81" height="33" forecolor="#010101"/>
+				<reportElement uuid="fa8f8faf-5018-4cef-9854-18ba00d9085d" x="234" y="19" width="81" height="33" forecolor="#010101"/>
 				<textElement>
 					<font fontName="Serif" size="24" isBold="true"/>
 				</textElement>
