@@ -357,6 +357,28 @@ public class DaoCurso implements Serializable {
         }
     }
 
+    
+        
+    
+    public List<Curso> listarCursosLeaderTeacher(String cedulaLT) {
+        EntityManager em = getEntityManager();
+        List<Curso> results = null;
+        try {
+            Query query = em.createNativeQuery("SELECT id_curso, nombre, nombre_corto, descripcion, contenido, estado "
+                    + " FROM matricula NATURAL JOIN curso"
+                    + " WHERE matricula.cedula_lt = '" + cedulaLT + "';", Curso.class);
+
+            results = (List<Curso>) query.getResultList();
+
+        } catch (NoResultException noResultException) {
+//             Esta excepcion se lanza cuando no encuentra ningun registro que responda 
+//             a la consulta
+        } finally {
+            em.close();
+        }
+        return results;
+    } // Fin del metodo listarCursosLeaderTeacher
+    
     public int getCursoCount() {
         EntityManager em = getEntityManager();
         try {

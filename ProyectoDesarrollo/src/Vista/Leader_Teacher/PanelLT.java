@@ -50,8 +50,12 @@ public class PanelLT extends javax.swing.JPanel {
         panelIzq = new javax.swing.JPanel();
         panelDer = new javax.swing.JPanel();
 
+        setBackground(new java.awt.Color(245, 245, 245));
+
+        panelIzq.setBackground(new java.awt.Color(245, 245, 245));
         panelIzq.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        panelDer.setBackground(new java.awt.Color(245, 245, 245));
         panelDer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -79,7 +83,7 @@ public class PanelLT extends javax.swing.JPanel {
     private javax.swing.JPanel panelIzq;
     // End of variables declaration//GEN-END:variables
     // PANELES 
-    
+    private PanelConsultarCalificacion panelCalificaciones;
 
     // MENU
     private JMenuBar barraLateral;  
@@ -108,6 +112,7 @@ public class PanelLT extends javax.swing.JPanel {
     private void addMenu() {
         addImage();
         JPanel panelTemporal = new JPanel();
+        panelTemporal.setBackground(new java.awt.Color(245, 245, 245));
         panelTemporal.setBorder(BorderFactory.createEmptyBorder(20, 0, 50, 0));
         barraLateral = new JMenuBar();
         barraLateral.setLayout(new GridLayout(1, 1));
@@ -140,6 +145,8 @@ public class PanelLT extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent e) {
             // Menu ConsultarCalificaciones
             if (e.getSource() == itemConsultarCalif) {
+                panelCalificaciones = new PanelConsultarCalificacion();
+                actualizarPaneDer(panelCalificaciones);
             }      
         }
     } // Fin de la clase EventosPanelPrincipal

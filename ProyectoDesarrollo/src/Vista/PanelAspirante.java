@@ -73,7 +73,6 @@ public class PanelAspirante extends javax.swing.JPanel {
         inputDane = new javax.swing.JTextField();
         inputGrado = new javax.swing.JTextField();
         inputSecEducacion = new javax.swing.JComboBox();
-        inputMunicipio = new javax.swing.JTextField();
         radioButtonArea1 = new javax.swing.JRadioButton();
         radioButtonArea2 = new javax.swing.JRadioButton();
         radioButtonArea3 = new javax.swing.JRadioButton();
@@ -88,6 +87,7 @@ public class PanelAspirante extends javax.swing.JPanel {
         inputDepartamento = new javax.swing.JTextField();
         labelCursoDeseaIncribir = new javax.swing.JLabel();
         jComboBoxCursos = new javax.swing.JComboBox();
+        jComboBoxDepartamento = new javax.swing.JComboBox();
 
         setBackground(new java.awt.Color(245, 245, 245));
         setPreferredSize(new java.awt.Dimension(750, 505));
@@ -253,7 +253,6 @@ public class PanelAspirante extends javax.swing.JPanel {
                         .addGap(21, 21, 21))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelDepartamento)
                             .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPrincipalLayout.createSequentialGroup()
                                     .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -266,7 +265,6 @@ public class PanelAspirante extends javax.swing.JPanel {
                                         .addComponent(inputDireccion)
                                         .addComponent(inputCorreo)))
                                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(labelMunicipio, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labelGrado, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labelInstitucion, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labelSede, javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,18 +286,20 @@ public class PanelAspirante extends javax.swing.JPanel {
                                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(inputInstitucion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
                                     .addComponent(inputSede, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(inputGrado, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jComboBoxDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(inputSecEducacion, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(labelSecEducacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(inputMunicipio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                                .addComponent(inputGrado, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(inputDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(labelSecEducacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap(83, Short.MAX_VALUE))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelCursoDeseaIncribir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxCursos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDepartamento)
+                            .addComponent(labelMunicipio)
+                            .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(labelCursoDeseaIncribir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxCursos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         panelPrincipalLayout.setVerticalGroup(
@@ -353,13 +353,13 @@ public class PanelAspirante extends javax.swing.JPanel {
                 .addComponent(labelSecEducacion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputSecEducacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelMunicipio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inputMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelDepartamento)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBoxDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
+                .addComponent(labelMunicipio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelArea)
@@ -448,11 +448,11 @@ public class PanelAspirante extends javax.swing.JPanel {
     private javax.swing.JTextField inputDireccion;
     private javax.swing.JTextField inputGrado;
     private javax.swing.JTextField inputInstitucion;
-    private javax.swing.JTextField inputMunicipio;
     private javax.swing.JTextField inputNombre;
     private javax.swing.JComboBox inputSecEducacion;
     private javax.swing.JTextField inputSede;
     private javax.swing.JComboBox jComboBoxCursos;
+    private javax.swing.JComboBox jComboBoxDepartamento;
     private javax.swing.JLabel labelApellido;
     private javax.swing.JLabel labelArea;
     private javax.swing.JLabel labelCedula;
@@ -503,7 +503,7 @@ public class PanelAspirante extends javax.swing.JPanel {
         inputInstitucion.setText("");
         inputDane.setText("");
         inputGrado.setText("" );     
-        inputMunicipio.setText("");
+        jComboBoxDepartamento.setSelectedItem("");
         inputDepartamento.setText("");
         inputAreaOtro.setText("" );     
         
@@ -556,7 +556,7 @@ public class PanelAspirante extends javax.swing.JPanel {
         String codigoDaneIntitucion = inputDane.getText();
         String grado = inputGrado.getText();
         String secretariaEducacion = inputSecEducacion.getSelectedItem().toString();
-        String municipio = inputMunicipio.getText();
+        String municipio = jComboBoxDepartamento.getSelectedItem().toString();
         String departamento = inputDepartamento.getText();
         String areaInscripcion = obtenerArea();
         boolean tutorPta = obtenerPTA();
@@ -589,7 +589,6 @@ public class PanelAspirante extends javax.swing.JPanel {
         inputSecEducacion.addItem("Nariño");//------
         inputSecEducacion.addItem("Tolima"); //------
         inputSecEducacion.addItem("Valle del Cauca");//------
-        inputSecEducacion.addItem("");//------
         inputSecEducacion.addItem("Buenaventura");
         inputSecEducacion.addItem("Buga");
         inputSecEducacion.addItem("Cali");
@@ -605,6 +604,39 @@ public class PanelAspirante extends javax.swing.JPanel {
         inputSecEducacion.addItem("Popayán");
         inputSecEducacion.addItem("Putumayo");
         inputSecEducacion.addItem("Tumaco");
+        
+        jComboBoxDepartamento.addItem("Amazonas");
+        jComboBoxDepartamento.addItem("Antioquia");
+        jComboBoxDepartamento.addItem("Arauca");
+        jComboBoxDepartamento.addItem("Atlantico");
+        jComboBoxDepartamento.addItem("Bolivar");
+        jComboBoxDepartamento.addItem("Boyacá");
+        jComboBoxDepartamento.addItem("Caldas");
+        jComboBoxDepartamento.addItem("Caquetá ");
+        jComboBoxDepartamento.addItem("Casanare");
+        jComboBoxDepartamento.addItem("Cauca");
+        jComboBoxDepartamento.addItem("Cesar");
+        jComboBoxDepartamento.addItem("Chocó");
+        jComboBoxDepartamento.addItem("Córdoba");
+        jComboBoxDepartamento.addItem("Cundinamarca");
+        jComboBoxDepartamento.addItem("Guainía");
+        jComboBoxDepartamento.addItem("Guaviare");
+        jComboBoxDepartamento.addItem("Huila");
+        jComboBoxDepartamento.addItem("La Guajira");
+        jComboBoxDepartamento.addItem("Magdalena");
+        jComboBoxDepartamento.addItem("Meta");
+        jComboBoxDepartamento.addItem("Nariño");
+        jComboBoxDepartamento.addItem("Norte de Santander");
+        jComboBoxDepartamento.addItem("Putumayo");
+        jComboBoxDepartamento.addItem("Quindio");
+        jComboBoxDepartamento.addItem("Risaralda");
+        jComboBoxDepartamento.addItem("San Andres y Providencia");
+        jComboBoxDepartamento.addItem("Santander");
+        jComboBoxDepartamento.addItem("Sucre");
+        jComboBoxDepartamento.addItem("Tolima");
+        jComboBoxDepartamento.addItem("Valle del Cauca");
+        jComboBoxDepartamento.addItem("Vaupés");
+        jComboBoxDepartamento.addItem("Vichada");
         
     } // Fin del metodo intiInformation  
         
