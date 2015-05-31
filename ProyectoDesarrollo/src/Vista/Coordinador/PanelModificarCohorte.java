@@ -639,7 +639,9 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
                     controlCohorte.crearTarea(jTableLTyAsp.getValueAt(i, 0).toString(), jTableLTyAsp.getValueAt(i, 4).toString());
                     controlCohorte.modificarAspirante(jTableLTyAsp.getValueAt(i, 4).toString(), jLabelIdCohorte.getText(), false);
                     controlCohorte.ingresarMatricula(jLabelIdCohorte.getText(), jTableLTyAsp.getValueAt(i, 4).toString(),jTableLTyAsp.getValueAt(i, 0).toString());
-                    
+                    controlCohorte.enviarCorreos(listadoLT.get(i).getCorreo(),
+                                                 listadoLT.get(i).getNombres() + " " + listadoLT.get(i).getApellidos(),
+                                                 listadoLT.get(i).getCedula());
                 }
                 if ("Leader teacher".equals(jTableLTyAsp.getValueAt(i, 3).toString()) && jTableLTyAsp.getValueAt(i, 6).equals(false)){
                     controlCohorte.eliminarTarea(jTableLTyAsp.getValueAt(i, 0).toString(), jTableLTyAsp.getValueAt(i, 4).toString());
