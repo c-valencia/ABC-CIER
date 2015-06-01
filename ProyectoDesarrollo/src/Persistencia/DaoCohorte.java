@@ -7,6 +7,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Logica.CursoCohorte;
+import Logica.Matricula;
 import Persistencia.exceptions.IllegalOrphanException;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
@@ -249,6 +250,24 @@ public class DaoCohorte implements Serializable {
             if (em != null) {
                 em.close();
             }
+        }
+    }
+    
+    public List <Cohorte> buscarCohorte_AsistenciaJoinMatricula(String cedula){
+        EntityManager em = getEntityManager();
+        //Tarea aspi = new Tarea();
+        try {
+            //em.getTransaction().begin();
+              
+            Query query = em.createNativeQuery("SELECT id_cohorte "
+                    + "FROM matricula "
+                    + "WHERE cedula_lt = '" + cedula   
+                    + "';", Cohorte.class);
+            
+            return query.getResultList();
+
+        } finally {
+            em.close();
         }
     }
 } // Fin de la clase DaoCohorte

@@ -76,6 +76,10 @@ public class ControladorTablas {
                 titulo.add("FECHA FIN");
                 titulo.add("MODIFICAR (UNO)");
                 break;
+            case 5:
+                titulo.add("Fecha");
+                titulo.add("Asistio");
+                break;
             default: {
                 System.out.println("Titulos invalidos");
             };
@@ -144,6 +148,16 @@ public class ControladorTablas {
                     cuerpo.add(objetos2);
                 }
                 break;
+            case 5:
+                while (libroIterator.hasNext()) {
+                    Asistencia objeto = (Asistencia) libroIterator.next();
+                    //Object objeto = libroIterator.next();
+                    Vector objetos2 = new Vector();
+                    objetos2.add(objeto.getAsistenciaPK().getFecha().toString());
+                    objetos2.add(objeto.getAsistio());
+                    cuerpo.add(objetos2);
+                }
+                break;    
         }
         return cuerpo;
     }

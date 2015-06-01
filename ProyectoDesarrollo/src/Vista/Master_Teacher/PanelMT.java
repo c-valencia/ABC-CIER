@@ -189,6 +189,8 @@ public class PanelMT extends javax.swing.JPanel {
             // Menu Asistencia
             if (e.getSource() == itemCrearAsisten) {
                 actualizarPaneDer(PAsistencia);
+                //PAsistencia.inicializarComboboxIdCohorte ();
+                //PAsistencia.inicializarComboboxIdCurso ();
                 
             }
         }

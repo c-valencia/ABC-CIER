@@ -57,6 +57,7 @@ public class Asistencia implements Serializable {
     public Asistencia(AsistenciaPK asistenciaPK, boolean asistio) {
         this.asistenciaPK = asistenciaPK;
         this.asistio = asistio;
+        this.matricula = new Matricula (asistenciaPK.getCedulaLt(),asistenciaPK.getIdCohorte(),asistenciaPK.getIdCurso());
     }
 
     public Asistencia(String cedulaLt, String idCohorte, String idCurso, Date fecha) {

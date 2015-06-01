@@ -8,14 +8,17 @@
 package Vista.Master_Teacher;
 
 import Controlador.ControladorAdministrador;
+import Controlador.ControladorAsistencia;
 import Controlador.ControladorCohorte;
 import Controlador.ControladorMasterTeacher;
 import Controlador.ControladorTablas;
+import Logica.AsistenciaPK;
 import Logica.Cohorte;
 import Vista.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +30,8 @@ import javax.swing.table.DefaultTableModel;
  * @author oscar
  */
 public class PanelAsistencia extends javax.swing.JPanel {
+    
+    Vector listaAsistencia = new Vector ();
 
     /**
      * Creates new form PanelLogin
@@ -61,8 +66,10 @@ public class PanelAsistencia extends javax.swing.JPanel {
         labelFecha = new javax.swing.JLabel();
         labelAsistio = new javax.swing.JLabel();
         inputFecha = new com.toedter.calendar.JDateChooser();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBoxAsistencia = new javax.swing.JCheckBox();
         jButtonGuardarAsistencia = new javax.swing.JButton();
+        jButtonBuscarCursoCohortes = new javax.swing.JButton();
+        jButtonLimpiarPanel = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -88,8 +95,16 @@ public class PanelAsistencia extends javax.swing.JPanel {
         labelIdCurso.setText("Id Curso:");
 
         jComboBoxCohorte.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCohorte.setEnabled(false);
 
         jComboBoxCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCurso.setEnabled(false);
+
+        jTextFieldCedulaLt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCedulaLtActionPerformed(evt);
+            }
+        });
 
         labelFecha.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         labelFecha.setText("Fecha:");
@@ -97,14 +112,31 @@ public class PanelAsistencia extends javax.swing.JPanel {
         labelAsistio.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         labelAsistio.setText("Asistencia:");
 
+        inputFecha.setEnabled(false);
         inputFecha.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
 
-        jCheckBox1.setText("Asistio");
+        jCheckBoxAsistencia.setText("Asistio");
+        jCheckBoxAsistencia.setEnabled(false);
 
         jButtonGuardarAsistencia.setText("Guardar Asistencia");
+        jButtonGuardarAsistencia.setEnabled(false);
         jButtonGuardarAsistencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGuardarAsistenciaActionPerformed(evt);
+            }
+        });
+
+        jButtonBuscarCursoCohortes.setText("Buscar Cohortes y Cursos  de Lt en Matricula");
+        jButtonBuscarCursoCohortes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarCursoCohortesActionPerformed(evt);
+            }
+        });
+
+        jButtonLimpiarPanel.setText("Limpiar panel");
+        jButtonLimpiarPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarPanelActionPerformed(evt);
             }
         });
 
@@ -118,71 +150,82 @@ public class PanelAsistencia extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelCedulaLt)
-                    .addComponent(labelIdCorhorte)
-                    .addComponent(labelIdCurso)
-                    .addComponent(labelFecha)
-                    .addComponent(labelAsistio))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jComboBoxCurso, 0, 263, Short.MAX_VALUE)
-                        .addComponent(jComboBoxCohorte, 0, 263, Short.MAX_VALUE)
-                        .addComponent(jTextFieldCedulaLt)
-                        .addComponent(inputFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonGuardarAsistencia)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCedulaLt)
+                            .addComponent(labelIdCurso)
+                            .addComponent(labelAsistio)
+                            .addComponent(labelFecha))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jCheckBoxAsistencia)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonLimpiarPanel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonGuardarAsistencia))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jComboBoxCurso, 0, 263, Short.MAX_VALUE)
+                                        .addComponent(jComboBoxCohorte, 0, 263, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldCedulaLt))
+                                    .addComponent(inputFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelIdCorhorte)
+                            .addComponent(jButtonBuscarCursoCohortes))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(labelIsertarAsistenciaLT)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelIsertarAsistenciaLT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labelCedulaLt)
-                            .addComponent(jTextFieldCedulaLt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxCohorte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelIdCorhorte))
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelIdCurso))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelFecha))
-                    .addComponent(inputFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelCedulaLt)
+                    .addComponent(jTextFieldCedulaLt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonBuscarCursoCohortes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelIdCorhorte)
+                    .addComponent(jComboBoxCohorte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelAsistio)
-                    .addComponent(jCheckBox1))
+                    .addComponent(jComboBoxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelIdCurso))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonGuardarAsistencia)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelFecha, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(inputFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonGuardarAsistencia)
+                    .addComponent(jCheckBoxAsistencia)
+                    .addComponent(labelAsistio)
+                    .addComponent(jButtonLimpiarPanel))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Cedula LT", "Id_Cohorte", "Id_Curso", "Fecha", "Asistio"
+                "Fecha", "Asistio"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButtonMostrarAsistencias.setText("Mostrar Asistencias");
+        jButtonMostrarAsistencias.setText("Mostrar Asistencias de LT");
         jButtonMostrarAsistencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMostrarAsistenciasActionPerformed(evt);
@@ -201,11 +244,10 @@ public class PanelAsistencia extends javax.swing.JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonMostrarAsistencias)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -216,36 +258,64 @@ public class PanelAsistencia extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(6, 6, 6))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonMostrarAsistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarAsistenciasActionPerformed
         // TODO add your handling code here:
-        
+        ListarAsistencias ();
     }//GEN-LAST:event_jButtonMostrarAsistenciasActionPerformed
 
     private void jButtonGuardarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarAsistenciaActionPerformed
         // TODO add your handling code here:
+        guardarAsistencia ();
+
+        jCheckBoxAsistencia.setSelected(false);
+        inputFecha.setDate(null);
         
     }//GEN-LAST:event_jButtonGuardarAsistenciaActionPerformed
+
+    private void jTextFieldCedulaLtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCedulaLtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCedulaLtActionPerformed
+
+    private void jButtonBuscarCursoCohortesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarCursoCohortesActionPerformed
+        // TODO add your handling code here:
+        jComboBoxCohorte.setEnabled(true);
+        jComboBoxCurso.setEnabled(true);
+        jCheckBoxAsistencia.setEnabled(true);
+        inputFecha.setEnabled(true);
+        jButtonGuardarAsistencia.setEnabled(true);
+        inicializarComboboxIdCohorte (jTextFieldCedulaLt.getText());
+        inicializarComboboxIdCurso (jTextFieldCedulaLt.getText());
+        
+    }//GEN-LAST:event_jButtonBuscarCursoCohortesActionPerformed
+
+    private void jButtonLimpiarPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarPanelActionPerformed
+        // TODO add your handling code here:
+        limpiarcamposInsertar ();
+        jButtonGuardarAsistencia.setEnabled(false);
+    }//GEN-LAST:event_jButtonLimpiarPanelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser inputFecha;
+    private javax.swing.JButton jButtonBuscarCursoCohortes;
     private javax.swing.JButton jButtonGuardarAsistencia;
+    private javax.swing.JButton jButtonLimpiarPanel;
     private javax.swing.JButton jButtonMostrarAsistencias;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBoxAsistencia;
     private javax.swing.JComboBox jComboBoxCohorte;
     private javax.swing.JComboBox jComboBoxCurso;
     private javax.swing.JPanel jPanel1;
@@ -264,6 +334,62 @@ public class PanelAsistencia extends javax.swing.JPanel {
     ControladorAdministrador contAdministrador;
     ControladorCohorte ContCohorte;
     ControladorMasterTeacher ContMasterTeacher;
+    ControladorAsistencia controlAsistencia;
+    
+    public void guardarAsistencia () {
+        
+       controlAsistencia = ControladorAsistencia.getInstance();
+
+       String cedula = jTextFieldCedulaLt.getText();
+       String cohorte= jComboBoxCohorte.getSelectedItem().toString(); 
+       Date fecha = inputFecha.getDate(); 
+       boolean asistio = jCheckBoxAsistencia.isSelected();
+       String result= "";
+       if (fecha != null) { 
+          result = controlAsistencia.crearAsistencia( cedula,  cohorte, codigoCurso(), fecha, asistio);
+       } else {result = "Debes llenar todos los campos";}
+       
+       JOptionPane.showMessageDialog(null, result);
+       if (result.equals("Se creo la asistencia con exito")) { 
+           inputFecha.setDate(null);
+           jCheckBoxAsistencia.setSelected(false);
+           ListarAsistencias ();
+       }
+      }
+    
+    public void buscarAsistencias () {        
+        String cohorte= (String) jComboBoxCohorte.getSelectedItem();
+        String cedula = jTextFieldCedulaLt.getText();
+        controlAsistencia = ControladorAsistencia.getInstance();
+        listaAsistencia.clear ();
+        listaAsistencia = controlAsistencia.listaTarea (new AsistenciaPK(cedula,cohorte,codigoCurso(),inputFecha.getDate()), true);
+    }
+    
+    public void ListarAsistencias () {
+        String cedula = jTextFieldCedulaLt.getText();
+        String cohorte = jComboBoxCohorte.getSelectedItem().toString();
+        String curso = codigoCurso();
+        
+        if ("".equals(cedula) || "".equals(cohorte) || "".equals(curso) || "Item 1".equals(cohorte)) {
+            JOptionPane.showMessageDialog(null, "Para listar las asistencias del LT debe ser llenados los campos (cedula, id_cohorte y id_curso)"); } 
+        
+        
+        buscarAsistencias();
+        ControladorTablas ct = new ControladorTablas(listaAsistencia);
+        DefaultTableModel modelo = new DefaultTableModel(ct.contruirCuerpo(5), ct.titulos(5)) {
+            public boolean isCellEditable(int row, int column) {
+                if (column == 2) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+        jTable1.setModel(modelo);
+        jTable1.getColumnModel().getColumn(1).setCellEditor(jTable1.getDefaultEditor(Boolean.class));
+        jTable1.getColumnModel().getColumn(1).setCellRenderer(jTable1.getDefaultRenderer(Boolean.class));
+        jTable1.getTableHeader().setReorderingAllowed(false);
+    }
     
     private String codigoCurso(){
         String codigoNombre = " ";
@@ -279,25 +405,6 @@ public class PanelAsistencia extends javax.swing.JPanel {
         return codigoCurso;
     }
     
-    public void guardar () { 
-        ContMasterTeacher = ControladorMasterTeacher.getInstance();
-        float nota = 0;
-        try { 
-            String fecha = inputFecha.getDateFormatString();
-            String cohorte = (String) jComboBoxCohorte.getSelectedItem();
-            String curso = codigoCurso();
-            String cedula = jTextFieldCedulaLt.getText();
-            boolean asistio = jCheckBox1.isSelected();
-           
-
-        limpiarcamposInsertar ();
-        }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(null, "Debe ingresar todos los campos");   
-        } catch (Exception ex) { 
-            // Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo ingresar asistencia");
-        }
-    }
     
     public void limpiarcamposInsertar () { 
 //        Vector vecT = new Vector ();
@@ -308,28 +415,40 @@ public class PanelAsistencia extends javax.swing.JPanel {
 //                else return false; 
 //            }};
 //        jTableNotasPorcentaje.setModel(modelo);
-        inputFecha.setDate(null);
-        jComboBoxCohorte.setSelectedItem("");
-        jComboBoxCurso.setSelectedItem("");
+        
         jTextFieldCedulaLt.setText("");
-        jCheckBox1.setSelected(false);
+        
+        jComboBoxCohorte.removeAllItems();
+        jComboBoxCohorte.addItem("");
+        jComboBoxCurso.removeAllItems();
+        jComboBoxCurso.addItem("");
+        inputFecha.setDate(null);
+        jCheckBoxAsistencia.setSelected(false);
+        
+        jComboBoxCohorte.setEnabled(false);
+        jComboBoxCurso.setEnabled(false);
+        inputFecha.setEnabled(false);
+        jCheckBoxAsistencia.setEnabled(false);
+        //removeAllItems();
     }
     
-    public void inicializarComboboxIdCohorte () {  
-        ContCohorte = new ControladorCohorte();
-        ArrayList <Cohorte> listaCohorte = new ArrayList<>();
-        listaCohorte = ContCohorte.listaCohorte();
+    public void inicializarComboboxIdCohorte (String cedulaLt) {  
+        controlAsistencia = ControladorAsistencia.getInstance();
+        
+        ArrayList <String> listaCohorte = new ArrayList<>();
+        listaCohorte = controlAsistencia.listarCohorte_asistenciaJoinMatricula (cedulaLt);
         jComboBoxCohorte.setModel(new javax.swing.DefaultComboBoxModel(new String[] {""}));
         for (int i = 0; i < listaCohorte.size(); i++){ 
-            jComboBoxCohorte.addItem(listaCohorte.get(i).getIdCohorte());
+            jComboBoxCohorte.addItem(listaCohorte.get(i));
         }
         
     }
     
-    public void inicializarComboboxIdCurso () {  
-        contAdministrador = ControladorAdministrador.getInstance();
+    public void inicializarComboboxIdCurso (String cedulaLt) {  
+        controlAsistencia = ControladorAsistencia.getInstance();
+        
         ArrayList <String> idNombreCursos = new ArrayList<>();
-        idNombreCursos = contAdministrador.listaCursosIds();
+        idNombreCursos = controlAsistencia.listarCurso_asistenciaJoinMatricula ( cedulaLt);
         jComboBoxCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] {""}));
         for (int i = 0; i < idNombreCursos.size(); i++){ 
             jComboBoxCurso.addItem(idNombreCursos.get(i));
