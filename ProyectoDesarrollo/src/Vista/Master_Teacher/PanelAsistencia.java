@@ -9,6 +9,7 @@ package Vista.Master_Teacher;
 
 import Controlador.ControladorAdministrador;
 import Controlador.ControladorCohorte;
+import Controlador.ControladorMasterTeacher;
 import Controlador.ControladorTablas;
 import Logica.Cohorte;
 import Vista.*;
@@ -16,6 +17,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -58,7 +62,7 @@ public class PanelAsistencia extends javax.swing.JPanel {
         labelAsistio = new javax.swing.JLabel();
         inputFecha = new com.toedter.calendar.JDateChooser();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
+        jButtonGuardarAsistencia = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -97,7 +101,12 @@ public class PanelAsistencia extends javax.swing.JPanel {
 
         jCheckBox1.setText("Asistio");
 
-        jButton1.setText("Guardar Asistencia");
+        jButtonGuardarAsistencia.setText("Guardar Asistencia");
+        jButtonGuardarAsistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarAsistenciaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -125,7 +134,7 @@ public class PanelAsistencia extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jButtonGuardarAsistencia)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -154,7 +163,7 @@ public class PanelAsistencia extends javax.swing.JPanel {
                     .addComponent(labelAsistio)
                     .addComponent(jCheckBox1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jButtonGuardarAsistencia)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -226,10 +235,15 @@ public class PanelAsistencia extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButtonMostrarAsistenciasActionPerformed
 
+    private void jButtonGuardarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarAsistenciaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButtonGuardarAsistenciaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser inputFecha;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonGuardarAsistencia;
     private javax.swing.JButton jButtonMostrarAsistencias;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBoxCohorte;
@@ -249,6 +263,41 @@ public class PanelAsistencia extends javax.swing.JPanel {
 
     ControladorAdministrador contAdministrador;
     ControladorCohorte ContCohorte;
+    ControladorMasterTeacher ContMasterTeacher;
+    
+    private String codigoCurso(){
+        String codigoNombre = " ";
+        codigoNombre = (String) jComboBoxCurso.getSelectedItem();
+        String codigoCurso = " ";    
+        int posiSeparador = 0;
+        for(int i =0; i < codigoNombre.length();i++){
+            if(codigoNombre.charAt(i)==' '){
+                posiSeparador = i;
+            }
+        }
+        codigoCurso = codigoNombre.substring(0, posiSeparador);
+        return codigoCurso;
+    }
+    
+    public void guardar () { 
+        ContMasterTeacher = ControladorMasterTeacher.getInstance();
+        float nota = 0;
+        try { 
+            String fecha = inputFecha.getDateFormatString();
+            String cohorte = (String) jComboBoxCohorte.getSelectedItem();
+            String curso = codigoCurso();
+            String cedula = jTextFieldCedulaLt.getText();
+            boolean asistio = jCheckBox1.isSelected();
+           
+
+        limpiarcamposInsertar ();
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "Debe ingresar todos los campos");   
+        } catch (Exception ex) { 
+            // Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo ingresar asistencia");
+        }
+    }
     
     public void limpiarcamposInsertar () { 
 //        Vector vecT = new Vector ();
@@ -259,9 +308,11 @@ public class PanelAsistencia extends javax.swing.JPanel {
 //                else return false; 
 //            }};
 //        jTableNotasPorcentaje.setModel(modelo);
+        inputFecha.setDate(null);
         jComboBoxCohorte.setSelectedItem("");
         jComboBoxCurso.setSelectedItem("");
         jTextFieldCedulaLt.setText("");
+        jCheckBox1.setSelected(false);
     }
     
     public void inicializarComboboxIdCohorte () {  
