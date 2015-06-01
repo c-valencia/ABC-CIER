@@ -151,20 +151,20 @@ public class DaoLtNivelEscolaridad implements Serializable {
         }
     }
 
-        public List<LtNivelEscolaridad> findLtNivelEscolaridadAll(String id) {
+    public List<LtNivelEscolaridad> findLtNivelEscolaridadAll(String id) {
         EntityManager em = getEntityManager();
         List<LtNivelEscolaridad> results = null;
         try {
             results = (List<LtNivelEscolaridad>) em.createNamedQuery("LtNivelEscolaridad.findByCedulaLt").setParameter("cedulaLt", id).getResultList();
-            
-        }catch(NoResultException noResultException) {        
+
+        } catch (NoResultException noResultException) {
 //             Esta excepcion se lanza cuando no encuentra ningun registro que responda 
 //             a la consulta
-        }  finally {
+        } finally {
             em.close();
         }
         return results;
-    }  
+    }
     
     public int getLtNivelEscolaridadCount() {
         EntityManager em = getEntityManager();

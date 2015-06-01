@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0c20d8bf-0995-4d77-92e9-05cc5f331d95">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0c20d8bf-0995-4d77-92e9-05cc5f331d95">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="89"/>
 	<parameter name="anio" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -25,13 +25,21 @@ GROUP BY (departamento);]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="113de2d0-84b2-4f9e-ae79-a72afddaa294" x="55" y="6" width="463" height="67"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estudiantes que han llegado en el mes por departamento]]></text>
+			</staticText>
+		</band>
 	</title>
 	<detail>
-		<band height="195" splitType="Stretch">
+		<band height="274" splitType="Stretch">
 			<stackedBarChart>
 				<chart>
-					<reportElement uuid="b406025e-c9dc-4530-933d-0345226525e7" x="0" y="0" width="572" height="195"/>
+					<reportElement uuid="b406025e-c9dc-4530-933d-0345226525e7" x="93" y="40" width="387" height="195"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -50,4 +58,33 @@ GROUP BY (departamento);]]>
 			</stackedBarChart>
 		</band>
 	</detail>
+	<columnFooter>
+		<band height="20">
+			<line>
+				<reportElement uuid="36585d68-e318-4536-bde4-c064630b3f7d" positionType="FixRelativeToBottom" x="10" y="13" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="29">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="2f96746f-90ab-46a1-848c-40df94d9ef62" x="10" y="9" width="100" height="20" forecolor="#666666"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f2adde4d-640e-4e90-910f-c2aee78c6389" x="438" y="9" width="80" height="20" forecolor="#666666"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="a6d1a34b-30d2-4dee-aae8-e4f493e3e93f" x="518" y="9" width="40" height="20" forecolor="#666666"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
 </jasperReport>

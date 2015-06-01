@@ -48,7 +48,7 @@
               <Component id="panelBuscar2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel4" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -159,6 +159,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="inputDatoBusqueda">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Ubuntu" size="18" style="0"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -175,35 +180,28 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jButtonCancelar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButtonEliminarMT" min="-2" pref="82" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelCedula" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelApellidos" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelNombres" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelEmail" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelCiudad" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelPais" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelIdCurso" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextFieldEmail" alignment="0" pref="315" max="32767" attributes="0"/>
-                              <Component id="jTextFieldNombres" alignment="0" pref="315" max="32767" attributes="0"/>
-                              <Component id="jTextFieldApellidos" alignment="0" pref="315" max="32767" attributes="0"/>
-                              <Component id="jTextFieldCedula" alignment="0" pref="315" max="32767" attributes="0"/>
-                              <Component id="jTextFieldCiudad" alignment="0" pref="315" max="32767" attributes="0"/>
-                              <Component id="jTextFieldPais" alignment="0" pref="315" max="32767" attributes="0"/>
-                              <Component id="jTextFieldIdCurso" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="236" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jLabelCedula" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelApellidos" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNombres" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelEmail" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCiudad" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelPais" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelIdCurso" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jTextFieldEmail" alignment="0" pref="315" max="32767" attributes="0"/>
+                      <Component id="jTextFieldNombres" alignment="0" pref="315" max="32767" attributes="0"/>
+                      <Component id="jTextFieldApellidos" alignment="0" pref="315" max="32767" attributes="0"/>
+                      <Component id="jTextFieldCedula" alignment="0" pref="315" max="32767" attributes="0"/>
+                      <Component id="jTextFieldCiudad" alignment="0" pref="315" max="32767" attributes="0"/>
+                      <Component id="jTextFieldPais" alignment="0" pref="315" max="32767" attributes="0"/>
+                      <Component id="jTextFieldIdCurso" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jButtonCancelar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButtonEliminarMT" min="-2" pref="82" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -249,11 +247,15 @@
                       </Group>
                       <Component id="jTextFieldIdCurso" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="28" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButtonEliminarMT" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonEliminarMT" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -319,7 +321,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Ubuntu" size="14" style="0"/>
+              <Font name="Ubuntu" size="18" style="0"/>
             </Property>
           </Properties>
         </Component>
@@ -327,7 +329,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Ubuntu" size="14" style="0"/>
+              <Font name="Ubuntu" size="18" style="0"/>
             </Property>
           </Properties>
         </Component>
@@ -335,7 +337,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Ubuntu" size="14" style="0"/>
+              <Font name="Ubuntu" size="18" style="0"/>
             </Property>
           </Properties>
         </Component>
@@ -343,7 +345,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Ubuntu" size="14" style="0"/>
+              <Font name="Ubuntu" size="18" style="0"/>
             </Property>
           </Properties>
         </Component>
@@ -359,7 +361,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Ubuntu" size="14" style="0"/>
+              <Font name="Ubuntu" size="18" style="0"/>
             </Property>
           </Properties>
         </Component>
@@ -375,6 +377,9 @@
         <Component class="javax.swing.JTextField" name="jTextFieldIdCurso">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Ubuntu" size="18" style="0"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCancelar">

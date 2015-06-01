@@ -34,7 +34,7 @@ public class ControladorTablas {
        
        titulo = new Vector();
        cuerpo = new Vector();
-       System.out.print("tamaño del vector dentro del iterador"+datos.size());
+       System.out.println("tamaño del vector dentro del iterador"+datos.size());
        iterador = new ObjectColeccion(datos);
    }
     
@@ -70,7 +70,12 @@ public class ControladorTablas {
                titulo.add("Porcentaje Practica"); 
                titulo.add("Notas");
             };break;
-                        
+            case 4:
+                titulo.add("CODIGO");
+                titulo.add("FECHA INICIO");
+                titulo.add("FECHA FIN");
+                titulo.add("MODIFICAR (UNO)");
+                break;
             default: {
                 System.out.println("Titulos invalidos");
             };
@@ -87,7 +92,7 @@ public class ControladorTablas {
         
         switch(obj){
             case 1:
-                System.out.print("se agrego al objeto");
+                System.out.println("se agrego al objeto");
                 while (libroIterator.hasNext()) {
                     Object objeto = libroIterator.next();
 
@@ -110,7 +115,7 @@ public class ControladorTablas {
                     System.out.println(cuerpo.get(i));
                     i++;
                 }
-                System.out.println("se agrego al objeto 1");
+                System.out.println("se agrego al objeto aspirante");
                 break;
             case 3:
                 int j = 0;
@@ -126,7 +131,19 @@ public class ControladorTablas {
                     j++;
                 }
                 System.out.println("se agrego al objeto 2");
-                break;    
+                break;
+            case 4:
+                while (libroIterator.hasNext()) {
+                    Cohorte objeto = (Cohorte) libroIterator.next();
+                    //Object objeto = libroIterator.next();
+                    Vector objetos2 = new Vector();
+                    objetos2.add(objeto.getIdCohorte());
+                    objetos2.add(objeto.getFechaInicio());
+                    objetos2.add(objeto.getFechaFin());
+                    objetos2.add(false);
+                    cuerpo.add(objetos2);
+                }
+                break;
         }
         return cuerpo;
     }

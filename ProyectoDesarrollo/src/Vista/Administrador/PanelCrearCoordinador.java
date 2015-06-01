@@ -8,6 +8,7 @@
 package Vista.Administrador;
 
 import Controlador.ControladorAdministrador;
+import Excepciones.ExcepcionDatos;
 import Vista.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,14 +48,12 @@ public class PanelCrearCoordinador extends javax.swing.JPanel {
         jLabelNombres = new javax.swing.JLabel();
         jLabelApellidos = new javax.swing.JLabel();
         jLabelEmail = new javax.swing.JLabel();
-        jLabelCargo = new javax.swing.JLabel();
         jLabelDireccion = new javax.swing.JLabel();
         jLabelTelefono = new javax.swing.JLabel();
         jTextCedula = new javax.swing.JTextField();
         jTextNombres = new javax.swing.JTextField();
         jTextEmail = new javax.swing.JTextField();
         jTextApellido = new javax.swing.JTextField();
-        jTextCargo = new javax.swing.JTextField();
         jTextDireccion = new javax.swing.JTextField();
         jTextTelefono = new javax.swing.JTextField();
         jButtonGuardarCoordinador = new javax.swing.JButton();
@@ -78,16 +77,13 @@ public class PanelCrearCoordinador extends javax.swing.JPanel {
         jLabelEmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelEmail.setText("Email:");
 
-        jLabelCargo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabelCargo.setText("Cargo:");
-
         jLabelDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelDireccion.setText("Direccion:");
 
         jLabelTelefono.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelTelefono.setText("Telefono:");
 
-        jTextCedula.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextCedula.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextCedula.setMinimumSize(new java.awt.Dimension(6, 300));
         jTextCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,19 +91,16 @@ public class PanelCrearCoordinador extends javax.swing.JPanel {
             }
         });
 
-        jTextNombres.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextNombres.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextNombres.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTextEmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextEmail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextEmail.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTextApellido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextApellido.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextApellido.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTextCargo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextCargo.setMinimumSize(new java.awt.Dimension(6, 300));
-
-        jTextDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextDireccion.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextDireccion.setMinimumSize(new java.awt.Dimension(6, 300));
 
         jTextTelefono.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -129,31 +122,29 @@ public class PanelCrearCoordinador extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(61, 61, 61)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelTelefono)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabelNombres)
                                         .addComponent(jLabelCedula, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabelApellidos, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addComponent(jLabelEmail)
-                                    .addComponent(jLabelCargo)
-                                    .addComponent(jLabelDireccion)
-                                    .addComponent(jLabelTelefono))
+                                    .addComponent(jLabelDireccion))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jTextNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                                             .addComponent(jTextEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                                             .addComponent(jTextApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                                            .addComponent(jTextCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                                             .addComponent(jTextCedula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(32, 32, 32))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addGap(0, 219, Short.MAX_VALUE))
+                        .addGap(0, 216, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonGuardarCoordinador)))
@@ -182,17 +173,13 @@ public class PanelCrearCoordinador extends javax.swing.JPanel {
                     .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelCargo)
-                    .addComponent(jTextCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDireccion)
                     .addComponent(jTextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTelefono)
-                    .addComponent(jTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelTelefono))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(jButtonGuardarCoordinador)
                 .addContainerGap())
         );
@@ -221,7 +208,6 @@ public class PanelCrearCoordinador extends javax.swing.JPanel {
     private javax.swing.JButton jButtonGuardarCoordinador;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelApellidos;
-    private javax.swing.JLabel jLabelCargo;
     private javax.swing.JLabel jLabelCedula;
     private javax.swing.JLabel jLabelDireccion;
     private javax.swing.JLabel jLabelEmail;
@@ -229,7 +215,6 @@ public class PanelCrearCoordinador extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelTelefono;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextApellido;
-    private javax.swing.JTextField jTextCargo;
     private javax.swing.JTextField jTextCedula;
     private javax.swing.JTextField jTextDireccion;
     private javax.swing.JTextField jTextEmail;
@@ -246,7 +231,7 @@ public class PanelCrearCoordinador extends javax.swing.JPanel {
         jTextApellido.setText("");
         jTextNombres.setText("");
         jTextEmail.setText("");
-        jTextCargo.setText("" );     
+        //jTextCargo.setText("" );     
         jTextDireccion.setText("");
         jTextTelefono.setText("");
     }
@@ -258,25 +243,19 @@ public class PanelCrearCoordinador extends javax.swing.JPanel {
        String nombres= jTextNombres.getText(); 
        String apellidos= jTextApellido.getText(); 
        String email= jTextEmail.getText(); 
-       String cargo= jTextCargo.getText(); 
+       String cargo= "Coordinador"; 
        String direccion= jTextDireccion.getText(); 
        String telefono= jTextTelefono.getText(); 
        boolean estado = true;
        
-       if (contAdministrador.validarDatosCoordinador(cedula, nombres, apellidos, email, cargo, direccion, 
-                                                    telefono).equals("1")){
-           String result = contAdministrador.crearEmpleado(cedula,nombres, apellidos,email, cargo, 
+       String result = contAdministrador.crearEmpleado(cedula,nombres, apellidos,email, cargo, 
                                                            direccion, telefono, estado);
-           if (result.equals("1")) {
-               mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                       "La operacion se realiza exitosamente", "Confirmacion Operacion");
-           }
-       } else { 
-           mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                      contAdministrador.validarDatosCoordinador(cedula, nombres, apellidos, email, cargo, direccion, 
-                                                                telefono) , "error");}
-       
+       JOptionPane.showMessageDialog(null, result);
+       if (result.equals("Se creo el empleado con exito")) { 
+           limpiarPanelDatos ();
+       }
       }
+    
     private void mostarMensaje(int tipo, String titulo, String mensaje) {
         JOptionPane.showMessageDialog(null, titulo, mensaje, tipo);   
     } // Fin del metodo 
@@ -293,7 +272,6 @@ public class PanelCrearCoordinador extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == jButtonGuardarCoordinador) {    
                 guardarCoordiandor ();      
-                limpiarPanelDatos ();
             }
         }
     

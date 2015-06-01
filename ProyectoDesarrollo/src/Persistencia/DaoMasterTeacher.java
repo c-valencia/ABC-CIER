@@ -52,7 +52,7 @@ public class DaoMasterTeacher implements Serializable {
         } catch (Exception ex) {
             if (findMasterTeacher(masterTeacher.getCedula()) != null) {
                 throw new PreexistingEntityException("MasterTeacher " + masterTeacher + " already exists.", ex);
-            }
+            }    
             throw ex;
         } finally {
             if (em != null) {

@@ -87,22 +87,22 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
         jLabelIdCurso.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelIdCurso.setText("Id Curso:");
 
-        jTextCedula.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextCedula.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextCedula.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTexNombres.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTexNombres.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTexNombres.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTextEmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextEmail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextEmail.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTextApellidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextApellidos.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextApellidos.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTextCiudad.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextCiudad.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextCiudad.setMinimumSize(new java.awt.Dimension(6, 300));
 
-        jTextPais.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextPais.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTextPais.setMinimumSize(new java.awt.Dimension(6, 300));
 
         jButtonGuardarMT.setText("GUARDAR MASTER TEACHER");
@@ -147,7 +147,7 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
                                             .addComponent(jTextPais, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                                             .addComponent(jComboBoxIdCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addGap(0, 219, Short.MAX_VALUE))
+                        .addGap(0, 231, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonGuardarMT)))
@@ -267,22 +267,26 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
        String ciudad= jTextCiudad.getText(); 
        String pais = jTextPais.getText();
        boolean estado = true;
+       Curso curso = new Curso (codigoCurso());
+       String result = contAdministrador.crearMasterTeacher (cedula,nombres, apellidos,email, ciudad, pais,
+                                                                 estado,curso );
        
-       if (contAdministrador.validarDatosMasterTeacher(cedula, nombres, apellidos, email, ciudad, pais, 
-                                                    contAdministrador.getDaoCurso().findCurso( codigoCurso())).equals("1")){
-           String result = contAdministrador.crearMasterTeacher (cedula,nombres, apellidos,email, ciudad, pais,
-                                                                 estado,contAdministrador.getDaoCurso().findCurso( codigoCurso()) );
-           if (result.equals("1")) {
-               mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                    "La operacion se realiza exitosamente", "Confirmacion Operacion");
-          }
-       } else { 
-           mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                         contAdministrador.crearMasterTeacher (cedula,nombres, apellidos,email, ciudad, pais,estado,
-                                                               contAdministrador.getDaoCurso().findCurso( codigoCurso()) ) , "error");}
-       
+       JOptionPane.showMessageDialog(null, result);
+       if (result.equals("Se creo el master teacher con exito")) { 
+           limpiarPanelDatos ();
+       }
        
       }
+    
+    public void limpiarPanelDatos () { 
+        jTextCedula.setText("");
+        jTextApellidos.setText("");
+        jTexNombres.setText("");
+        jTextEmail.setText("" );     
+        jTextCiudad.setText("");
+        jTextPais.setText("");
+        jComboBoxIdCurso.setSelectedItem("");
+    }
     
     private void mostarMensaje(int tipo, String titulo, String mensaje) {
         JOptionPane.showMessageDialog(null, titulo, mensaje, tipo);   
@@ -300,7 +304,7 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == jButtonGuardarMT) {    
                 //System.out.println (jComboBoxIdCurso.getSelectedItem().toString());
-                guardarMasterTeacher ();            
+                guardarMasterTeacher (); 
             }
         }
     

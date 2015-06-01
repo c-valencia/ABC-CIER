@@ -40,7 +40,7 @@ public class ObjectColeccion implements TablaColeccion{
 
         @Override
         public Object next() {
-             System.out.print("se agrego al objeto iterador");
+             System.out.println("se agrego al objeto iterador");
             return (Object) datos.get(index++);
             
         }

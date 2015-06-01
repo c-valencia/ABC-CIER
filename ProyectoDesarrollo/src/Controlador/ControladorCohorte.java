@@ -258,8 +258,20 @@ public class ControladorCohorte {
         }
     }
     
-    public boolean modificarCohorte(){
-        
+    public boolean modificarCohorte(String idCohorte, Date fechaInicio, Date fechaFin){
+        Cohorte cohorte = new Cohorte();
+        cohorte.setIdCohorte(idCohorte);
+        cohorte.setFechaInicio(fechaInicio);
+        cohorte.setFechaFin(fechaFin);
+        cohorte.setEstado(true);
+        try {
+            daoCohorte.edit(cohorte);
+            return true;
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladorCohorte.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladorCohorte.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return false;
     }
     

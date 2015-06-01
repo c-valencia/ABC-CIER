@@ -29,20 +29,20 @@ WHERE curso.id_curso = $P{idCurso};]]>
 	</background>
 	<title>
 		<band height="70" splitType="Stretch">
-			<staticText>
-				<reportElement uuid="fa8f8faf-5018-4cef-9854-18ba00d9085d" x="167" y="19" width="81" height="33"/>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e5fa1431-0bd6-4b70-86e2-88e82991702e" x="230" y="19" width="178" height="33" forecolor="#010101"/>
 				<textElement>
-					<font fontName="Serif" size="24"/>
-				</textElement>
-				<text><![CDATA[Curso ]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="e5fa1431-0bd6-4b70-86e2-88e82991702e" x="250" y="19" width="153" height="33"/>
-				<textElement>
-					<font size="24"/>
+					<font size="24" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="fa8f8faf-5018-4cef-9854-18ba00d9085d" x="149" y="19" width="81" height="33" forecolor="#010101"/>
+				<textElement>
+					<font fontName="Serif" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso   ]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -57,23 +57,23 @@ WHERE curso.id_curso = $P{idCurso};]]>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="3cb0c8e8-08c3-4f76-95ed-d4f284e25c9f" style="Column header" x="0" y="19" width="185" height="15"/>
-				<textElement>
-					<font fontName="Serif"/>
+				<reportElement uuid="3cb0c8e8-08c3-4f76-95ed-d4f284e25c9f" style="Column header" x="0" y="14" width="185" height="20" backcolor="#FEFEFE"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif" size="15"/>
 				</textElement>
 				<text><![CDATA[Cedula]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="241cacd4-ecde-45b2-b92b-89746701750f" style="Column header" x="185" y="19" width="185" height="15"/>
-				<textElement>
-					<font fontName="Serif"/>
+				<reportElement uuid="241cacd4-ecde-45b2-b92b-89746701750f" style="Column header" x="185" y="14" width="185" height="20" backcolor="#4D49D6"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif" size="15"/>
 				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d07334cc-2693-456b-87e8-dab5229eafda" style="Column header" x="370" y="19" width="185" height="15"/>
-				<textElement>
-					<font fontName="Serif"/>
+				<reportElement uuid="d07334cc-2693-456b-87e8-dab5229eafda" style="Column header" x="370" y="14" width="185" height="20" backcolor="#4D49D6"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif" size="15"/>
 				</textElement>
 				<text><![CDATA[Apellido]]></text>
 			</staticText>
@@ -87,23 +87,23 @@ WHERE curso.id_curso = $P{idCurso};]]>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="414534db-0e6f-4da5-a008-8b37b2915eb8" style="Detail" x="0" y="0" width="185" height="15"/>
-				<textElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="7c2e0daa-02ff-4a44-811f-3e26a92687a3" style="Detail" x="185" y="0" width="185" height="15"/>
-				<textElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="a6e42d75-41f5-4987-a896-af16b7893a25" style="Detail" x="370" y="0" width="185" height="15"/>
-				<textElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>

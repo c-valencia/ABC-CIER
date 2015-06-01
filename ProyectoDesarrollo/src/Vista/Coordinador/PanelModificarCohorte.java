@@ -8,6 +8,8 @@
 package Vista.Coordinador;
 
 import Controlador.ControladorCohorte;
+import Controlador.ControladorTablas;
+import Logica.Aspirante;
 import Logica.Cohorte;
 import Logica.Curso;
 import Logica.CursoCohorte;
@@ -16,9 +18,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -55,10 +60,10 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         jTableListaCohorte = new javax.swing.JTable();
         jPanelModificarCohorte = new javax.swing.JPanel();
         jButtonGuardarCursoSeleccionado = new javax.swing.JButton();
-        jButtonSiguienteEnPCurso = new javax.swing.JButton();
+        jButtonFinalizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableCursos = new javax.swing.JTable();
-        jButtonListarCursos = new javax.swing.JButton();
+        jTableLTyAsp = new javax.swing.JTable();
+        jButtonListarAspirantes = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -66,13 +71,17 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         jDateChooserFechaFin = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jLabelIdCohorte = new javax.swing.JLabel();
-        jPanelCrearMatricula = new javax.swing.JPanel();
-        jButtonGuardarMatricula = new javax.swing.JButton();
-        jButtonFinalizarMatricula = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableLeaderTeacher = new javax.swing.JTable();
-        jButtonListarAspirantes = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jButtonBuscarAspirantes = new javax.swing.JButton();
+        jComboBoxPCMZona = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        jComboBoxCurso = new javax.swing.JComboBox();
+        jDialogAspirantes = new javax.swing.JDialog();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTableAspiratesBD = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jLabelNombreArea = new javax.swing.JLabel();
+        jButtonSeleccionarAspirante = new javax.swing.JButton();
         panelPrincipal = new javax.swing.JPanel();
 
         jPanelBuscarCohortes.setBackground(new java.awt.Color(245, 245, 245));
@@ -157,127 +166,17 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
 
         jButtonGuardarCursoSeleccionado.setText("GUARDAR");
 
-        jButtonSiguienteEnPCurso.setText("SIGUIENTE >>");
+        jButtonFinalizar.setText("FINALIZAR");
 
         jScrollPane1.setBackground(new java.awt.Color(245, 243, 241));
 
-        jTableCursos.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
-        jTableCursos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLTyAsp.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
+        jTableLTyAsp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CODIGO", "NOMBRE", "¿INCLUIR?"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTableCursos);
-
-        jButtonListarCursos.setText("Listar Cursos");
-
-        jLabel12.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(15, 15, 111));
-        jLabel12.setText("MODIFICAR COHORTE");
-
-        jLabel2.setText("Fecha inicio:");
-
-        jLabel3.setText("Fecha finalizacion:");
-
-        jLabel4.setText("Cohorte:");
-
-        jLabelIdCohorte.setText("codigo de la cohorte");
-
-        javax.swing.GroupLayout jPanelModificarCohorteLayout = new javax.swing.GroupLayout(jPanelModificarCohorte);
-        jPanelModificarCohorte.setLayout(jPanelModificarCohorteLayout);
-        jPanelModificarCohorteLayout.setHorizontalGroup(
-            jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelModificarCohorteLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButtonListarCursos)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonGuardarCursoSeleccionado)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonSiguienteEnPCurso)
-                .addGap(43, 43, 43))
-            .addGroup(jPanelModificarCohorteLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanelModificarCohorteLayout.createSequentialGroup()
-                            .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel3)
-                                .addGroup(jPanelModificarCohorteLayout.createSequentialGroup()
-                                    .addGap(44, 44, 44)
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabelIdCohorte)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                                .addComponent(jDateChooserFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        jPanelModificarCohorteLayout.setVerticalGroup(
-            jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelModificarCohorteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelModificarCohorteLayout.createSequentialGroup()
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabelIdCohorte)))
-                    .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooserFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGuardarCursoSeleccionado)
-                    .addComponent(jButtonSiguienteEnPCurso)
-                    .addComponent(jButtonListarCursos))
-                .addGap(28, 28, 28))
-        );
-
-        jPanelCrearMatricula.setBackground(new java.awt.Color(245, 245, 245));
-        jPanelCrearMatricula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jButtonGuardarMatricula.setText("GUARDAR");
-
-        jButtonFinalizarMatricula.setText("FINALIZAR");
-
-        jScrollPane2.setBackground(new java.awt.Color(245, 245, 245));
-        jScrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jTableLeaderTeacher.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Cedula", "Nombres", "Apellidos", "Email", "Codigo", "Area", "Incluir"
+                "CEDULA", "NOMBRES", "APELLIDOS", "TIPO", "CODIGO", "CURSO", "¿INCLUIR?"
             }
         ) {
             Class[] types = new Class [] {
@@ -295,46 +194,171 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTableLeaderTeacher);
+        jScrollPane1.setViewportView(jTableLTyAsp);
+        if (jTableLTyAsp.getColumnModel().getColumnCount() > 0) {
+            jTableLTyAsp.getColumnModel().getColumn(0).setResizable(false);
+            jTableLTyAsp.getColumnModel().getColumn(0).setPreferredWidth(75);
+            jTableLTyAsp.getColumnModel().getColumn(1).setResizable(false);
+            jTableLTyAsp.getColumnModel().getColumn(2).setResizable(false);
+            jTableLTyAsp.getColumnModel().getColumn(3).setResizable(false);
+            jTableLTyAsp.getColumnModel().getColumn(4).setResizable(false);
+            jTableLTyAsp.getColumnModel().getColumn(5).setResizable(false);
+            jTableLTyAsp.getColumnModel().getColumn(6).setResizable(false);
+            jTableLTyAsp.getColumnModel().getColumn(6).setPreferredWidth(43);
+        }
 
-        jButtonListarAspirantes.setText("LISTAR");
+        jButtonListarAspirantes.setText("Listar LT's");
 
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(15, 15, 111));
-        jLabel8.setText("LISTAR ASPIRANTES");
+        jLabel12.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(15, 15, 111));
+        jLabel12.setText("MODIFICAR COHORTE");
 
-        javax.swing.GroupLayout jPanelCrearMatriculaLayout = new javax.swing.GroupLayout(jPanelCrearMatricula);
-        jPanelCrearMatricula.setLayout(jPanelCrearMatriculaLayout);
-        jPanelCrearMatriculaLayout.setHorizontalGroup(
-            jPanelCrearMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelCrearMatriculaLayout.createSequentialGroup()
+        jLabel2.setText("Fecha inicio:");
+
+        jLabel3.setText("Fecha finalizacion:");
+
+        jLabel4.setText("Cohorte:");
+
+        jLabelIdCohorte.setText("codigo de la cohorte");
+
+        jLabel1.setText("Cursos:");
+
+        jButtonBuscarAspirantes.setText("BUSCAR");
+
+        jLabel5.setText("Zona:");
+
+        javax.swing.GroupLayout jPanelModificarCohorteLayout = new javax.swing.GroupLayout(jPanelModificarCohorte);
+        jPanelModificarCohorte.setLayout(jPanelModificarCohorteLayout);
+        jPanelModificarCohorteLayout.setHorizontalGroup(
+            jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelModificarCohorteLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonListarAspirantes)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonGuardarCursoSeleccionado)
+                .addGap(24, 24, 24)
+                .addComponent(jButtonFinalizar)
+                .addGap(43, 43, 43))
+            .addGroup(jPanelModificarCohorteLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelModificarCohorteLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooserFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonBuscarAspirantes))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelModificarCohorteLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelModificarCohorteLayout.createSequentialGroup()
+                                .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1))
+                            .addGroup(jPanelModificarCohorteLayout.createSequentialGroup()
+                                .addComponent(jLabelIdCohorte)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxPCMZona, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxCurso, 0, 187, Short.MAX_VALUE))))
+                .addGap(0, 18, Short.MAX_VALUE))
+        );
+        jPanelModificarCohorteLayout.setVerticalGroup(
+            jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelModificarCohorteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelCrearMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCrearMatriculaLayout.createSequentialGroup()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelModificarCohorteLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonListarAspirantes, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonGuardarMatricula)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonFinalizarMatricula))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
-                    .addGroup(jPanelCrearMatriculaLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelIdCohorte, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelModificarCohorteLayout.createSequentialGroup()
+                        .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxPCMZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jComboBoxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jDateChooserFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonBuscarAspirantes)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonFinalizar)
+                    .addComponent(jButtonGuardarCursoSeleccionado)
+                    .addComponent(jButtonListarAspirantes))
+                .addGap(17, 17, 17))
+        );
+
+        jDialogAspirantes.setTitle("LISTado");
+
+        jTableAspiratesBD.setBackground(new java.awt.Color(245, 245, 245));
+        jTableAspiratesBD.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane4.setViewportView(jTableAspiratesBD);
+
+        jLabel10.setText("Listado de estudiante del area");
+
+        jLabelNombreArea.setText("nombre del area");
+
+        jButtonSeleccionarAspirante.setText("SELECCIONAR");
+
+        javax.swing.GroupLayout jDialogAspirantesLayout = new javax.swing.GroupLayout(jDialogAspirantes.getContentPane());
+        jDialogAspirantes.getContentPane().setLayout(jDialogAspirantesLayout);
+        jDialogAspirantesLayout.setHorizontalGroup(
+            jDialogAspirantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogAspirantesLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelNombreArea)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jDialogAspirantesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDialogAspirantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogAspirantesLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonSeleccionarAspirante)))
                 .addContainerGap())
         );
-        jPanelCrearMatriculaLayout.setVerticalGroup(
-            jPanelCrearMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelCrearMatriculaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+        jDialogAspirantesLayout.setVerticalGroup(
+            jDialogAspirantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogAspirantesLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jDialogAspirantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabelNombreArea))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelCrearMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonFinalizarMatricula)
-                    .addComponent(jButtonGuardarMatricula)
-                    .addComponent(jButtonListarAspirantes))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonSeleccionarAspirante)
                 .addContainerGap())
         );
 
@@ -357,44 +381,78 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonBuscarAspirantes;
     private javax.swing.JButton jButtonBuscarCohorte;
-    private javax.swing.JButton jButtonFinalizarMatricula;
+    private javax.swing.JButton jButtonFinalizar;
     private javax.swing.JButton jButtonGuardarCursoSeleccionado;
-    private javax.swing.JButton jButtonGuardarMatricula;
     private javax.swing.JButton jButtonListarAspirantes;
-    private javax.swing.JButton jButtonListarCursos;
+    private javax.swing.JButton jButtonSeleccionarAspirante;
     private javax.swing.JButton jButtonSiguienteCohorte;
-    private javax.swing.JButton jButtonSiguienteEnPCurso;
+    private javax.swing.JComboBox jComboBoxCurso;
+    private javax.swing.JComboBox jComboBoxPCMZona;
     private com.toedter.calendar.JDateChooser jDateChooserFechaFin;
     private com.toedter.calendar.JDateChooser jDateChooserFechaInicio;
+    private javax.swing.JDialog jDialogAspirantes;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelIdCohorte;
+    private javax.swing.JLabel jLabelNombreArea;
     private javax.swing.JPanel jPanelBuscarCohortes;
-    private javax.swing.JPanel jPanelCrearMatricula;
     private javax.swing.JPanel jPanelModificarCohorte;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTableCursos;
-    private javax.swing.JTable jTableLeaderTeacher;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTableAspiratesBD;
+    private javax.swing.JTable jTableLTyAsp;
     private javax.swing.JTable jTableListaCohorte;
     private javax.swing.JPanel panelPrincipal;
     // End of variables declaration//GEN-END:variables
     private Controlador.ControladorCohorte controlCohorte;
     private Vector <Cohorte> listadoCohorte;
     private Vector <Curso> listadoCursos;
+    private Vector <Logica.Curso> cursosSelect;
     private Vector <CursoCohorte> listadoCursoCohorte;
+    private Vector <Aspirante> listaAspirantes;
+    private Vector<Aspirante> listadoLT;
+    private ControladorTablas contoltablas;
+    private int poslistaLT;
     
     private void misComponentes()
     {
         actualizarPanelPrincipal(jPanelBuscarCohortes);
         
         controlCohorte = new ControladorCohorte();
+        
+        // seteo de combobox
+        jComboBoxPCMZona.addItem("");
+        jComboBoxPCMZona.addItem("Amazonas");
+        jComboBoxPCMZona.addItem("Buenaventura");
+        jComboBoxPCMZona.addItem("Buga");
+        jComboBoxPCMZona.addItem("Cali");
+        jComboBoxPCMZona.addItem("Caquetá");
+        jComboBoxPCMZona.addItem("Cartago");
+        jComboBoxPCMZona.addItem("Florencia");
+        jComboBoxPCMZona.addItem("Huila");
+        jComboBoxPCMZona.addItem("Ibagué");
+        jComboBoxPCMZona.addItem("Ipiales");
+        jComboBoxPCMZona.addItem("Jamundí");
+        jComboBoxPCMZona.addItem("Nariño");
+        jComboBoxPCMZona.addItem("Neiva");
+        jComboBoxPCMZona.addItem("Palmira");
+        jComboBoxPCMZona.addItem("Pasto");
+        jComboBoxPCMZona.addItem("Popayán");
+        jComboBoxPCMZona.addItem("Putumayo");
+        jComboBoxPCMZona.addItem("Tolima");
+        jComboBoxPCMZona.addItem("Tumaco");
+        jComboBoxPCMZona.addItem("Valle del Cauca");
+        
+        listadoLT = new Vector();
     }
          
     private void actualizarPanelPrincipal(JPanel panelNuevo) {
@@ -411,11 +469,10 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         jButtonBuscarCohorte.addActionListener(events);
         jButtonSiguienteCohorte.addActionListener(events);
         jButtonGuardarCursoSeleccionado.addActionListener(events);
-        jButtonSiguienteEnPCurso.addActionListener(events);
-        jButtonListarCursos.addActionListener(events);
-        jButtonGuardarMatricula.addActionListener(events);
-        jButtonFinalizarMatricula.addActionListener(events);
+        jButtonFinalizar.addActionListener(events);
         jButtonListarAspirantes.addActionListener(events);
+        jButtonSeleccionarAspirante.addActionListener(events);
+        jButtonBuscarAspirantes.addActionListener(events);
     } // Fin del metodo asignarEventos
     
     
@@ -423,21 +480,28 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         listadoCohorte = new Vector<>();
         
         listadoCohorte = controlCohorte.buscarCohorte();
-        DefaultTableModel tabla = (DefaultTableModel) jTableListaCohorte.getModel();
-        for (int i = 0; i < listadoCohorte.size(); i++)
-        {
-            System.out.println("tamalista = " + listadoCohorte.size());
-            tabla.addRow(new Object[]{listadoCohorte.get(i).getIdCohorte(),
-                                      listadoCohorte.get(i).getFechaInicio(),
-                                      listadoCohorte.get(i).getFechaFin(),
-            
-                                      false});
-        }
+        System.out.println("tam listadoCohorte " + listadoCohorte.size());
+        
+        contoltablas = new ControladorTablas(listadoCohorte);
+        
+        DefaultTableModel modelo = new DefaultTableModel(contoltablas.contruirCuerpo(4), contoltablas.titulos(4)){
+            public boolean isCellEditable(int row, int column) { 
+                if (column == 3) return true; 
+                else return false; 
+            }
+        };
+        jTableListaCohorte.setModel(modelo);
+//        
+        jTableListaCohorte.getColumnModel().getColumn(3).setCellEditor(jTableListaCohorte.getDefaultEditor(Boolean.class));
+        jTableListaCohorte.getColumnModel().getColumn(3).setCellRenderer(jTableListaCohorte.getDefaultRenderer(Boolean.class));
+        jTableListaCohorte.getTableHeader().setReorderingAllowed(false);
+        
     }
     
     private void mostrarInfoCohorte()
     {
         boolean cuantos = true;
+        
         DefaultTableModel tabla = (DefaultTableModel) jTableListaCohorte.getModel();
         for (int i = 0; i < tabla.getRowCount(); i++)
         {
@@ -456,39 +520,122 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         }
     }
     
+    private void crearJDialog(JDialog dialog){
+        listarAspirantes();
+        dialog.setVisible(true);
+        dialog.pack();
+    } // fin del metodo crearJDialogs
+    
     private void listarCursos()
     {
         String idcurso = new String();
         String idcursoCohorte = new String();
         listadoCursos = new Vector<>();
+        cursosSelect = new Vector<>();
         listadoCursoCohorte = new Vector<CursoCohorte>();
         
         listadoCursos = (Vector<Curso>) controlCohorte.buscarCursos();
         listadoCursoCohorte = controlCohorte.buscarCursoCohorte(jLabelIdCohorte. getText());
         
-        DefaultTableModel dtm = (DefaultTableModel) jTableCursos.getModel();
-        
+        jComboBoxCurso.removeAllItems();
+        jComboBoxCurso.addItem("");
         for (int i = 0; i < listadoCursos.size(); i++)
         {
-            dtm.addRow(new Object[] {listadoCursos.get(i).getIdCurso(), listadoCursos.get(i).getNombre() , false});
+            
             idcurso = listadoCursos.get(i).getIdCurso();
             for(int j = 0; j < listadoCursoCohorte.size(); j++){
                 
                 idcursoCohorte = listadoCursoCohorte.get(j).getCurso().getIdCurso();
                 
                 if(idcurso.equals(idcursoCohorte)){
-                    dtm.setValueAt(true, i, 2);
-                   // dtm.se
+                    jComboBoxCurso.addItem(listadoCursos.get(i).getIdCurso() + " " + listadoCursos.get(i).getNombre());
+                    cursosSelect.add(listadoCursos.get(1));
                 }
             }
         }
     }
     
+    private void limpiarTablas(JTable tabla, int tam){
+        DefaultTableModel borrar = (DefaultTableModel) tabla.getModel();
+        System.out.println("llego ");
+        for (int i = tam; i < borrar.getRowCount(); i--){
+            borrar.removeRow(i);
+            System.out.println("lo hizo");
+        }
+    }
+       
+    private void listarAspirantes(){
+        String area = listadoCursoCohorte.get(jComboBoxCurso.getSelectedIndex() - 1).getCursoCohortePK().getIdCurso();
+        String dep = jComboBoxPCMZona.getSelectedItem().toString();
+        jLabelNombreArea.setText(jComboBoxCurso.getSelectedItem().toString());
+        listaAspirantes = new Vector<>();
+        listaAspirantes = controlCohorte.listarAspirantes(area, dep);
+        System.out.println("listaAspirantes " + listaAspirantes.size() + ", " + area);
+        contoltablas = new ControladorTablas(listaAspirantes);
+        
+        DefaultTableModel modelo = new DefaultTableModel(contoltablas.contruirCuerpo(2), contoltablas.titulos(2))
+        { 
+            public boolean isCellEditable(int row, int column) { 
+                if (column == 4) return true; 
+                else return false; 
+            }
+        };
+        
+        jTableAspiratesBD.setModel(modelo);
+        
+        jTableAspiratesBD.getColumnModel().getColumn(4).setCellEditor(jTableAspiratesBD.getDefaultEditor(new Boolean(false).getClass()));
+        jTableAspiratesBD.getColumnModel().getColumn(4).setCellRenderer(jTableAspiratesBD.getDefaultRenderer(Boolean.class));
+        jTableAspiratesBD.getTableHeader().setReorderingAllowed(false);
+        
+    }// fin del metodo listarAspirantes
+    
+    /**
+     * trae los campos que hay en la bd y los muestra en la tabla que apaerece 
+     * en el dialog y lo incluye en la tabla del panelMatricula
+     */
+    private void aspirantesSeleccionados(){
+        TableModel TMAspirante = jTableAspiratesBD.getModel();
+        poslistaLT = listadoLT.size();
+        DefaultTableModel TMSelecionados = (DefaultTableModel) jTableLTyAsp.getModel();
+        int fila = TMAspirante.getRowCount();
+        
+        if(0 == JOptionPane.showConfirmDialog(null, "¿Esta seguro que estos son los aspirantes que va a seleccionar?")){
+            for(int i=0; i< fila; i++) { 
+                if(TMAspirante.getValueAt(i, 4).equals(true)){
+                    listadoLT.addElement(listaAspirantes.get(i));
+                }
+            }
+            
+            for (int i = poslistaLT; i < listadoLT.size(); i++){
+                
+                TMSelecionados.addRow(new Object[] {listadoLT.get(i).getCedula(),
+                                                    listadoLT.get(i).getNombres(),
+                                                    listadoLT.get(i).getApellidos(),
+                                                    "Aspirante",
+                                                    cursosSelect.get(jComboBoxCurso.getSelectedIndex()- 1).getIdCurso(),
+                                                    cursosSelect.get(jComboBoxCurso.getSelectedIndex()- 1).getNombre(),
+                                                    false}
+                );
+            }
+            
+            jDialogAspirantes.setVisible(false);
+        }
+    } // fin del metodo AspirantesSeleccionados
+    
     private void  guardarCursoCohorte()
     {
-        DefaultTableModel dtm = (DefaultTableModel) jTableCursos.getModel();
-        for (int i = 0; i < dtm.getRowCount(); i++){
-            
+        DefaultTableModel dtm = (DefaultTableModel) jTableLTyAsp.getModel();
+        int valor = JOptionPane.showConfirmDialog(null, "¿Desea guardar todos los cambios?");
+        String mensaje = new String();
+        
+        if(valor == 0){
+            mensaje = "Guardando los cambios:\n- fechas de la cohorte\n- nuevos aspirantes matriculados\n- desmatriculado de los LT's";
+            JOptionPane.showMessageDialog(null, mensaje);
+            for (int i = 0; i < dtm.getRowCount(); i++){
+                controlCohorte.modificarCohorte(jLabelIdCohorte.getText(), jDateChooserFechaInicio.getDate(), jDateChooserFechaFin.getDate());
+                
+                System.out.println("guardarCursoCohorte = " + dtm.getValueAt(i, 6));
+            }
         }
         
     }
@@ -502,25 +649,23 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
             }
             else if(e.getSource() == jButtonSiguienteCohorte){
                 mostrarInfoCohorte();
+                listarCursos();
                 actualizarPanelPrincipal(jPanelModificarCohorte);
             }
-            else if(e.getSource() == jButtonListarCursos){
-                listarCursos();
-            }
-            else if(e.getSource() == jButtonGuardarCursoSeleccionado){
-                
-            }
-            else if(e.getSource() == jButtonSiguienteEnPCurso){
-                
-            }
-            else if(e.getSource() == jButtonGuardarMatricula){
-                
-            }
-            else if(e.getSource() == jButtonFinalizarMatricula){
-                
+            else if(e.getSource() == jButtonBuscarAspirantes){
+                crearJDialog(jDialogAspirantes);
             }
             else if(e.getSource() == jButtonListarAspirantes){
-                
+                listarAspirantes();
+            }
+            else if(e.getSource() == jButtonGuardarCursoSeleccionado){
+                guardarCursoCohorte();
+            }
+            else if(e.getSource() == jButtonFinalizar){
+                actualizarPanelPrincipal(jPanelBuscarCohortes);
+            }
+            else if(e.getSource() == jButtonSeleccionarAspirante){
+                aspirantesSeleccionados();
             }
         }
         

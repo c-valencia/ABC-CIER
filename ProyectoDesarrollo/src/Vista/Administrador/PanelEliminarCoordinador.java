@@ -68,11 +68,9 @@ public class PanelEliminarCoordinador extends javax.swing.JPanel {
         botonEliminar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
 
-        setBorder(null);
         setPreferredSize(new java.awt.Dimension(750, 505));
 
         panelBuscar2.setBackground(new java.awt.Color(245, 245, 245));
-        panelBuscar2.setBorder(null);
 
         labelEliminarCoordinador.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         labelEliminarCoordinador.setForeground(new java.awt.Color(15, 15, 111));
@@ -86,6 +84,8 @@ public class PanelEliminarCoordinador extends javax.swing.JPanel {
 
         inputBuscarPor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cedula", "Correo" }));
         inputBuscarPor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        inputDatoBusqueda.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         botonBuscar.setText("Buscar");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -158,24 +158,25 @@ public class PanelEliminarCoordinador extends javax.swing.JPanel {
         jLabelDireccion.setText("Direccion: ");
 
         jTextFieldCedula.setEditable(false);
-        jTextFieldCedula.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldCedula.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldApellidos.setEditable(false);
-        jTextFieldApellidos.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldApellidos.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldNombres.setEditable(false);
-        jTextFieldNombres.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldNombres.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldEmail.setEditable(false);
-        jTextFieldEmail.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldEmail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldCargo.setEditable(false);
-        jTextFieldCargo.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldCargo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldTelefono.setEditable(false);
+        jTextFieldTelefono.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         jTextFieldDireccion.setEditable(false);
-        jTextFieldDireccion.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jTextFieldDireccion.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         botonEliminar.setText("Eliminar");
         botonEliminar.setEnabled(false);
@@ -208,19 +209,19 @@ public class PanelEliminarCoordinador extends javax.swing.JPanel {
                     .addComponent(jLabelTelefono))
                 .addGap(80, 80, 80)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonCancelar))
                     .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButtonCancelar)
                 .addGap(18, 18, 18)
-                .addComponent(botonEliminar))
+                .addComponent(botonEliminar)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,19 +247,25 @@ public class PanelEliminarCoordinador extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCargo)
                     .addComponent(jTextFieldCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTelefono, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelDireccion))
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonEliminar)
-                    .addComponent(jButtonCancelar)))
+                            .addComponent(jButtonCancelar)
+                            .addComponent(botonEliminar))
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addComponent(jLabelTelefono))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelDireccion))
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 27, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -269,7 +276,7 @@ public class PanelEliminarCoordinador extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 728, Short.MAX_VALUE)
+                        .addComponent(panelBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 730, Short.MAX_VALUE)
                         .addGap(10, 10, 10))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -296,6 +303,7 @@ public class PanelEliminarCoordinador extends javax.swing.JPanel {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
         limpiarPanelDatos ();
+        limpiarPanelBuscar ();
         botonEliminar.setEnabled(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -353,37 +361,70 @@ public class PanelEliminarCoordinador extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, titulo, mensaje, tipo);   
     } // Fin del metodo 
     
-    public Empleado buscarCoordinador () { 
-        botonEliminar.setEnabled(true);
-        Empleado empleado = new Empleado();
+    public void buscarCoordinador () { 
         contAdministrador = ControladorAdministrador.getInstance();
         String ItemSeleccionado = inputBuscarPor.getSelectedItem().toString();
         if (ItemSeleccionado.equals("Cedula")) { 
-            empleado = contAdministrador.buscarEmpleadoPorCedula(inputDatoBusqueda.getText());
+            Empleado empleado = contAdministrador.buscarEmpleadoPorCedula(inputDatoBusqueda.getText());
             if (empleado == null) {
             mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-            "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
+                    "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
             limpiarPanelBuscar ();
+            limpiarPanel ();
             } else {
-            mostrarInfoCoordinador (empleado);
-            limpiarPanelBuscar ();} }
+                   if (empleado.getEstado()) {
+                            mostrarInfoCoordinador (empleado);
+                            limpiarPanelBuscar ();} 
+                   else { 
+                       JOptionPane.showMessageDialog(null, "El coordinador ya ha sido eliminado");
+                       limpiarPanel ();
+                   }
+            }
+            
+        } 
+
         if (ItemSeleccionado.equals("Correo")) { 
             ArrayList <Empleado> empleados = contAdministrador.listaEmpleados();
+            boolean bandera = false ;
             for (int i=0; i<empleados.size(); i++) { 
+                
                 if (empleados.get(i).getEmail().equals(inputDatoBusqueda.getText())) { 
-                    empleado = contAdministrador.buscarEmpleadoPorCedula(empleados.get(i).getCedula());
+                    Empleado empleado = contAdministrador.buscarEmpleadoPorCedula(empleados.get(i).getCedula());
                     if (empleado == null) {
-                        mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
-                        "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
-                        limpiarPanelBuscar ();
-                        } else {
-                        mostrarInfoCoordinador (empleado);
-                        limpiarPanelBuscar ();}
+                     mostarMensaje(JOptionPane.INFORMATION_MESSAGE, 
+                    "Error: consulta arroja null", "La consulta no arrojo ningun resultado");
+                    limpiarPanelBuscar ();
+                    limpiarPanel ();
+                    } else {
+                        if (empleado.getEstado()) {
+                            mostrarInfoCoordinador (empleado);
+                            limpiarPanelBuscar ();
+                            bandera = true;
+                        } 
+                        else {
+                            JOptionPane.showMessageDialog(null, "El coordinador ya ha sido eliminado");
+                             limpiarPanel ();
+                             limpiarPanelBuscar ();
+                        }
                     }
+                }  
             } 
+            
+            if (!bandera) { JOptionPane.showMessageDialog(null, "Error: la consulta para el campo correo no arrojo niungun resultado");
+                            limpiarPanel ();}
        }
-        
-       return empleado; 
+   
+    }
+    
+    public void limpiarPanel () { 
+        inputDatoBusqueda.setText("");
+        jTextFieldApellidos.setText("");
+        jTextFieldCargo.setText("");
+        jTextFieldCedula.setText("");
+        jTextFieldDireccion.setText("");
+        jTextFieldEmail.setText("");
+        jTextFieldNombres.setText("");
+        jTextFieldTelefono.setText("");
     }
     
     public void mostrarInfoCoordinador (Empleado empleado) {
