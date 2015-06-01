@@ -63,7 +63,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         jButtonFinalizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableLTyAsp = new javax.swing.JTable();
-        jButtonListarAspirantes = new javax.swing.JButton();
+        jButtonListarLTs = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -207,7 +207,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
             jTableLTyAsp.getColumnModel().getColumn(6).setPreferredWidth(43);
         }
 
-        jButtonListarAspirantes.setText("Listar LT's");
+        jButtonListarLTs.setText("Listar LT's");
 
         jLabel12.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(15, 15, 111));
@@ -233,7 +233,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
             jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelModificarCohorteLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButtonListarAspirantes)
+                .addComponent(jButtonListarLTs)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonGuardarCursoSeleccionado)
                 .addGap(24, 24, 24)
@@ -306,7 +306,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
                 .addGroup(jPanelModificarCohorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonFinalizar)
                     .addComponent(jButtonGuardarCursoSeleccionado)
-                    .addComponent(jButtonListarAspirantes))
+                    .addComponent(jButtonListarLTs))
                 .addGap(17, 17, 17))
         );
 
@@ -385,7 +385,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
     private javax.swing.JButton jButtonBuscarCohorte;
     private javax.swing.JButton jButtonFinalizar;
     private javax.swing.JButton jButtonGuardarCursoSeleccionado;
-    private javax.swing.JButton jButtonListarAspirantes;
+    private javax.swing.JButton jButtonListarLTs;
     private javax.swing.JButton jButtonSeleccionarAspirante;
     private javax.swing.JButton jButtonSiguienteCohorte;
     private javax.swing.JComboBox jComboBoxCurso;
@@ -470,7 +470,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         jButtonSiguienteCohorte.addActionListener(events);
         jButtonGuardarCursoSeleccionado.addActionListener(events);
         jButtonFinalizar.addActionListener(events);
-        jButtonListarAspirantes.addActionListener(events);
+        jButtonListarLTs.addActionListener(events);
         jButtonSeleccionarAspirante.addActionListener(events);
         jButtonBuscarAspirantes.addActionListener(events);
     } // Fin del metodo asignarEventos
@@ -593,7 +593,8 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
      * trae los campos que hay en la bd y los muestra en la tabla que apaerece 
      * en el dialog y lo incluye en la tabla del panelMatricula
      */
-    private void aspirantesSeleccionados(){
+    private void aspirantesSeleccionados()
+    {
         TableModel TMAspirante = jTableAspiratesBD.getModel();
         poslistaLT = listadoLT.size();
         DefaultTableModel TMSelecionados = (DefaultTableModel) jTableLTyAsp.getModel();
@@ -634,6 +635,19 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
             for (int i = 0; i < dtm.getRowCount(); i++){
                 controlCohorte.modificarCohorte(jLabelIdCohorte.getText(), jDateChooserFechaInicio.getDate(), jDateChooserFechaFin.getDate());
                 
+                if("Aspirante".equals(jTableLTyAsp.getValueAt(i, 3).toString()) && jTableLTyAsp.getValueAt(i, 6).equals(true)){
+                    controlCohorte.crearTarea(jTableLTyAsp.getValueAt(i, 0).toString(), jTableLTyAsp.getValueAt(i, 4).toString());
+                    controlCohorte.modificarAspirante(jTableLTyAsp.getValueAt(i, 4).toString(), jLabelIdCohorte.getText(), false);
+                    controlCohorte.ingresarMatricula(jLabelIdCohorte.getText(), jTableLTyAsp.getValueAt(i, 4).toString(),jTableLTyAsp.getValueAt(i, 0).toString());
+                    controlCohorte.enviarCorreos(listadoLT.get(i).getCorreo(),
+                                                 listadoLT.get(i).getNombres() + " " + listadoLT.get(i).getApellidos(),
+                                                 listadoLT.get(i).getCedula());
+                }
+                if ("Leader teacher".equals(jTableLTyAsp.getValueAt(i, 3).toString()) && jTableLTyAsp.getValueAt(i, 6).equals(false)){
+                    controlCohorte.eliminarTarea(jTableLTyAsp.getValueAt(i, 0).toString(), jTableLTyAsp.getValueAt(i, 4).toString());
+                    controlCohorte.modificarAspirante(jTableLTyAsp.getValueAt(i, 4).toString(), jLabelIdCohorte.getText(), true);
+                    controlCohorte.eliminarMatricula(jTableLTyAsp.getValueAt(i, 0).toString(), jLabelIdCohorte.getText(), jTableLTyAsp.getValueAt(i, 4).toString());
+                }
                 System.out.println("guardarCursoCohorte = " + dtm.getValueAt(i, 6));
             }
         }
@@ -655,7 +669,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
             else if(e.getSource() == jButtonBuscarAspirantes){
                 crearJDialog(jDialogAspirantes);
             }
-            else if(e.getSource() == jButtonListarAspirantes){
+            else if(e.getSource() == jButtonListarLTs){
                 listarAspirantes();
             }
             else if(e.getSource() == jButtonGuardarCursoSeleccionado){

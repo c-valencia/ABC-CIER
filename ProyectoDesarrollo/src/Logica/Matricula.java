@@ -1,6 +1,8 @@
 package Logica;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -9,8 +11,10 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Nombre del Archivo: Matricula.java
@@ -31,6 +35,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Matricula.findByIdCurso", query = "SELECT m FROM Matricula m WHERE m.matriculaPK.idCurso = :idCurso"),
     @NamedQuery(name = "Matricula.findByNota", query = "SELECT m FROM Matricula m WHERE m.nota = :nota")})
 public class Matricula implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "matricula")
+    private Collection<Asistencia> asistenciaCollection;
+    @JoinColumn(name = "cedula_lt", referencedColumnName = "cedula", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private LeaderTeacher leaderTeacher;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected MatriculaPK matriculaPK;
@@ -101,6 +110,23 @@ public class Matricula implements Serializable {
     @Override
     public String toString() {
         return "Logica.Matricula[ matriculaPK=" + matriculaPK + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Asistencia> getAsistenciaCollection() {
+        return asistenciaCollection;
+    }
+
+    public void setAsistenciaCollection(Collection<Asistencia> asistenciaCollection) {
+        this.asistenciaCollection = asistenciaCollection;
+    }
+
+    public LeaderTeacher getLeaderTeacher() {
+        return leaderTeacher;
+    }
+
+    public void setLeaderTeacher(LeaderTeacher leaderTeacher) {
+        this.leaderTeacher = leaderTeacher;
     }
 
 } // Fin de la clase Matricula

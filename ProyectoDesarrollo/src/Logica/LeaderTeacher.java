@@ -1,17 +1,21 @@
 package Logica;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Nombre del Archivo: LeaderTeacher.java
@@ -60,6 +64,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "LeaderTeacher.findByExperienciaTotal", query = "SELECT l FROM LeaderTeacher l WHERE l.experienciaTotal = :experienciaTotal"),
     @NamedQuery(name = "LeaderTeacher.findByEstado", query = "SELECT l FROM LeaderTeacher l WHERE l.estado = :estado")})
 public class LeaderTeacher implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "leaderTeacher")
+    private Collection<Matricula> matriculaCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -451,6 +457,15 @@ public class LeaderTeacher implements Serializable {
     @Override
     public String toString() {
         return "Logica.LeaderTeacher[ cedula=" + cedula + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Matricula> getMatriculaCollection() {
+        return matriculaCollection;
+    }
+
+    public void setMatriculaCollection(Collection<Matricula> matriculaCollection) {
+        this.matriculaCollection = matriculaCollection;
     }
 
 } // Fin de la clase LeaderTeacher

@@ -605,6 +605,7 @@ public class PanelAspirante extends javax.swing.JPanel {
         inputSecEducacion.addItem("Putumayo");
         inputSecEducacion.addItem("Tumaco");
         
+        jComboBoxDepartamento.addItem("");
         jComboBoxDepartamento.addItem("Amazonas");
         jComboBoxDepartamento.addItem("Antioquia");
         jComboBoxDepartamento.addItem("Arauca");

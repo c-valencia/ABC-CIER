@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author ubuntu
+ * @author juliangr
  */
 @Embeddable
 public class AsistenciaPK implements Serializable {

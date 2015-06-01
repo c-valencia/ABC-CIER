@@ -110,6 +110,29 @@ public class ControladorAdministrador implements Sujeto {
 
         return result;
     }
+    
+//    public String modificarEmpleado(String cedula, String nombres, String apellidos, String email,
+//            String cargo, String direcion, String telefono, boolean estado) {
+//
+//        String result = "";
+//        try {
+//            validador.validarCamposVacios( cedula,nombres,apellidos,email,cargo,direcion,telefono );
+//            AsistenciaPK empleado = new Empleado(cedula, nombres, apellidos, email, cargo, direcion, telefono, estado);
+//            daoEmpleado.create(empleado);
+//            result = "Se actualizo el empleado con exito";
+//        } catch (PreexistingEntityException ex) {
+//            result = "Ya existe un coordinador con cedula o correo igual";        
+//        } catch (ExcepcionDatos ex) {
+//            result = "Todos los campos deben ser llenados";
+//        } catch (NullPointerException ex) {
+//            result = "Ingreso un objeto vacio";       
+//        } catch (Exception ex) {
+//            Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+//            result = "No se realizo la operacion";
+//        }
+//
+//        return result;
+//    }
 
     public ArrayList<Empleado> listaEmpleados() {
 
