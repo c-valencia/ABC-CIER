@@ -20,6 +20,7 @@ import Persistencia.DaoFases;
 import Persistencia.DaoHistorialAspirante;
 import Persistencia.DaoMasterTeacher;
 import Persistencia.DaoPractica;
+import Persistencia.DaoUsuario;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class ControladorAdministrador implements Sujeto {
     private DaoFases daoFase;
     private DaoPractica daoPractica;
     private DaoAspirante daoAspirante;
+    private DaoUsuario daoUsuario;
     private Conexion conexion;
     private DaoMasterTeacher daoMasterTeacher;
     private DaoHistorialAspirante daoHistorialAspirante;
@@ -60,6 +62,7 @@ public class ControladorAdministrador implements Sujeto {
     public ControladorAdministrador() {
         conexion = Conexion.getInstance();
         daoEmpleado = new DaoEmpleado(conexion.getCon());
+        daoUsuario = new DaoUsuario(conexion.getCon());
         daoCurso = new DaoCurso(conexion.getCon());
         daoFase = new DaoFases(conexion.getCon());
         daoPractica = new DaoPractica(conexion.getCon());
@@ -162,15 +165,23 @@ public class ControladorAdministrador implements Sujeto {
     //
 
     public String crearEmpleado(String cedula, String nombres, String apellidos, String email,
-            String cargo, String direccion, String telefono, boolean estado) {
+            String cargo, String direccion, String telefono, boolean estado,String usuario, String contrsena) {
         String result = "";
         try {
-            validador.validarCamposVacios( cedula, nombres, apellidos, email, cargo, direccion, telefono);
+            validador.validarCamposVacios( cedula, nombres, apellidos, email, cargo, direccion, telefono , usuario);
             
             Empleado nuevoEmpleado = new Empleado(cedula, nombres, apellidos, email,
                     cargo, direccion, telefono, estado);
-            daoEmpleado.create(nuevoEmpleado);
-            result = "Se creo el empleado con exito";
+            try {
+                Usuario nuevoUsuario = new Usuario(usuario,contrsena,cargo,cedula); 
+                daoUsuario.create(nuevoUsuario);
+            } catch (PreexistingEntityException ex) {result = "Ya existe un usuario con login igual";}
+            
+             if (!result.equals("Ya existe un usuario con login igual")) { 
+                 daoEmpleado.create(nuevoEmpleado);
+                 result = "Se creo el empleado con exito";
+             }
+
         } catch (PreexistingEntityException ex) {
             result = "Ya existe un coordinador con cedula o correo igual";        
         } catch (ExcepcionDatos ex) {
@@ -229,15 +240,23 @@ public class ControladorAdministrador implements Sujeto {
     }
 
     public String crearMasterTeacher(String cedula, String nombre, String apellido, String correo,
-            String ciudad, String pais, boolean estado, Curso IdCurso) {
+            String ciudad, String pais, boolean estado, Curso IdCurso,String usuario,String contrsena) {
         String result = "";
         try {
             validador.validarCamposVacios(cedula,nombre,apellido,correo,ciudad,pais);
             
             MasterTeacher nuevoMasterTeacher = new MasterTeacher(cedula, nombre, apellido, correo,
                     ciudad, pais, estado, IdCurso);
-            daoMasterTeacher.create(nuevoMasterTeacher);
-            result = "Se creo el master teacher con exito";
+            try {
+                Usuario nuevoUsuario = new Usuario(usuario,contrsena,"Master Teacher",cedula); 
+                daoUsuario.create(nuevoUsuario);
+            } catch (PreexistingEntityException ex) {result = "Ya existe un usuario con login igual";}
+            
+            if (!result.equals("Ya existe un usuario con login igual")) { 
+                 daoMasterTeacher.create(nuevoMasterTeacher);
+                 result = "Se creo el master teacher con exito";
+             }
+            
         } catch (PreexistingEntityException ex) {
             result = "Ya existe un master teacher con cedula o correo igual";        
         } catch (ExcepcionDatos ex) {

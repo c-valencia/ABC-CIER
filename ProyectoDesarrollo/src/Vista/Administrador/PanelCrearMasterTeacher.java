@@ -58,6 +58,10 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
         jTextPais = new javax.swing.JTextField();
         jButtonGuardarMT = new javax.swing.JButton();
         jComboBoxIdCurso = new javax.swing.JComboBox();
+        jLabelTelefono1 = new javax.swing.JLabel();
+        jLabelTelefono2 = new javax.swing.JLabel();
+        jTextUsuario = new javax.swing.JTextField();
+        jTextFieldContrasena = new javax.swing.JTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setPreferredSize(new java.awt.Dimension(750, 505));
@@ -109,6 +113,15 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
 
         jComboBoxIdCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabelTelefono1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabelTelefono1.setText("Contraseña:");
+
+        jLabelTelefono2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabelTelefono2.setText("Usuario:");
+
+        jTextUsuario.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jTextUsuario.setMinimumSize(new java.awt.Dimension(6, 300));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,12 +129,12 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonGuardarMT))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabelcrearMT))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(61, 61, 61)
+                                .addGap(62, 62, 62)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabelNombres)
@@ -130,37 +143,43 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
                                     .addComponent(jLabelEmail)
                                     .addComponent(jLabelCiudad)
                                     .addComponent(jLabelPais)
-                                    .addComponent(jLabelIdCurso))
+                                    .addComponent(jLabelIdCurso)
+                                    .addComponent(jLabelTelefono2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTexNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(32, 32, 32))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextPais, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                                            .addComponent(jComboBoxIdCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addGap(0, 231, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonGuardarMT)))
+                                    .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTexNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextPais, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxIdCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(2, 200, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelTelefono1)
+                                    .addComponent(jTextFieldContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelcrearMT)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelcrearMT)
-                        .addGap(41, 41, 41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelCedula)
                             .addComponent(jTextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -185,9 +204,20 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
                             .addComponent(jLabelPais)
                             .addComponent(jTextPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabelIdCurso))
-                    .addComponent(jComboBoxIdCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelIdCurso)
+                            .addComponent(jComboBoxIdCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addComponent(jLabelTelefono2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTelefono1)
+                        .addGap(39, 39, 39)))
+                .addGap(1, 1, 1)
                 .addComponent(jButtonGuardarMT)
                 .addContainerGap())
         );
@@ -200,10 +230,7 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(39, 39, 39))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
  
@@ -218,6 +245,8 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelIdCurso;
     private javax.swing.JLabel jLabelNombres;
     private javax.swing.JLabel jLabelPais;
+    private javax.swing.JLabel jLabelTelefono1;
+    private javax.swing.JLabel jLabelTelefono2;
     private javax.swing.JLabel jLabelcrearMT;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTexNombres;
@@ -225,7 +254,9 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
     private javax.swing.JTextField jTextCedula;
     private javax.swing.JTextField jTextCiudad;
     private javax.swing.JTextField jTextEmail;
+    private javax.swing.JTextField jTextFieldContrasena;
     private javax.swing.JTextField jTextPais;
+    private javax.swing.JTextField jTextUsuario;
     // End of variables declaration//GEN-END:variables
 
     // Controlador
@@ -268,8 +299,13 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
        String pais = jTextPais.getText();
        boolean estado = true;
        Curso curso = new Curso (codigoCurso());
+       
+       String usuario = jTextUsuario.getText();
+       String contrsena = jTextFieldContrasena.getText();
+       System.out.println ("contrasena: " + contrsena);
+       
        String result = contAdministrador.crearMasterTeacher (cedula,nombres, apellidos,email, ciudad, pais,
-                                                                 estado,curso );
+                                                                 estado,curso, usuario, contrsena );
        
        JOptionPane.showMessageDialog(null, result);
        if (result.equals("Se creo el master teacher con exito")) { 
@@ -286,6 +322,8 @@ public class PanelCrearMasterTeacher extends javax.swing.JPanel {
         jTextCiudad.setText("");
         jTextPais.setText("");
         jComboBoxIdCurso.setSelectedItem("");
+        jTextFieldContrasena.setText("");
+        jTextUsuario.setText("");
     }
     
     private void mostarMensaje(int tipo, String titulo, String mensaje) {
