@@ -47,9 +47,6 @@ public class PanelPrincipal extends javax.swing.JPanel {
     private void initComponents() {
 
         panelIzq = new javax.swing.JPanel();
-        opcion_1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         botonLogin = new javax.swing.JButton();
         botonAspirante = new javax.swing.JButton();
         panelDer = new javax.swing.JPanel();
@@ -58,17 +55,6 @@ public class PanelPrincipal extends javax.swing.JPanel {
 
         panelIzq.setBackground(new java.awt.Color(245, 245, 245));
         panelIzq.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        opcion_1.setText("Opcion_1");
-        opcion_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcion_1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Opcion_3");
-
-        jButton3.setText("Opcion_2");
 
         botonLogin.setText("Login");
 
@@ -81,9 +67,6 @@ public class PanelPrincipal extends javax.swing.JPanel {
             .addGroup(panelIzqLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelIzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(opcion_1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonAspirante, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
                 .addContainerGap())
@@ -91,13 +74,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
         panelIzqLayout.setVerticalGroup(
             panelIzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelIzqLayout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(opcion_1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(137, 137, 137)
                 .addComponent(botonAspirante, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -125,17 +102,10 @@ public class PanelPrincipal extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void opcion_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcion_1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_opcion_1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAspirante;
     private javax.swing.JButton botonLogin;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton opcion_1;
     private javax.swing.JPanel panelDer;
     private javax.swing.JPanel panelIzq;
     // End of variables declaration//GEN-END:variables
@@ -158,7 +128,6 @@ public class PanelPrincipal extends javax.swing.JPanel {
     private void asignarEventos(EventosPanelPrincipal events) {
         botonLogin.addActionListener(events);
         botonAspirante.addActionListener(events);
-        opcion_1.addActionListener(events);
     } // Fin del metodo asignarEventos
     
     private class EventosPanelPrincipal implements ActionListener{
@@ -170,11 +139,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
             if (e.getSource() == botonAspirante){                
                 actualizarPaneDer(fabricaPaneles.createProduct("Aspirante"));            
             }
-            if (e.getSource() == opcion_1){
-              
-                //actualizarPaneDer(panelCohorte);
-                
-            }
+
         }
     } // Fin de la clase EventosPanelPrincipal
 
