@@ -10,6 +10,7 @@ package Vista.Coordinador;
 import Controlador.ControladorReportes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -54,8 +55,8 @@ public class PanelReporte extends javax.swing.JPanel {
         labelDepartementoCDE = new javax.swing.JLabel();
         scrollPanelListDepar = new javax.swing.JScrollPane();
         listDepart = new javax.swing.JList();
-        inputCodCursoCDE = new javax.swing.JTextField();
         botonReporteCDE = new javax.swing.JButton();
+        inputCursoCodCDE = new javax.swing.JComboBox();
         panelEstdianteNotas = new javax.swing.JPanel();
         labelReporteEspecifico3 = new javax.swing.JLabel();
         labelCedulaNTL = new javax.swing.JLabel();
@@ -64,13 +65,13 @@ public class PanelReporte extends javax.swing.JPanel {
         panelCursoHistorico = new javax.swing.JPanel();
         labelCodCursoHEC = new javax.swing.JLabel();
         labelReporteEspecifico4 = new javax.swing.JLabel();
-        inputCodCurosHEC = new javax.swing.JTextField();
         botonReporteHEC = new javax.swing.JButton();
+        inputCodCurosHEC = new javax.swing.JComboBox();
         panelCursoMenosAvance = new javax.swing.JPanel();
         labelReporteEspecifico5 = new javax.swing.JLabel();
         labelCodCohorteCMA = new javax.swing.JLabel();
-        inputCodCohorteCMA = new javax.swing.JTextField();
         botonReporteCMA = new javax.swing.JButton();
+        inputCodCohorteCMA = new javax.swing.JComboBox();
         panelLTMesDepart = new javax.swing.JPanel();
         labelReporteEspecifico6 = new javax.swing.JLabel();
         inputAnoEMD = new com.toedter.calendar.JYearChooser();
@@ -78,8 +79,6 @@ public class PanelReporte extends javax.swing.JPanel {
         labelMesEMD = new javax.swing.JLabel();
         inputMesEMD = new com.toedter.calendar.JMonthChooser();
         botonReporteEMD = new javax.swing.JButton();
-        panelPrueba = new javax.swing.JPanel();
-        botonPrueba = new javax.swing.JButton();
         panelSuperior = new javax.swing.JPanel();
         labelReporte = new javax.swing.JLabel();
         labelListaReportes = new javax.swing.JLabel();
@@ -108,15 +107,15 @@ public class PanelReporte extends javax.swing.JPanel {
             .addGroup(panelBuscarMesAnoLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(panelBuscarMesAnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonBuscarMesAno)
                     .addGroup(panelBuscarMesAnoLayout.createSequentialGroup()
-                        .addComponent(labelAno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputAno, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(labelMes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(inputMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelAno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputAno, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botonBuscarMesAno)
                     .addComponent(labelReportEspecifico))
                 .addContainerGap(223, Short.MAX_VALUE))
         );
@@ -131,16 +130,16 @@ public class PanelReporte extends javax.swing.JPanel {
                     .addComponent(inputAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMes)
                     .addComponent(inputMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(31, 31, 31)
                 .addComponent(botonBuscarMesAno)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         panelCursoEstDepart.setBackground(new java.awt.Color(245, 245, 245));
         panelCursoEstDepart.setBorder(null);
 
         labelCodCursoCED.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        labelCodCursoCED.setText("Codigo del Curso:");
+        labelCodCursoCED.setText("Cod del Curso:");
 
         labelReporteEspecifico2.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         labelReporteEspecifico2.setForeground(new java.awt.Color(15, 15, 111));
@@ -158,6 +157,8 @@ public class PanelReporte extends javax.swing.JPanel {
 
         botonReporteCDE.setText("Generar Reporte");
 
+        inputCursoCodCDE.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "...................................." }));
+
         javax.swing.GroupLayout panelCursoEstDepartLayout = new javax.swing.GroupLayout(panelCursoEstDepart);
         panelCursoEstDepart.setLayout(panelCursoEstDepartLayout);
         panelCursoEstDepartLayout.setHorizontalGroup(
@@ -172,9 +173,9 @@ public class PanelReporte extends javax.swing.JPanel {
                         .addGroup(panelCursoEstDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelCursoEstDepartLayout.createSequentialGroup()
                                 .addComponent(labelCodCursoCED)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(inputCodCursoCDE)
-                                .addGap(35, 35, 35)
+                                .addGap(6, 6, 6)
+                                .addComponent(inputCursoCodCDE, 0, 173, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(labelDepartementoCDE))
                             .addGroup(panelCursoEstDepartLayout.createSequentialGroup()
                                 .addComponent(botonReporteCDE)
@@ -188,17 +189,17 @@ public class PanelReporte extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCursoEstDepartLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(labelReporteEspecifico2)
-                .addGap(30, 30, 30)
+                .addGap(28, 28, 28)
                 .addGroup(panelCursoEstDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollPanelListDepar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelDepartementoCDE)
                     .addGroup(panelCursoEstDepartLayout.createSequentialGroup()
                         .addGroup(panelCursoEstDepartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelCodCursoCED)
-                            .addComponent(inputCodCursoCDE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(inputCursoCodCDE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(47, 47, 47)
                         .addComponent(botonReporteCDE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         panelEstdianteNotas.setBackground(new java.awt.Color(245, 245, 245));
@@ -255,21 +256,21 @@ public class PanelReporte extends javax.swing.JPanel {
 
         botonReporteHEC.setText("Generar Reporte");
 
+        inputCodCurosHEC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout panelCursoHistoricoLayout = new javax.swing.GroupLayout(panelCursoHistorico);
         panelCursoHistorico.setLayout(panelCursoHistoricoLayout);
         panelCursoHistoricoLayout.setHorizontalGroup(
             panelCursoHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCursoHistoricoLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addGroup(panelCursoHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCursoHistoricoLayout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addComponent(inputCodCurosHEC, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelCursoHistoricoLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(panelCursoHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelCodCursoHEC)
-                            .addComponent(labelReporteEspecifico4)
-                            .addComponent(botonReporteHEC))))
+                        .addComponent(labelCodCursoHEC)
+                        .addGap(18, 18, 18)
+                        .addComponent(inputCodCurosHEC, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelReporteEspecifico4)
+                    .addComponent(botonReporteHEC))
                 .addContainerGap(193, Short.MAX_VALUE))
         );
         panelCursoHistoricoLayout.setVerticalGroup(
@@ -295,18 +296,14 @@ public class PanelReporte extends javax.swing.JPanel {
         labelCodCohorteCMA.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         labelCodCohorteCMA.setText("Codigo de la cohorte: ");
 
-        inputCodCohorteCMA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputCodCohorteCMAActionPerformed(evt);
-            }
-        });
-
         botonReporteCMA.setText("Generar Reporte");
         botonReporteCMA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonReporteCMAActionPerformed(evt);
             }
         });
+
+        inputCodCohorteCMA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout panelCursoMenosAvanceLayout = new javax.swing.GroupLayout(panelCursoMenosAvance);
         panelCursoMenosAvance.setLayout(panelCursoMenosAvanceLayout);
@@ -319,7 +316,7 @@ public class PanelReporte extends javax.swing.JPanel {
                     .addGroup(panelCursoMenosAvanceLayout.createSequentialGroup()
                         .addComponent(labelCodCohorteCMA)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputCodCohorteCMA, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(inputCodCohorteCMA, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(labelReporteEspecifico5))
                 .addContainerGap(240, Short.MAX_VALUE))
         );
@@ -397,25 +394,6 @@ public class PanelReporte extends javax.swing.JPanel {
                 .addGap(35, 35, 35))
         );
 
-        botonPrueba.setText("Generar Reporte");
-
-        javax.swing.GroupLayout panelPruebaLayout = new javax.swing.GroupLayout(panelPrueba);
-        panelPrueba.setLayout(panelPruebaLayout);
-        panelPruebaLayout.setHorizontalGroup(
-            panelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPruebaLayout.createSequentialGroup()
-                .addGap(305, 305, 305)
-                .addComponent(botonPrueba)
-                .addContainerGap(321, Short.MAX_VALUE))
-        );
-        panelPruebaLayout.setVerticalGroup(
-            panelPruebaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPruebaLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(botonPrueba)
-                .addContainerGap(101, Short.MAX_VALUE))
-        );
-
         setBackground(new java.awt.Color(245, 245, 245));
         setBorder(null);
         setPreferredSize(new java.awt.Dimension(750, 505));
@@ -486,10 +464,6 @@ public class PanelReporte extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboReportesActionPerformed
 
-    private void inputCodCohorteCMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputCodCohorteCMAActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputCodCohorteCMAActionPerformed
-
     private void botonReporteCMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporteCMAActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonReporteCMAActionPerformed
@@ -501,7 +475,6 @@ public class PanelReporte extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscarMesAno;
-    private javax.swing.JButton botonPrueba;
     private javax.swing.JButton botonReporteCDE;
     private javax.swing.JButton botonReporteCMA;
     private javax.swing.JButton botonReporteEMD;
@@ -511,9 +484,9 @@ public class PanelReporte extends javax.swing.JPanel {
     private com.toedter.calendar.JYearChooser inputAno;
     private com.toedter.calendar.JYearChooser inputAnoEMD;
     private javax.swing.JTextField inputCedulaNLT;
-    private javax.swing.JTextField inputCodCohorteCMA;
-    private javax.swing.JTextField inputCodCurosHEC;
-    private javax.swing.JTextField inputCodCursoCDE;
+    private javax.swing.JComboBox inputCodCohorteCMA;
+    private javax.swing.JComboBox inputCodCurosHEC;
+    private javax.swing.JComboBox inputCursoCodCDE;
     private com.toedter.calendar.JMonthChooser inputMes;
     private com.toedter.calendar.JMonthChooser inputMesEMD;
     private javax.swing.JLabel labelAno;
@@ -541,7 +514,6 @@ public class PanelReporte extends javax.swing.JPanel {
     private javax.swing.JPanel panelEstdianteNotas;
     private javax.swing.JPanel panelInferior;
     private javax.swing.JPanel panelLTMesDepart;
-    private javax.swing.JPanel panelPrueba;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JScrollPane scrollPanelListDepar;
     // End of variables declaration//GEN-END:variables
@@ -567,7 +539,8 @@ public class PanelReporte extends javax.swing.JPanel {
             };break;
                 
             case 1: {
-                actualizarPanelInferior(panelCursoEstDepart);                
+                actualizarPanelInferior(panelCursoEstDepart); 
+                initInformationCurso();
             };break;           
                 
             case 2: {
@@ -578,12 +551,14 @@ public class PanelReporte extends javax.swing.JPanel {
                 actualizarPanelInferior(panelBuscarMesAno);
             };break;
                 
-            case 4: {
+            case 4: {                
                 actualizarPanelInferior(panelCursoHistorico);
+                initInformationCurso();
             };break;     
                 
             case 5: {
                 actualizarPanelInferior(panelCursoMenosAvance);
+                initInformationCohorte();
             };break;
                 
             case 6: {
@@ -591,7 +566,7 @@ public class PanelReporte extends javax.swing.JPanel {
             };break;       
                 
             case 7: {
-                actualizarPanelInferior(panelPrueba);
+           
             };break;
                 
             case 8: {
@@ -609,8 +584,33 @@ public class PanelReporte extends javax.swing.JPanel {
         botonReporteHEC.addActionListener(events);
         botonReporteCMA.addActionListener(events);
         botonReporteEMD.addActionListener(events);
-        botonPrueba.addActionListener(events);
     } // Fin del metodo asignarEventos
+    
+    
+    private void initInformationCurso(){
+        contReportes = ControladorReportes.getInstance();
+        ArrayList<String> listCursos = contReportes.listarCursos();
+        inputCursoCodCDE.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+        inputCodCurosHEC.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));        
+        if (listCursos != null) {
+            for (int i = 0; i < listCursos.size(); i++) {
+                inputCursoCodCDE.addItem(listCursos.get(i));
+                inputCodCurosHEC.addItem(listCursos.get(i));
+            }
+        }                   
+    } // Fin del metodo initInformationCurso
+    
+    private void  initInformationCohorte(){
+        contReportes = ControladorReportes.getInstance();
+        ArrayList<String> listCohorte = contReportes.listarCohortes();
+        inputCodCohorteCMA.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+        if (listCohorte != null) {
+            for (int x = 0; x < listCohorte.size(); x++) {
+                inputCodCohorteCMA.addItem(listCohorte.get(x));
+            }
+        }
+    } // Fin del metodo initInformationCohorte
+    
     
     private void mostrarMensaje(int tipo, String titulo, String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje, titulo, tipo);
@@ -637,7 +637,6 @@ public class PanelReporte extends javax.swing.JPanel {
         if (result.equals("OK")) {
             JasperPrint informe = contReportes.getInforme();
             mostrarReporte(informe, "Reporte");
-            inputCodCohorteCMA.setText("");
         } else {
             mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", result);          
         }           
@@ -647,7 +646,7 @@ public class PanelReporte extends javax.swing.JPanel {
     // Curso con menos potencial de avance (TOP 5) (GRAFICO)
     private void reporteCursoMenosAvance(){
         contReportes = ControladorReportes.getInstance();  
-        String codCohorte = inputCodCohorteCMA.getText();
+        String codCohorte = inputCodCohorteCMA.getSelectedItem().toString();
         System.out.println("--ssssssssssss-->" + codCohorte);
         // OJO CAMBIAR
         // JasperPrint informe = contReportes.reporteCursoMenosAvance(codCohorte);
@@ -658,7 +657,7 @@ public class PanelReporte extends javax.swing.JPanel {
     // Detalle de estudiantes en un curso por departamentos - (TABLA)	    
     private void reporteEstCursoDepar(){
         contReportes = ControladorReportes.getInstance();
-        String idCurso = inputCodCursoCDE.getText();
+        String idCurso = inputCursoCodCDE.getSelectedItem().toString();      
         String departamento = "";
         if (listDepart.getSelectedValue() != null) {
             departamento = ""+ listDepart.getSelectedValue();
@@ -667,7 +666,7 @@ public class PanelReporte extends javax.swing.JPanel {
         if (result.equals("OK")) {
             JasperPrint informe = contReportes.getInforme();
             mostrarReporte(informe, "Reporte");
-            inputCodCursoCDE.setText("");
+            inputCursoCodCDE.setSelectedIndex(0);
         } else {
             mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", result);          
         }
@@ -684,7 +683,6 @@ public class PanelReporte extends javax.swing.JPanel {
         if (result.equals("OK")) {
             JasperPrint informe = contReportes.getInforme();
             mostrarReporte(informe, "Reporte");
-            inputCodCohorteCMA.setText("");
         } else {
             mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", result);          
         }          
@@ -709,28 +707,17 @@ public class PanelReporte extends javax.swing.JPanel {
     // Historico de estudiantes que ha ganado un Curso - (TABLA)
     private void reporteHisEstGanadoCurso (){
         contReportes = ControladorReportes.getInstance();
-        String codCurso = inputCodCurosHEC.getText();
+        String codCurso = inputCodCurosHEC.getSelectedItem().toString();
         String result = contReportes.reporteHistoricoEstudCurso(codCurso);
         if (result.equals("OK")) {
             JasperPrint informe = contReportes.getInforme();
             mostrarReporte(informe, "Reporte");
-            inputCedulaNLT.setText("");
+            inputCodCurosHEC.setSelectedIndex(0);
         } else {
             mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", result);          
         }                  
     } // Fin del metodo reporteHisEstGanadoCurso
-        
-    private void reportePrueba() {
-        contReportes = ControladorReportes.getInstance();
-        String result = contReportes.reporteEjemplo();
-        if (result.equals("OK")) {
-            JasperPrint informe = contReportes.getInforme();
-            mostrarReporte(informe, "Reporte");
-        } else {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", result);          
-        }           
-    }
-    
+
     
     private class EventosPanelLogin implements ActionListener {
 
@@ -764,9 +751,6 @@ public class PanelReporte extends javax.swing.JPanel {
                 reportEstMesDepar();
             }
             
-            if (e.getSource() == botonPrueba) {
-                reportePrueba();
-            }
         }
     
     } // Fin de la clase EventosPanelLogin
