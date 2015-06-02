@@ -7,16 +7,21 @@ package Controlador;
 
 import Excepciones.ExcepcionDatos;
 import Excepciones.Validaciones;
+import Logica.Asistencia;
+import Logica.AsistenciaPK;
 import Logica.LeaderTeacher;
 import Logica.Matricula;
 import Logica.MatriculaPK;
 import Logica.Practica;
 import Logica.Tarea;
 import Persistencia.Conexion;
+import Persistencia.DaoAsistencia;
 import Persistencia.DaoLeaderTeacher;
 import Persistencia.DaoMatricula;
 import Persistencia.DaoPractica;
 import Persistencia.DaoTarea;
+import Persistencia.exceptions.PreexistingEntityException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.NoResultException;
@@ -31,6 +36,7 @@ public class ControladorMasterTeacher {
     private DaoLeaderTeacher daoLeaderTeacher;
     private DaoPractica daoPractica ;
     private DaoMatricula daoMatricula;
+    private DaoAsistencia daoAsistencia;
     private Conexion conexion;
     private static ControladorMasterTeacher controladorMasterTeacher;
     private Validaciones validador;
@@ -41,6 +47,7 @@ public class ControladorMasterTeacher {
         daoMatricula = new DaoMatricula(conexion.getCon());
         daoPractica = new  DaoPractica (conexion.getCon());
         daoLeaderTeacher = new DaoLeaderTeacher(conexion.getCon());
+        daoAsistencia = new DaoAsistencia(conexion.getCon());
         validador = new Validaciones();
     }
     
@@ -125,6 +132,8 @@ public class ControladorMasterTeacher {
 //        }
        return result;
     }
+    
+    
     
     
 }

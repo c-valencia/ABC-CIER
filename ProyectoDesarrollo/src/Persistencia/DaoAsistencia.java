@@ -34,6 +34,26 @@ public class DaoAsistencia implements Serializable {
         return emf.createEntityManager();
     }
 
+    public List <Asistencia> buscarAsistencia (String Cedula_lt, String curso,String cohorte){
+        EntityManager em = getEntityManager();
+        //Tarea aspi = new Tarea();
+        try {
+            //em.getTransaction().begin();
+              
+            Query query = em.createNativeQuery("SELECT * "
+                    + "FROM asistencia "
+                    + "WHERE cedula_lt = '" + Cedula_lt 
+                       + "' AND id_curso = '" + curso
+                       + "' AND id_cohorte = '" + cohorte + "';"
+                       , Asistencia.class);
+            
+            return query.getResultList();
+
+        } finally {
+            em.close();
+        }
+    }
+    
     public void create(Asistencia asistencia) throws PreexistingEntityException, Exception {
         if (asistencia.getAsistenciaPK() == null) {
             asistencia.setAsistenciaPK(new AsistenciaPK());
@@ -181,4 +201,19 @@ public class DaoAsistencia implements Serializable {
         }
     }
     
+    public boolean crearAsistencia(Asistencia asistencia){
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+        Query query = em.createNativeQuery("INSERT INTO asistencia (cedula_lt, id_cohorte, id_curso,fecha,asistio) " + 
+                    "VALUES ('" 
+                             + asistencia.getAsistenciaPK().getCedulaLt() + "', '" 
+                             + asistencia.getAsistenciaPK().getIdCohorte() + "', '" 
+                             + asistencia.getAsistenciaPK().getIdCurso() + "', '" 
+                             + asistencia.getAsistenciaPK().getFecha() + "', " 
+                             + asistencia.getAsistio() + " );");
+        
+        query.executeUpdate();
+        em.getTransaction().commit();
+        return true;
+    }
 }

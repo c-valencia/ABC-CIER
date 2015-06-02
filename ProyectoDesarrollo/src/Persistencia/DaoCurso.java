@@ -364,8 +364,8 @@ public class DaoCurso implements Serializable {
         EntityManager em = getEntityManager();
         List<Curso> results = null;
         try {
-            Query query = em.createNativeQuery("SELECT id_curso, nombre, nombre_corto, descripcion, contenido, estado "
-                    + " FROM matricula NATURAL JOIN curso"
+            Query query = em.createNativeQuery("SELECT id_curso, nombre, nombre_corto, descripcion, contenido, estado"
+                    + " FROM matricula NATURAL JOIN curso "
                     + " WHERE matricula.cedula_lt = '" + cedulaLT + "';", Curso.class);
 
             results = (List<Curso>) query.getResultList();
@@ -387,6 +387,24 @@ public class DaoCurso implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public List <Curso> buscarCurso_AsistenciaJoinMatricula(String cedula){
+        EntityManager em = getEntityManager();
+        //Tarea aspi = new Tarea();
+        try {
+            //em.getTransaction().begin();
+              
+            Query query = em.createNativeQuery("SELECT m.id_curso , c.nombre"
+                    + " FROM matricula m NATURAL JOIN curso c"
+                    + " WHERE m.cedula_lt = '" + cedula   
+                    + "';", Curso.class);
+            
+            return query.getResultList();
+
         } finally {
             em.close();
         }
