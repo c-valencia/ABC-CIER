@@ -333,6 +333,6 @@ public class ControladorCohorte {
     public void enviarCorreos(String correoLT, String nombre, String cedula)
     {
         SendEmail envio = new SendEmail();
-        envio.start("goedi-22@hotmail.com", "Diego Bedoya", "1144039258");
+        envio.start(correoLT, nombre, cedula);
     }
 }

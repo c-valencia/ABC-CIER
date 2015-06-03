@@ -16,6 +16,7 @@ import Logica.CursoCohorte;
 import Vista.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Clock;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JDialog;
@@ -422,6 +423,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
     private Vector<Aspirante> listadoLT;
     private ControladorTablas contoltablas;
     private int poslistaLT;
+    private int curso; 
     
     private void misComponentes()
     {
@@ -561,7 +563,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
                 
                 if(idcurso.equals(idcursoCohorte)){
                     jComboBoxCurso.addItem(listadoCursos.get(i).getIdCurso() + " " + listadoCursos.get(i).getNombre());
-                    cursosSelect.add(listadoCursos.get(1));
+                    cursosSelect.add(listadoCursos.get(i));
                 }
             }
         }
@@ -579,6 +581,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
     private void listarAspirantes(){
         String area = listadoCursoCohorte.get(jComboBoxCurso.getSelectedIndex() - 1).getCursoCohortePK().getIdCurso();
         String dep = jComboBoxPCMZona.getSelectedItem().toString();
+        curso = jComboBoxCurso.getSelectedIndex();
         jLabelNombreArea.setText(jComboBoxCurso.getSelectedItem().toString());
         listaAspirantes = new Vector<>();
         listaAspirantes = controlCohorte.listarAspirantes(area, dep);
@@ -611,6 +614,7 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         poslistaLT = listadoLT.size();
         DefaultTableModel TMSelecionados = (DefaultTableModel) jTableLTyAsp.getModel();
         int fila = TMAspirante.getRowCount();
+       // curso = jComboBoxCurso.getSelectedIndex() - 1;
         
         if(0 == JOptionPane.showConfirmDialog(null, "¿Esta seguro que estos son los aspirantes que va a seleccionar?")){
             for(int i=0; i< fila; i++) { 
@@ -620,13 +624,14 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
             }
             
             for (int i = poslistaLT; i < listadoLT.size(); i++){
-                
+                //System.out.println(cursosSelect.get(i).getNombre());
                 TMSelecionados.addRow(new Object[] {listadoLT.get(i).getCedula(),
                                                     listadoLT.get(i).getNombres(),
                                                     listadoLT.get(i).getApellidos(),
                                                     "Aspirante",
-                                                    cursosSelect.get(jComboBoxCurso.getSelectedIndex()- 1).getIdCurso(),
-                                                    cursosSelect.get(jComboBoxCurso.getSelectedIndex()- 1).getNombre(),
+                                                    
+                                                    cursosSelect.get(curso - 1).getIdCurso(),
+                                                    cursosSelect.get(curso - 1).getNombre(),
                                                     false}
                 );
             }
@@ -644,8 +649,9 @@ public class PanelModificarCohorte extends javax.swing.JPanel {
         if(valor == 0){
             mensaje = "Guardando los cambios:\n- fechas de la cohorte\n- nuevos aspirantes matriculados\n- desmatriculado de los LT's";
             JOptionPane.showMessageDialog(null, mensaje);
+            controlCohorte.modificarCohorte(jLabelIdCohorte.getText(), jDateChooserFechaInicio.getDate(), jDateChooserFechaFin.getDate());
             for (int i = 0; i < dtm.getRowCount(); i++){
-                controlCohorte.modificarCohorte(jLabelIdCohorte.getText(), jDateChooserFechaInicio.getDate(), jDateChooserFechaFin.getDate());
+                
                 
                 if("Aspirante".equals(jTableLTyAsp.getValueAt(i, 3).toString()) && jTableLTyAsp.getValueAt(i, 6).equals(true)){
                     

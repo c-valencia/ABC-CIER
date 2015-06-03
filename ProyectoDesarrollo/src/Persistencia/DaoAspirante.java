@@ -218,7 +218,7 @@ public class DaoAspirante implements Serializable {
                      "a.intitucion, a.codigo_dane_intitucion, a.grado, a.secretaria_educacion, a.municipio, " +
                      "a.departamento, a.area_inscripcion, a.tutor_pta, a.usuario_colombia_aprende, a.estado " +
                      " FROM aspirante AS a JOIN historial_aspirante AS ha ON a.cedula = ha.cedula_as " +
-                     " WHERE ha.id_curso = '" + area +"' AND ha.estado = true AND a.secretaria_educacion = '" + departamento +"';";
+                     " WHERE ha.id_curso = '" + area +"' AND ha.estado = TRUE AND a.secretaria_educacion = '" + departamento +"';";
             Query query = em.createNativeQuery(buscar, Aspirante.class);
             em.getTransaction().commit(); // OSCAR
             return query.getResultList();
